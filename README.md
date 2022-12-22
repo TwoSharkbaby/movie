@@ -1,6 +1,6 @@
 # movie
 
-CREATE TABLE `actor` (
+# CREATE TABLE `actor` (
   `act_idn` bigint NOT NULL,
   `act_name` varchar(100) NOT NULL,
   `act_birth` date DEFAULT NULL,
