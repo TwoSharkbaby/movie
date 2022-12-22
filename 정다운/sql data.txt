@@ -11,3 +11,15 @@ insert into actor values(5, '서현식', '1994-03-27', '남성', '잘생겼다',
 insert into member values(1, 'wjdekdns', '1234', '정다운', '고라파덕후', 'wjdekdns@naver.com', '01000000000', now());
 insert into member values(2, 'tjgustlr', '1234', '서현식', '파덕후', 'tjgustlr@naver.com', '01000000000', now());
 insert into member values(3, 'tjwnsdud', '1234', '서준영', '라파덕후', 'tjwnsdud@naver.com', '01000000000', now());
+
+insert into movie_review values(1, "핵노잼", "돈이아깝습니다", now(), 0, 0, 1, 1);
+insert into movie_review values(2, "핵꿀잼", "혼자봐도재밌습니다", now(), 0, 0, 1, 2);
+insert into movie_review values(3, "핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 3);
+
+insert into movie_ration values(1, now(), 1, 1, 5);
+
+insert into movie_review_choice values(1, 1, now(), 1, 1);
+
+insert into movie_review_comment values(1, '제목', '내용', now(), 10, 1557, 1, 1);
+
+insert into movie_review_comment_choice values(1, 1, now(), 1, 1);
