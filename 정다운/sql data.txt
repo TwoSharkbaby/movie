@@ -1,44 +1,66 @@
-insert into movie values(1, '고라파덕을  찾아서', '정다운', '희극', '파덕?', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie values(2, '피카츄을  찾아서', '홍길동', '비극', '피~카~츄~', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie values(3, '라이츄를  찾아서', '김소라', '판타지', '라이츄~?', '2022-12-22', '02:30:12',  now(), null, null); 
+insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
+values('고라파덕을  찾아서', '정다운', '희극', '파덕?', '2022-12-22', '02:30:12',  now(), null, null); 
+insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
+values('피카츄을  찾아서', '홍길동', '비극', '피~카~츄~', '2022-12-22', '02:30:12',  now(), null, null); 
+insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
+values('라이츄를  찾아서', '김소라', '판타지', '라이츄~?', '2022-12-22', '02:30:12',  now(), null, null); 
 
-insert into actor values(1, '서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 1); 
-insert into actor values(2, '길동이', '1954-03-27', '남성', '못겼다', now(), null, null, 1); 
-insert into actor values(3, '서현', '2000-04-10', '여성', '이쁘다', now(), null, null, 2); 
-insert into actor values(4, '서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 2); 
-insert into actor values(5, '서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 3); 
-insert into actor values(6, '서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 4); # 영화가 없으니 안들어감 good
+insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num)
+values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 1); 
+insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
+values('길동이', '1954-03-27', '남성', '못겼다', now(), null, null, 1); 
+insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
+values('서현', '2000-04-10', '여성', '이쁘다', now(), null, null, 2); 
+insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
+values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 2); 
+insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
+values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 3); 
+insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
+values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 4); # 영화가 없으니 안들어감 good
 
-insert into member values(1, 'wjdekdns', '1234', '정다운', '고라파덕후', 'wjdekdns@naver.com', '01000000000', now());
-insert into member values(2, 'tjgustlr', '1234', '서현식', '파덕후', 'tjgustlr@naver.com', '01000000000', now());
-insert into member values(3, 'tjwnsdud', '1234', '서준영', '라파덕후', 'tjwnsdud@naver.com', '01000000000', now());
+insert into member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
+values('wjdekdns', '1234', '정다운', '고라파덕후', 'wjdekdns@naver.com', '01000000000', now());
+insert into member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
+values('tjgustlr', '1234', '서현식', '파덕후', 'tjgustlr@naver.com', '01000000000', now());
+insert into member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
+values('tjwnsdud', '1234', '서준영', '라파덕후', 'tjwnsdud@naver.com', '01000000000', now());
 
-insert into movie_review values(1, "핵노잼", "돈이아깝습니다", now(), 0, 0, 1, 1);
-insert into movie_review values(2, "핵꿀잼", "혼자봐도재밌습니다", now(), 0, 0, 1, 2);
-insert into movie_review values(3, "핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 3);
-insert into movie_review values(3, "핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 4, 3); # 영화가 없으니 안들어감 good
-insert into movie_review values(3, "핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 4); # 맴버가 없으니 안들어감 good
+insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+values("핵노잼", "돈이아깝습니다", now(), 0, 0, 1, 1);
+insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+values("핵꿀잼", "혼자봐도재밌습니다", now(), 0, 0, 1, 2);
+insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+values("핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 3);
+insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+values("핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 4, 3); # 영화가 없으니 안들어감 good
+insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+values("핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 4); # 맴버가 없으니 안들어감 good
 
-insert into movie_score values(1, 5, 1, 1);
-insert into movie_score values(2, 4, 1, 2);
-insert into movie_score values(3, 3, 2, 3);
-insert into movie_score values(4, 3, 2, 4); #영화 리뷰 글이 없으니 안들어감 good
-insert into movie_score values(4, 3, 4, 2); #영화가 없으니 안들어감 good
+insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(5, 1, 1);
+insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(4, 1, 2);
+insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 2, 3);
+insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 2, 4); #영화 리뷰 글이 없으니 안들어감 good
+insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 4, 2); #영화가 없으니 안들어감 good
 
-insert into movie_review_choice values(1, 1, 1);
-insert into movie_review_choice values(2, 1, 2);
-insert into movie_review_choice values(3, 1, 3);
-insert into movie_review_choice values(4, 4, 1); # 영화 리뷰글이 없으니 안들어감 good
-insert into movie_review_choice values(4, 3, 4); # 맴버가 없으니 안들어감 good
+insert into movie_review_choice(mov_rev_num, mem_num) values(1, 1);
+insert into movie_review_choice(mov_rev_num, mem_num) values(1, 2);
+insert into movie_review_choice(mov_rev_num, mem_num) values(1, 3);
+insert into movie_review_choice(mov_rev_num, mem_num) values(4, 1); # 영화 리뷰글이 없으니 안들어감 good
+insert into movie_review_choice(mov_rev_num, mem_num) values(3, 4); # 맴버가 없으니 안들어감 good
 
-insert into movie_review_comment values(1, '돈받고리뷰쓰냐?', now(), 0, 0, 1, 1);
-insert into movie_review_comment values(2, 'ㅇㅈ?', now(), 0, 0, 1, 2);
-insert into movie_review_comment values(3, 'ㄴㅇㅈ?', now(), 0, 0, 2, 3);
-insert into movie_review_comment values(4, '중꺽마?', now(), 0, 0, 4, 1); # 맴버가 없어서 안들어감 good
-insert into movie_review_comment values(5, '배고픔 현제시간 오전11:34분', now(), 0, 0, 1, 4); # 영화 리뷰가 없어서 안들어감 good
+insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
+values('돈받고리뷰쓰냐?', now(), 0, 0, 1, 1);
+insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
+values('ㅇㅈ?', now(), 0, 0, 1, 2);
+insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
+values('ㄴㅇㅈ?', now(), 0, 0, 2, 3);
+insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
+values('중꺽마?', now(), 0, 0, 4, 1); # 맴버가 없어서 안들어감 good
+insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
+values('배고픔 현제시간 오전11:34분', now(), 0, 0, 1, 4); # 영화 리뷰가 없어서 안들어감 good
 
-insert into movie_review_comment_choice values(1, 1, 1);
-insert into movie_review_comment_choice values(2, 1, 3);
-insert into movie_review_comment_choice values(3, 2, 2);
-insert into movie_review_comment_choice values(4, 4, 1);  # 해당 덧글이 없어서 안들어감 good
-insert into movie_review_comment_choice values(4, 1, 4);  # 맴버가 없어서 안들어감 good
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(1, 1);
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(1, 3);
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(2, 2);
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(4, 1);  # 해당 덧글이 없어서 안들어감 good
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(1, 4);  # 맴버가 없어서 안들어감 good
