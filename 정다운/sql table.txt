@@ -1,4 +1,4 @@
-CREATE TABLE member ( mem_num bigint NOT NULL, mem_id varchar(50) NOT NULL, mem_pw varchar(100) NOT NULL, mem_name varchar(50) NOT NULL, mem_nickname varchar(50) NOT NULL, mem_eamil varchar(50) DEFAULT NULL, mem_contact varchar(20) DEFAULT NULL, mem_regdate datetime DEFAULT NULL, PRIMARY KEY (mem_num) );
+CREATE TABLE member ( mem_num bigint NOT NULL, mem_id varchar(50) NOT NULL, mem_pw varchar(100) NOT NULL, mem_name varchar(50) NOT NULL, mem_nickname varchar(50) NOT NULL, mem_eamil varchar(50) DEFAULT NULL, mem_contact varchar(15) DEFAULT NULL, mem_regdate datetime DEFAULT NULL, PRIMARY KEY (mem_num) );
 
 CREATE TABLE movie ( mov_num bigint NOT NULL, mov_title varchar(100) NOT NULL, mov_director varchar(50) DEFAULT NULL, mov_genre varchar(50) DEFAULT NULL, mov_synopsis varchar(2000) DEFAULT NULL, mov_release date DEFAULT NULL, mov_runtime time DEFAULT NULL, mov_regdate datetime DEFAULT NULL, mov_img varchar(255) DEFAULT NULL, mov_thumb varchar(255) DEFAULT NULL, PRIMARY KEY (mov_num) );
 
