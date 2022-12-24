@@ -3,23 +3,19 @@ package org.zerock.service;
 import java.util.List;
 
 import org.zerock.domain.ActorVO;
-import org.zerock.domain.Criteria;
 
 public interface ActorService {
 
-	public List<ActorVO> getList (Criteria cri);
+	public List<ActorVO> getList();
 	
+	public ActorVO read(Long act_num);
+
+	public void insert(ActorVO actorVO);
+
+	public int delete(Long act_num);
 	
-	public ActorVO get(Long act_idn);
-	
-	
-	public void register(ActorVO vo);
-	
-	public boolean remove(Long act_idn);
-	
-	public boolean modify(ActorVO vo);
-	
-	public int getTotal(Criteria cri);
-	
+//	public boolean modify(ActorVO vo);
+//	
+//	public int getTotal(Criteria cri);
 	
 }

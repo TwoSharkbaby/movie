@@ -2,25 +2,20 @@ package org.zerock.service;
 
 import java.util.List;
 
-import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieReviewChoiceVO;
-
-import lombok.RequiredArgsConstructor;
 
 
 public interface MovieReviewChoiceService {
 
-	public List<MovieReviewChoiceVO> getList(Criteria cri);
+	public List<MovieReviewChoiceVO> getList();
 	
-	public MovieReviewChoiceVO get(Long mov_rev_cho_idn);
+	public MovieReviewChoiceVO read(Long mov_rev_cho_num);
+
+	public void insert(MovieReviewChoiceVO movieReviewChoiceVO);
+
+	public int delete(Long mov_rev_cho_num);
 	
-	
-	public void register(MovieReviewChoiceVO vo);
-	
-	
-	public boolean remove(Long mov_rev_cho_idn);
-	
-	public boolean modify(MovieReviewChoiceVO vo);
-	
-	public int getTotal(Criteria cri);
+//	public boolean modify(MovieReviewChoiceVO vo);
+//	
+//	public int getTotal(Criteria cri);
 }
