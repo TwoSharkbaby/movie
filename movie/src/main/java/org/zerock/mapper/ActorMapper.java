@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.ActorVO;
 
-public interface ActorMapper {
+public interface ActorMapper { 
 
 	public List<ActorVO> getList();
 	

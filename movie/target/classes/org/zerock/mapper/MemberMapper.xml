@@ -20,7 +20,7 @@
 	<insert id="insert" keyProperty="mem_num" useGeneratedKeys="true">
 		<![CDATA[
 		INSERT INTO member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
-		VALUES (#{mem_id},#{mem_pw},#{mem_name},#{mem_nickname},#{mem_email},#{mem_contact},#{mem_regdate})
+		VALUES (#{mem_id},#{mem_pw},#{mem_name},#{mem_nickname},#{mem_email},#{mem_contact},now())
 		]]>
 	</insert>
 

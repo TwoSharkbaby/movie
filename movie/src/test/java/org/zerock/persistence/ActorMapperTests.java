@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-
 public class ActorMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
@@ -46,7 +45,7 @@ public class ActorMapperTests {
 	@Test
 	public void testDelete() {
 		log.info("----------------------------------------------");
-		actorMapper.delete(7L);
+		actorMapper.delete(6L);
 		log.info("----------------------------------------------");
 	}
 	

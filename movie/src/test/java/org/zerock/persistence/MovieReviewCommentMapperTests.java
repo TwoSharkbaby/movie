@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.MemberVO;
-import org.zerock.mapper.MemberMapper;
+import org.zerock.domain.MovieReviewCommentVO;
+import org.zerock.mapper.MovieReviewCommentMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -14,15 +14,15 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class MemberMapperTests {
+public class MovieReviewCommentMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private MemberMapper memberMapper ;
+	private MovieReviewCommentMapper movieReviewCommentMapper;
 
 	@Test
 	public void testGetList() {
 		log.info("----------------------------------------------");
-		memberMapper.getList().forEach(b -> log.info(b));
+		movieReviewCommentMapper.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
 
 	}
@@ -30,22 +30,23 @@ public class MemberMapperTests {
 	@Test
 	public void testRead() {
 		log.info("----------------------------------------------");
-		memberMapper.read(1L);
+		movieReviewCommentMapper.read(1L);
 		log.info("----------------------------------------------");
 	}
 
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
-		MemberVO memberVO = MemberVO.builder().mem_id("123").mem_pw("123").mem_name("kim").mem_nickname("kk").build();
-		memberMapper.insert(memberVO);
+		MovieReviewCommentVO movieReviewCommentVO = 
+				MovieReviewCommentVO.builder().mov_rev_com_content("¤¶¤·¤¸").mem_num(3L).mov_rev_num(1L).build();
+		movieReviewCommentMapper.insert(movieReviewCommentVO);
 		log.info("----------------------------------------------");
 	}
 
 	@Test
 	public void testDelete() {
 		log.info("----------------------------------------------");
-		memberMapper.delete(4L);
+		movieReviewCommentMapper.delete(4L);
 		log.info("----------------------------------------------");
 	}
 	

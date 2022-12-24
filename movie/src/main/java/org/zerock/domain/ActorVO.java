@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ActorVO { 
+public class ActorVO {
 
 	private Long act_num;
 	

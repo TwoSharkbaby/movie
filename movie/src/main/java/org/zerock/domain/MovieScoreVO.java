@@ -1,7 +1,5 @@
 package org.zerock.domain;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +13,7 @@ public class MovieScoreVO {
 
 	public Long mov_sco_num;
 	
-	public Long mov_sco_point;
+	public int mov_sco_point;
 	
 	public Long mov_num;
 	

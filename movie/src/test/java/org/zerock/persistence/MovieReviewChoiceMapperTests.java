@@ -5,8 +5,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.MemberVO;
-import org.zerock.mapper.MemberMapper;
+import org.zerock.domain.ActorVO;
+import org.zerock.domain.MovieReviewChoiceVO;
+import org.zerock.mapper.ActorMapper;
+import org.zerock.mapper.MovieReviewChoiceMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -14,15 +16,15 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class MemberMapperTests {
+public class MovieReviewChoiceMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private MemberMapper memberMapper ;
+	private MovieReviewChoiceMapper reviewChoiceMapper;
 
 	@Test
 	public void testGetList() {
 		log.info("----------------------------------------------");
-		memberMapper.getList().forEach(b -> log.info(b));
+		reviewChoiceMapper.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
 
 	}
@@ -30,22 +32,23 @@ public class MemberMapperTests {
 	@Test
 	public void testRead() {
 		log.info("----------------------------------------------");
-		memberMapper.read(1L);
+		reviewChoiceMapper.read(1L);
 		log.info("----------------------------------------------");
 	}
 
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
-		MemberVO memberVO = MemberVO.builder().mem_id("123").mem_pw("123").mem_name("kim").mem_nickname("kk").build();
-		memberMapper.insert(memberVO);
+		MovieReviewChoiceVO movieReviewChoiceVO = 
+				MovieReviewChoiceVO.builder().mov_rev_num(2L).mem_num(1L).build();
+		reviewChoiceMapper.insert(movieReviewChoiceVO);
 		log.info("----------------------------------------------");
 	}
 
 	@Test
 	public void testDelete() {
 		log.info("----------------------------------------------");
-		memberMapper.delete(4L);
+		reviewChoiceMapper.delete(4L);
 		log.info("----------------------------------------------");
 	}
 	

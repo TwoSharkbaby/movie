@@ -1,12 +1,15 @@
 package org.zerock.persistence;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.MemberVO;
-import org.zerock.mapper.MemberMapper;
+import org.zerock.domain.ActorVO;
+import org.zerock.domain.MovieScoreVO;
+import org.zerock.mapper.MovieScoreMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -14,15 +17,15 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class MemberMapperTests {
+public class MovieScoreMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private MemberMapper memberMapper ;
+	private MovieScoreMapper movieScoreMapper;
 
 	@Test
 	public void testGetList() {
 		log.info("----------------------------------------------");
-		memberMapper.getList().forEach(b -> log.info(b));
+		movieScoreMapper.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
 
 	}
@@ -30,22 +33,22 @@ public class MemberMapperTests {
 	@Test
 	public void testRead() {
 		log.info("----------------------------------------------");
-		memberMapper.read(1L);
+		movieScoreMapper.read(1L);
 		log.info("----------------------------------------------");
 	}
 
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
-		MemberVO memberVO = MemberVO.builder().mem_id("123").mem_pw("123").mem_name("kim").mem_nickname("kk").build();
-		memberMapper.insert(memberVO);
+		MovieScoreVO movieScoreVO = MovieScoreVO.builder().mov_sco_point(5).mov_num(2L).mov_rev_num(1L).build();
+		movieScoreMapper.insert(movieScoreVO);
 		log.info("----------------------------------------------");
 	}
 
 	@Test
 	public void testDelete() {
 		log.info("----------------------------------------------");
-		memberMapper.delete(4L);
+		movieScoreMapper.delete(4L);
 		log.info("----------------------------------------------");
 	}
 	

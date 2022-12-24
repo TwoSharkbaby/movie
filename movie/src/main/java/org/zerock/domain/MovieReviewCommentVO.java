@@ -21,7 +21,7 @@ public class MovieReviewCommentVO {
 	public String mov_rev_com_content;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss") 
-	public Date regdage;
+	public Date mov_rev_com_regdate; 
 	
 	public Long mov_rev_com_good;
 	
