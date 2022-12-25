@@ -23,7 +23,6 @@ public class MovieScoreServiceTests {
 		log.info("----------------------------------------------");
 		movieScoreService.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
-
 	}
 
 	@Test
@@ -47,6 +46,14 @@ public class MovieScoreServiceTests {
 		movieScoreService.delete(5L);
 		log.info("----------------------------------------------");
 	}
+	
+	@Test
+	public void testScore() {
+		log.info("----------------------------------------------");
+		movieScoreService.score(1L);
+		log.info("----------------------------------------------");
+	}
+	
 	
 //	@Test
 //	public void testTotal() {

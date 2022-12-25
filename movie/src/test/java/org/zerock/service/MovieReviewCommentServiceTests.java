@@ -49,6 +49,13 @@ public class MovieReviewCommentServiceTests {
 		log.info("----------------------------------------------");
 	}
 	
+	@Test
+	public void testGetCommentList() {
+		log.info("----------------------------------------------");
+		movieReviewCommentService.getCommentList(3L).forEach(b -> log.info(b));
+		log.info("----------------------------------------------");
+	}
+	
 //	@Test
 //	public void testTotal() {
 //		Criteria cri = new Criteria();

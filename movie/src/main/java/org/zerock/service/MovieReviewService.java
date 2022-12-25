@@ -14,6 +14,8 @@ public interface MovieReviewService {
 
 	public int delete(Long mov_rev_num);
 	
+	public List<MovieReviewVO> movieReviewRead(Long mov_num);
+	
 //	public boolean modify(MovieReviewVO vo);
 //	
 //	public int getTotal(Criteria cri);

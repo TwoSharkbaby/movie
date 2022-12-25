@@ -36,5 +36,10 @@ public class MovieScoreServiceImpl implements MovieScoreService{
 	public int delete(Long mov_sco_num) {
 		return movieScoreMapper.delete(mov_sco_num);
 	}
+
+	@Override
+	public double score(Long mov_sco_num) {
+		return movieScoreMapper.score(mov_sco_num);
+	}
 	
 }

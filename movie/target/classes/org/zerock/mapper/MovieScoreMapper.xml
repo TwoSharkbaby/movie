@@ -29,6 +29,18 @@
 		DELETE FROM movie_score WHERE mov_sco_num=#{mov_sco_num}
 		]]>
 	</delete>
+	
+	<select id="score" resultType="double">
+		<![CDATA[
+		SELECT AVG(mov_sco_point) FROM movie_score WHERE mov_num = #{mov_num}
+		]]>
+	</select>
+	
+	<select id="reviewRead" resultType="double">
+		<![CDATA[
+		SELECT mov_sco_point FROM movie_score WHERE mov_rev_num = #{mov_rev_num}
+		]]>
+	</select>
 
 <!-- 	<update id="update">
 		<![CDATA[

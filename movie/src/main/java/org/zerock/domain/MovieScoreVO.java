@@ -13,7 +13,7 @@ public class MovieScoreVO {
 
 	public Long mov_sco_num;
 	
-	public int mov_sco_point;
+	public double mov_sco_point;
 	
 	public Long mov_num;
 	

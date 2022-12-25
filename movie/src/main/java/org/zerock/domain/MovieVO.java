@@ -24,21 +24,19 @@ public class MovieVO {
 	
 	private String mov_synopsis;
 	
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date mov_release;
 	
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date mov_runtime;
 	
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date mov_regdate;
-	
 	
 	private String mov_img;
 	
 	private String mov_thumb;
 	
+	public double mov_sco_point;
 	 
 }

@@ -15,6 +15,8 @@ public interface MovieReviewCommentService {
 
 	public int delete(Long mov_rev_com_num);
 	
+	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num);
+	
 //	public int modify(MovieReviewCommentVO vo);
 //	
 //	public int remove(Long mov_rev_com_num); //

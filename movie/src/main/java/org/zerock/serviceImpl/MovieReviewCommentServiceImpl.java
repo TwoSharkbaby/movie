@@ -38,4 +38,9 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 		return movieReviewCommentMapper.delete(mov_rev_com_num);
 	}
 
+	@Override
+	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
+		return movieReviewCommentMapper.getCommentList(mov_rev_num);
+	}
+
 }

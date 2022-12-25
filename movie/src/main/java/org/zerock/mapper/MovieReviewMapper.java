@@ -14,4 +14,6 @@ public interface MovieReviewMapper {
 
 	public int delete(Long mov_rev_num);
 	
+	public List<MovieReviewVO> movieReviewRead(Long mov_num);
+	
 }

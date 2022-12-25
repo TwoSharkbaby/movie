@@ -24,7 +24,6 @@ public class MovieReviewCommentMapperTests {
 		log.info("----------------------------------------------");
 		movieReviewCommentMapper.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
-
 	}
 
 	@Test
@@ -47,6 +46,13 @@ public class MovieReviewCommentMapperTests {
 	public void testDelete() {
 		log.info("----------------------------------------------");
 		movieReviewCommentMapper.delete(4L);
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testGetCommentList() {
+		log.info("----------------------------------------------");
+		movieReviewCommentMapper.getCommentList(3L).forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
 	}
 	

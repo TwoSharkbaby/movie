@@ -29,7 +29,6 @@ public class MovieReviewCommentVO {
 	
 	public Long mem_num;
 	
-	
 	public Long mov_rev_num;
 	
 }

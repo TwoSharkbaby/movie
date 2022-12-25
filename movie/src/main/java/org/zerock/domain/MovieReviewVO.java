@@ -21,7 +21,6 @@ public class MovieReviewVO {
 	
 	public String mov_rev_content;
 	
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	public Date mov_rev_regdate;
 	
@@ -32,5 +31,7 @@ public class MovieReviewVO {
 	public Long mov_num;
 	
 	public Long mem_num;  
+	
+	public double mov_sco_point;
 	
 }

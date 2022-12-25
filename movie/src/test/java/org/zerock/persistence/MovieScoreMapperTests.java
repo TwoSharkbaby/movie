@@ -27,7 +27,6 @@ public class MovieScoreMapperTests {
 		log.info("----------------------------------------------");
 		movieScoreMapper.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
-
 	}
 
 	@Test
@@ -49,6 +48,20 @@ public class MovieScoreMapperTests {
 	public void testDelete() {
 		log.info("----------------------------------------------");
 		movieScoreMapper.delete(4L);
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testScore() {
+		log.info("----------------------------------------------");
+		movieScoreMapper.score(1L);
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testReviewRead() {
+		log.info("----------------------------------------------");
+		movieScoreMapper.reviewRead(1L);
 		log.info("----------------------------------------------");
 	}
 	

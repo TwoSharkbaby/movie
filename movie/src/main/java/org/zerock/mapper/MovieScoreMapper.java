@@ -14,4 +14,8 @@ public interface MovieScoreMapper {
 
 	public int delete(Long mov_sco_num);
 	
+	public double score(Long mov_sco_num);
+	
+	public double reviewRead(Long mov_rev_num);
+	
 }

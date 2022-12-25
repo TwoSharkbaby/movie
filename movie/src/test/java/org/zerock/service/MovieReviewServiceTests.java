@@ -48,6 +48,13 @@ public class MovieReviewServiceTests {
 		log.info("----------------------------------------------");
 	}
 	
+	@Test
+	public void testMovieReviewRead() {
+		log.info("----------------------------------------------");
+		movieReviewService.movieReviewRead(1L).forEach(b -> log.info(b));;
+		log.info("----------------------------------------------");
+	}
+	
 //	@Test
 //	public void testTotal() {
 //		Criteria cri = new Criteria();

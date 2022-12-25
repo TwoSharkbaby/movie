@@ -29,6 +29,12 @@
 		DELETE FROM movie_review WHERE mov_rev_num=#{mov_rev_num}
 		]]>
 	</delete>
+	
+	<select id="movieReviewRead" resultType="org.zerock.domain.MovieReviewVO">
+		<![CDATA[
+		SELECT * FROM movie_review WHERE mov_num = #{mov_num}
+		]]>
+	</select>
 
 <!-- 	<update id="update">
 		<![CDATA[

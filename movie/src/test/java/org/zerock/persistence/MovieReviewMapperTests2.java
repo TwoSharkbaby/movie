@@ -49,6 +49,13 @@ public class MovieReviewMapperTests2 {
 		log.info("----------------------------------------------");
 	}
 	
+	@Test
+	public void testMovieReviewVO() {
+		log.info("----------------------------------------------");
+		movieReviewMapper.movieReviewRead(1L).forEach(b -> log.info(b));;
+		log.info("----------------------------------------------");
+	}
+	
 //	@Test
 //	public void testTotal() {
 //		Criteria cri = new Criteria();
