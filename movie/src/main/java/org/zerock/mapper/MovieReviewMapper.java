@@ -16,4 +16,6 @@ public interface MovieReviewMapper {
 	
 	public List<MovieReviewVO> movieReviewRead(Long mov_num);
 	
+	public void goodUpdate(Long mov_rev_num);
+	
 }

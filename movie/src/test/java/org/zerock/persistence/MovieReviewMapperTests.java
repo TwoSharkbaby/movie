@@ -14,7 +14,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class MovieReviewMapperTests2 {
+public class MovieReviewMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewMapper movieReviewMapper;
@@ -52,7 +52,14 @@ public class MovieReviewMapperTests2 {
 	@Test
 	public void testMovieReviewVO() {
 		log.info("----------------------------------------------");
-		movieReviewMapper.movieReviewRead(1L).forEach(b -> log.info(b));;
+		movieReviewMapper.movieReviewRead(1L).forEach(b -> log.info(b));
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testGoodUpdate() {
+		log.info("----------------------------------------------");
+		movieReviewMapper.goodUpdate(1L);
 		log.info("----------------------------------------------");
 	}
 	

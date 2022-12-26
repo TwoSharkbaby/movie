@@ -114,9 +114,9 @@
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${review.mov_rev_regdate}" /></td>
 							<td><c:out value="${review.mov_rev_good}" />
-								<button id="review_good">좋아요</button></td>
+								<button id="review_good"  name="review_good" data-idx="<c:out value="${review.mov_rev_num}" />" >좋아요</button></td>
 							<td><c:out value="${review.mov_rev_bad}" />
-								<button id="review_bad">싫어요</button></td>
+								<button id="review_bad" name="review_bad" data-idx="<c:out value="${review.mov_rev_num}" />" >싫어요</button></td>
 							<td><c:out value="${review.mov_num}" /></td>
 							<td><c:out value="${review.mem_num}" /></td>
 							<td><c:out value="${review.mov_sco_point}" /></td>
@@ -137,21 +137,35 @@ $(document).ready(function() {
 	var review_good = $("#review_good");
 	var review_bad = $("#review_bad");
 	
-	review_good.on("click", function(e){
-		var review_info = $(this).closest("tr");
-		console.log(review_info);
-		var num = review_info.find("#mov_rev_num").val("");
-		console.log(num);
-		console.log("굿버튼11");
-		/* var mov_rev_num = $(this).closest("#mov_rev_num").val("td");
-		console.log(mov_rev_num); */
+	$("button[name='review_good']").on("click", function(e){
+		var mov_rev_num = $(this).data("idx");
+		console.log(mov_rev_num);
+		
+		let data = {
+				mov_rev_num: $(this).data("idx")
+			};
+			$.ajax({
+				type: "PUT",
+				url: "/replies/" + mov_rev_num,
+				data: JSON.stringify(data), // http body 데이터
+				contentType: "application/json; charset=utf-8",  // body 데이터가 어떤 타입인지(mine)
+				dataType: "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+			}).done(function(resp) { // resp <= 과 같이 담아서 사용하기 위함
+				alert("좋아요");
+			}).fail(function(error) {
+				alert(JSON.stringify(error));
+			});
+		
 	});
 	
-	review_bad.on("click", function(e){
-		console.log("배드버튼");
+	$("button[name='review_bad']").on("click", function(e){
+		var mov_rev_num = $(this).data("idx");
+		console.log(mov_rev_num);
+		
 	});
 	
 });
+
 
 </script>
 

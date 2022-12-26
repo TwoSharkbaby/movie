@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 public class MovieReviewChoiceMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private MovieReviewChoiceMapper reviewChoiceMapper;
+	private MovieReviewChoiceMapper movieReviewChoiceMapper;
 
 //	@Test
 //	public void testGetList() {
@@ -28,14 +28,14 @@ public class MovieReviewChoiceMapperTests {
 //		log.info("----------------------------------------------");
 //
 //	}
-//
-//	@Test
-//	public void testRead() {
-//		log.info("----------------------------------------------");
-//		reviewChoiceMapper.read(1L);
-//		log.info("----------------------------------------------");
-//	}
-//
+
+	@Test
+	public void testChoiceRead() {
+		log.info("----------------------------------------------");
+		movieReviewChoiceMapper.choiceRead(1L, 1L);
+		log.info("----------------------------------------------");
+	}
+
 //	@Test
 //	public void testInsert() {
 //		log.info("----------------------------------------------");

@@ -16,6 +16,8 @@ public interface MovieReviewService {
 	
 	public List<MovieReviewVO> movieReviewRead(Long mov_num);
 	
+	public void goodUpdate(Long mov_rev_num, Long mem_num);
+	
 //	public boolean modify(MovieReviewVO vo);
 //	
 //	public int getTotal(Criteria cri);

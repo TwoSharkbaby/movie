@@ -51,18 +51,17 @@ public class MovieReviewServiceTests {
 	@Test
 	public void testMovieReviewRead() {
 		log.info("----------------------------------------------");
-		movieReviewService.movieReviewRead(1L).forEach(b -> log.info(b));;
+		movieReviewService.movieReviewRead(1L).forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
 	}
 	
-//	@Test
-//	public void testTotal() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
-//		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
-//	}
-//	
+	@Test
+	public void testGoodUpdatel() {
+		log.info("----------------------------------------------");
+		movieReviewService.goodUpdate(1L, 1L);
+		log.info("----------------------------------------------");
+	}
+	
 //	@Test
 //	public void testGetListWithPaging() {
 //		Criteria cri = new Criteria();

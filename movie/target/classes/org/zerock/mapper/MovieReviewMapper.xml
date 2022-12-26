@@ -36,11 +36,11 @@
 		]]>
 	</select>
 
-<!-- 	<update id="update">
+	<update id="goodUpdate">
 		<![CDATA[
-		update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() where bno=#{bno}
+		UPDATE movie_review set mov_rev_good = (mov_rev_good)+1 where mov_rev_num=#{mov_rev_num}
 		]]>
-	</update> -->
+	</update>
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

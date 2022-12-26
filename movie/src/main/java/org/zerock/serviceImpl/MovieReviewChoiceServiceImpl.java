@@ -26,12 +26,12 @@ public class MovieReviewChoiceServiceImpl implements MovieReviewChoiceService {
 //	public MovieReviewChoiceVO read(Long mov_rev_cho_num) {
 //		return movieReviewChoiceMapper.read(mov_rev_cho_num);
 //	}
-//
+
 //	@Override
 //	public void insert(MovieReviewChoiceVO movieReviewChoiceVO) {
 //		movieReviewChoiceMapper.insert(movieReviewChoiceVO);
 //	}
-//
+
 //	@Override
 //	public int delete(Long mov_rev_cho_num) {
 //		return movieReviewChoiceMapper.delete(mov_rev_cho_num);
