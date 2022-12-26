@@ -20,6 +20,7 @@ public class MovieController {
 
 	private final MovieService movieService;
 	private final MovieReviewService movieReviewService;
+	private final MovieReviewCommentService movieCommentService;
 	
 	@GetMapping("/list")
 	public void list(Model model) {
@@ -30,6 +31,7 @@ public class MovieController {
 	public String read(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("movie", movieService.read(mov_num));
 		model.addAttribute("review", movieReviewService.movieReviewRead(mov_num));
+		model.addAttribute("comment", movieCommentService.getCommentList(mov_num));
 		return "movie/read";
 	}
 	
