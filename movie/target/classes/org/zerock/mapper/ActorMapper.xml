@@ -17,7 +17,8 @@
 		]]>
 	</select>
 
-	<insert id="insert" keyProperty="act_num" useGeneratedKeys="true">
+	<insert id="insert" keyProperty="act_num"
+		useGeneratedKeys="true">
 		<![CDATA[
 		INSERT INTO actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
 		VALUES (#{act_name},#{act_birth},#{act_sex},#{act_info},now(),#{act_img},#{act_thumb},#{mov_num})
@@ -30,11 +31,14 @@
 		]]>
 	</delete>
 
-<!-- 	<update id="update">
+	<select id="movieActorList" resultType="org.zerock.domain.ActorVO">
 		<![CDATA[
-		update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() where bno=#{bno}
+		SELECT * FROM actor WHERE mov_num = #{mov_num}
 		]]>
-	</update> -->
+	</select>
+
+	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
+		where bno=#{bno} ]]> </update> -->
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

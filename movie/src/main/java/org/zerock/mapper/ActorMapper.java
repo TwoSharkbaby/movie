@@ -14,4 +14,6 @@ public interface ActorMapper {
 //
 //	public int delete(Long act_num);
 	
+	public List<ActorVO> movieActorList(Long mov_num);
+	
 }

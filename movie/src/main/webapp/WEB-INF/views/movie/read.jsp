@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>메인페이지</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -46,6 +48,37 @@
 		</tbody>
 	</table>
 
+	<table width="100%">
+		<thead>
+			<tr>
+				<th>배우번호</th>
+				<th>배우이름</th>
+				<th>섬네일사진</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${empty actor}">
+					<tr>
+						<td colspan="5">[없음]
+					</tr>
+				</c:when>
+
+				<c:when test="${!empty actor}">
+					<c:forEach items="${actor}" var="actor">
+						<tr>
+							<td><c:out value="${actor.act_num}" /></td>
+							<td><c:out value="${actor.act_name}" /></td>
+							<td><c:out value="${actor.act_thumb}" /></td>
+						</tr>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</tbody>
+	</table>
+
+	<!-- 자바스크립트로 모달창을 이용해서 배우상세정보 보기 페이지 -->
+
 	<a href="/movie/list"><button>뒤로 돌아가기</button></a>
 
 	<hr />
@@ -75,49 +108,52 @@
 				<c:when test="${!empty review}">
 					<c:forEach items="${review}" var="review">
 						<tr>
-							<td><c:out value="${review.mov_rev_num}" /></td>
+							<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>
 							<td><c:out value="${review.mov_rev_title}" /></td>
 							<td><c:out value="${review.mov_rev_content}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${review.mov_rev_regdate}" /></td>
-							<td><c:out value="${review.mov_rev_good}" /></td>
-							<td><c:out value="${review.mov_rev_bad}" /></td>
+							<td><c:out value="${review.mov_rev_good}" />
+								<button id="review_good">좋아요</button></td>
+							<td><c:out value="${review.mov_rev_bad}" />
+								<button id="review_bad">싫어요</button></td>
 							<td><c:out value="${review.mov_num}" /></td>
 							<td><c:out value="${review.mem_num}" /></td>
 							<td><c:out value="${review.mov_sco_point}" /></td>
 						</tr>
 						<br />
-						<c:forEach items="${comment}" var="comment">
-							<thead>
-								<tr>
-									<th>댓글번호</th>
-									<th>댓글내용</th>
-									<th>등록일</th>
-									<th>좋아요</th>
-									<th>싫어요</th>
-									<th>작성자</th>
-									<th>영화리뷰번호</th>
-								</tr>
-							</thead>
-							<tbody>
-							<tr>
-								<td><c:out value="${comment.mov_rev_com_num}" /></td>
-								<td><c:out value="${comment.mov_rev_com_content}" /></td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-										value="${comment.mov_rev_com_regdate}" /></td>
-								<td><c:out value="${comment.mov_rev_com_good}" /></td>
-								<td><c:out value="${comment.mov_rev_com_bad}" /></td>
-								<td><c:out value="${comment.mem_num}" /></td>
-								<td><c:out value="${comment.mov_rev_num}" /></td>
-							</tr>
-							</tbody>
-							<hr/>
-						</c:forEach>
+
+						<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
+
 					</c:forEach>
 				</c:when>
 			</c:choose>
 		</tbody>
 	</table>
+
+	<script type="text/javascript">
+$(document).ready(function() {
+	
+	var review_good = $("#review_good");
+	var review_bad = $("#review_bad");
+	
+	review_good.on("click", function(e){
+		var review_info = $(this).closest("tr");
+		console.log(review_info);
+		var num = review_info.find("#mov_rev_num").val("");
+		console.log(num);
+		console.log("굿버튼11");
+		/* var mov_rev_num = $(this).closest("#mov_rev_num").val("td");
+		console.log(mov_rev_num); */
+	});
+	
+	review_bad.on("click", function(e){
+		console.log("배드버튼");
+	});
+	
+});
+
+</script>
 
 </body>
 </html>

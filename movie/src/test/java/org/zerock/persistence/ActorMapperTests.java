@@ -72,5 +72,13 @@ public class ActorMapperTests {
 //		log.info("count.............." + result);
 //		log.info("===========================================================");
 //	}
+	
+	@Test
+	public void testMovieActorList() {
+		log.info("----------------------------------------------");
+		actorMapper.movieActorList(1L).forEach(b -> log.info(b));
+		log.info("----------------------------------------------");
+
+	}
 
 }

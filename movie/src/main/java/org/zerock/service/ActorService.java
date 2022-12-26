@@ -18,4 +18,6 @@ public interface ActorService {
 //	
 //	public int getTotal(Criteria cri);
 	
+	public List<ActorVO> movieActorList(Long mov_num);
+	
 }

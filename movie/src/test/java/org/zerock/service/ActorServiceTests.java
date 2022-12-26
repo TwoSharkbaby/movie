@@ -71,5 +71,13 @@ public class ActorServiceTests {
 //		log.info("count.............." + result);
 //		log.info("===========================================================");
 //	}
+	
+	@Test
+	public void testMovieActorList() {
+		log.info("----------------------------------------------");
+		actorService.movieActorList(1L).forEach(b -> log.info(b));
+		log.info("----------------------------------------------");
+
+	}
 
 }

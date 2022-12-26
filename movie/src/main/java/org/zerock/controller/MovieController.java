@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.zerock.service.MovieReviewCommentService;
+import org.zerock.service.ActorService;
 import org.zerock.service.MovieReviewService;
 import org.zerock.service.MovieService;
 
@@ -20,6 +20,7 @@ public class MovieController {
 
 	private final MovieService movieService;
 	private final MovieReviewService movieReviewService;
+	private final ActorService actorService;
 	
 	@GetMapping("/list")
 	public void list(Model model) {
@@ -30,6 +31,7 @@ public class MovieController {
 	public String read(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("movie", movieService.read(mov_num));
 		model.addAttribute("review", movieReviewService.movieReviewRead(mov_num));
+		model.addAttribute("actor", actorService.movieActorList(mov_num));
 		return "movie/read";
 	}
 	

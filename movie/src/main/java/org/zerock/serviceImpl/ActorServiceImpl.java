@@ -17,6 +17,11 @@ public class ActorServiceImpl implements ActorService {
 	
 	private final ActorMapper actorMapper;
 
+	@Override
+	public List<ActorVO> movieActorList(Long mov_num) {
+		return actorMapper.movieActorList(mov_num);
+	}
+
 //	@Override
 //	public List<ActorVO> getList() {
 //		return actorMapper.getList();

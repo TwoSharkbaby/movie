@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.MovieVO;
+import org.zerock.mapper.ActorMapper;
 import org.zerock.mapper.MovieMapper;
 import org.zerock.mapper.MovieScoreMapper;
 import org.zerock.service.MovieService;
