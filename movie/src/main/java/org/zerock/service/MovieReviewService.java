@@ -18,6 +18,8 @@ public interface MovieReviewService {
 	
 	public void goodUpdate(Long mov_rev_num, Long mem_num);
 	
+	public void badUpdate(Long mov_rev_num, Long mem_num);
+	
 //	public boolean modify(MovieReviewVO vo);
 //	
 //	public int getTotal(Criteria cri);

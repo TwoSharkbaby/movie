@@ -18,4 +18,10 @@ public interface MovieReviewMapper {
 	
 	public void goodUpdate(Long mov_rev_num);
 	
+	public void goodDowndate(Long mov_rev_num);
+	
+	public void badUpdate(Long mov_rev_num);
+	
+	public void badDowndate(Long mov_rev_num);
+	
 }

@@ -26,14 +26,15 @@
 
 	<delete id="delete">
 		<![CDATA[
-		DELETE FROM movie_review_choice WHERE mov_rev_cho_num=#{mov_rev_cho_num}
+		DELETE FROM movie_review_choice 
+		WHERE mov_rev_num = #{mov_rev_num} AND mem_num = #{mem_num}
 		]]>
 	</delete>
 	
 	<select id="choiceRead" resultType="org.zerock.domain.MovieReviewChoiceVO">
 		<![CDATA[
-		SELECT * FROM movie_review_choice
-		WHERE mov_rev_num = #{mov_rev_num} and mem_num = #{mem_num}
+		SELECT * FROM movie_review_choice 
+		WHERE mov_rev_num = #{mov_rev_num} AND mem_num = #{mem_num}
 		]]>
 	</select>
 

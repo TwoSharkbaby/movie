@@ -56,9 +56,16 @@ public class MovieReviewServiceTests {
 	}
 	
 	@Test
-	public void testGoodUpdatel() {
+	public void testGoodUpdate() {
 		log.info("----------------------------------------------");
 		movieReviewService.goodUpdate(1L, 1L);
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testBadUpdate() {
+		log.info("----------------------------------------------");
+		movieReviewService.badUpdate(1L, 1L);
 		log.info("----------------------------------------------");
 	}
 	

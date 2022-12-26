@@ -47,18 +47,32 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		return movieReviewMapper.movieReviewRead(mov_num);
 	}
 
-	@Transactional  
-	@Override       // 맴버 중복 체크 확인바람 없으면 입력 / 있으면 삭제
+	@Transactional  // 좋아요누르고 싫어요 누르면 문제발생 고쳐야됨
+	@Override       // 없으면 +1 하고 초이스 생성 있으면 -1 하고 초이스 삭제
 	public void goodUpdate(Long mov_rev_num, Long mem_num) {
-//		if() {
-//			
-//		} else {
-//			
-//		}
-		movieReviewMapper.goodUpdate(mov_rev_num);
-		MovieReviewChoiceVO movRevCho = 
-				MovieReviewChoiceVO.builder().mov_rev_num(mov_rev_num).mem_num(mem_num).build();
-		movieReviewChoiceMapper.insert(movRevCho);
+		MovieReviewChoiceVO movieReviewChoiceVO = 
+				MovieReviewChoiceVO.builder().mov_rev_num(mov_rev_num).mem_num(mem_num).build(); 
+		if(movieReviewChoiceMapper.choiceRead(movieReviewChoiceVO) == null) {
+			movieReviewMapper.goodUpdate(mov_rev_num);
+			movieReviewChoiceMapper.insert(movieReviewChoiceVO);
+		} else {
+			movieReviewMapper.goodDowndate(mov_rev_num);
+			movieReviewChoiceMapper.delete(movieReviewChoiceVO);
+		}
+	}
+
+	@Transactional
+	@Override
+	public void badUpdate(Long mov_rev_num, Long mem_num) {
+		MovieReviewChoiceVO movieReviewChoiceVO = 
+				MovieReviewChoiceVO.builder().mov_rev_num(mov_rev_num).mem_num(mem_num).build(); 
+		if(movieReviewChoiceMapper.choiceRead(movieReviewChoiceVO) == null) {
+			movieReviewMapper.badUpdate(mov_rev_num);
+			movieReviewChoiceMapper.insert(movieReviewChoiceVO);
+		} else {
+			movieReviewMapper.badDowndate(mov_rev_num);
+			movieReviewChoiceMapper.delete(movieReviewChoiceVO);
+		}
 	}
 	
 	

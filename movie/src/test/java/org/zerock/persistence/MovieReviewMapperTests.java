@@ -63,6 +63,13 @@ public class MovieReviewMapperTests {
 		log.info("----------------------------------------------");
 	}
 	
+	@Test
+	public void testBadUpdate() {
+		log.info("----------------------------------------------");
+		movieReviewMapper.badUpdate(1L);
+		log.info("----------------------------------------------");
+	}
+	
 //	@Test
 //	public void testTotal() {
 //		Criteria cri = new Criteria();

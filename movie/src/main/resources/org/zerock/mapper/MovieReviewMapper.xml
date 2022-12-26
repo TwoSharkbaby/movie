@@ -5,7 +5,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MovieReviewMapper">
 
-	<select id="getList" resultType="org.zerock.domain.MovieReviewVO">
+	<select id="getList"
+		resultType="org.zerock.domain.MovieReviewVO">
 		<![CDATA[
 		SELECT * FROM movie_review WHERE mov_rev_num > 0
 		]]>
@@ -17,7 +18,8 @@
 		]]>
 	</select>
 
-	<insert id="insert" keyProperty="mov_rev_num" useGeneratedKeys="true">
+	<insert id="insert" keyProperty="mov_rev_num"
+		useGeneratedKeys="true">
 		<![CDATA[
 		INSERT INTO movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
 		VALUES (#{mov_rev_title},#{mov_rev_content},now(),#{mov_rev_good},#{mov_rev_bad},#{mov_num},#{mem_num})
@@ -29,8 +31,9 @@
 		DELETE FROM movie_review WHERE mov_rev_num=#{mov_rev_num}
 		]]>
 	</delete>
-	
-	<select id="movieReviewRead" resultType="org.zerock.domain.MovieReviewVO">
+
+	<select id="movieReviewRead"
+		resultType="org.zerock.domain.MovieReviewVO">
 		<![CDATA[
 		SELECT r.*, s.mov_sco_point FROM movie.movie_review r JOIN movie_score s ON r.mov_rev_num = s.mov_rev_num WHERE r.mov_num = #{r.mov_numm}
 		]]>
@@ -39,6 +42,24 @@
 	<update id="goodUpdate">
 		<![CDATA[
 		UPDATE movie_review set mov_rev_good = (mov_rev_good)+1 where mov_rev_num=#{mov_rev_num}
+		]]>
+	</update>
+
+	<update id="goodDowndate">
+		<![CDATA[
+		UPDATE movie_review set mov_rev_good = (mov_rev_good)-1 where mov_rev_num=#{mov_rev_num}
+		]]>
+	</update>
+
+	<update id="badUpdate">
+		<![CDATA[
+		UPDATE movie_review set mov_rev_bad = (mov_rev_bad)+1 where mov_rev_num=#{mov_rev_num}
+		]]>
+	</update>
+
+	<update id="badDowndate">
+		<![CDATA[
+		UPDATE movie_review set mov_rev_bad = (mov_rev_bad)-1 where mov_rev_num=#{mov_rev_num}
 		]]>
 	</update>
 
