@@ -20,13 +20,15 @@ public class MovieServiceImpl implements MovieService {
 	private final MovieMapper movieMapper;
 	private final MovieScoreMapper movieScoreMapper;
  
-	@Override  // 또는 현제날 - 개봉날 이런식으로 계산해서 평점 안보이게하기
-	public List<MovieVO> getList() { // mybatis에서 null값 처리
+	@Override  
+	public List<MovieVO> getList() { 
 		List<MovieVO> list = new ArrayList<MovieVO>();
 		list = movieMapper.getList();
+		
 		list.forEach(lists -> {
-			if (movieScoreMapper.score(lists.getMov_num()) == 0) {
-				lists.setMov_sco_point(0);
+			log.info(movieScoreMapper.score(lists.getMov_num()));
+			if (movieScoreMapper.score(lists.getMov_num()) == null) {
+				lists.setMov_sco_point(0.0);
 			} else {
 				lists.setMov_sco_point(movieScoreMapper.score(lists.getMov_num()));
 			}
@@ -35,21 +37,24 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieVO read(Long mov_num) { // mybatis에서 null값 처리
+	public MovieVO read(Long mov_num) { 
 		MovieVO movieVO = new MovieVO();
 		movieVO = movieMapper.read(mov_num);
 		movieVO.setMov_sco_point(movieScoreMapper.score(mov_num));
+		if(movieVO.getMov_sco_point() == null) {
+			movieVO.setMov_sco_point(0.0);
+		}
 		return movieVO;
 	}
 
-	@Override
-	public void insert(MovieVO movieVO) {
-		movieMapper.insert(movieVO);
-	}
-
-	@Override
-	public int delete(Long mov_num) {
-		return movieMapper.delete(mov_num);
-	}
+//	@Override
+//	public void insert(MovieVO movieVO) {
+//		movieMapper.insert(movieVO);
+//	}
+//
+//	@Override
+//	public int delete(Long mov_num) {
+//		return movieMapper.delete(mov_num);
+//	}
 
 }

@@ -18,34 +18,34 @@ public class MovieScoreServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieScoreService movieScoreService;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieScoreService.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		movieScoreService.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieScoreVO movieScoreVO = MovieScoreVO.builder().mov_sco_point(5).mov_num(2L).mov_rev_num(1L).build();
-		movieScoreService.insert(movieScoreVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieScoreService.delete(5L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieScoreService.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		movieScoreService.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieScoreVO movieScoreVO = MovieScoreVO.builder().mov_sco_point(5.0).mov_num(2L).mov_rev_num(1L).build();
+//		movieScoreService.insert(movieScoreVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieScoreService.delete(5L);
+//		log.info("----------------------------------------------");
+//	}
 	
 	@Test
 	public void testScore() {

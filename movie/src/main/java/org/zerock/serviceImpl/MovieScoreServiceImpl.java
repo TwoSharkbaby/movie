@@ -17,25 +17,25 @@ public class MovieScoreServiceImpl implements MovieScoreService{
 
 	private final MovieScoreMapper movieScoreMapper;
 
-	@Override
-	public List<MovieScoreVO> getList() {
-		return movieScoreMapper.getList();
-	}
-
-	@Override
-	public MovieScoreVO read(Long mov_sco_num) {
-		return movieScoreMapper.read(mov_sco_num);
-	}
-
-	@Override
-	public void insert(MovieScoreVO movieScoreVO) {
-		movieScoreMapper.insert(movieScoreVO);
-	}
-
-	@Override
-	public int delete(Long mov_sco_num) {
-		return movieScoreMapper.delete(mov_sco_num);
-	}
+//	@Override
+//	public List<MovieScoreVO> getList() {
+//		return movieScoreMapper.getList();
+//	}
+//
+//	@Override
+//	public MovieScoreVO read(Long mov_sco_num) {
+//		return movieScoreMapper.read(mov_sco_num);
+//	}
+//
+//	@Override
+//	public void insert(MovieScoreVO movieScoreVO) {
+//		movieScoreMapper.insert(movieScoreVO);
+//	}
+//
+//	@Override
+//	public int delete(Long mov_sco_num) {
+//		return movieScoreMapper.delete(mov_sco_num);
+//	}
 
 	@Override
 	public double score(Long mov_sco_num) {

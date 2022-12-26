@@ -37,6 +37,6 @@ public class MovieVO {
 	
 	private String mov_thumb;
 	
-	public double mov_sco_point;
+	public Double mov_sco_point;
 	 
 }

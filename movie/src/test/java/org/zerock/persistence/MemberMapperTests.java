@@ -19,35 +19,35 @@ public class MemberMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper memberMapper ;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		memberMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		memberMapper.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MemberVO memberVO = MemberVO.builder().mem_id("123").mem_pw("123").mem_name("kim").mem_nickname("kk").build();
-		memberMapper.insert(memberVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		memberMapper.delete(4L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		memberMapper.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		memberMapper.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MemberVO memberVO = MemberVO.builder().mem_id("123").mem_pw("123").mem_name("kim").mem_nickname("kk").build();
+//		memberMapper.insert(memberVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		memberMapper.delete(4L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

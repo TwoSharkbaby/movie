@@ -18,35 +18,35 @@ public class MovieReviewServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewService movieReviewService;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieReviewService.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		movieReviewService.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
-		movieReviewService.insert(movieReviewVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieReviewService.delete(5L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieReviewService.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		movieReviewService.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
+//		movieReviewService.insert(movieReviewVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieReviewService.delete(5L);
+//		log.info("----------------------------------------------");
+//	}
 	
 	@Test
 	public void testMovieReviewRead() {

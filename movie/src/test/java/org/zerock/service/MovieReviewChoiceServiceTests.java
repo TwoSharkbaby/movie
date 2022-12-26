@@ -18,36 +18,36 @@ public class MovieReviewChoiceServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewChoiceService movieReviewChoiceService;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieReviewChoiceService.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		movieReviewChoiceService.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieReviewChoiceVO movieReviewChoiceVO = 
-				MovieReviewChoiceVO.builder().mov_rev_num(2L).mem_num(1L).build();
-		movieReviewChoiceService.insert(movieReviewChoiceVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieReviewChoiceService.delete(5L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieReviewChoiceService.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		movieReviewChoiceService.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieReviewChoiceVO movieReviewChoiceVO = 
+//				MovieReviewChoiceVO.builder().mov_rev_num(2L).mem_num(1L).build();
+//		movieReviewChoiceService.insert(movieReviewChoiceVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieReviewChoiceService.delete(5L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

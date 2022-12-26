@@ -12,9 +12,9 @@ public interface MovieMapper {
 
 	public MovieVO read(Long mov_num);
 
-	public void insert(MovieVO movieVO);
-
-	public int delete(Long mov_num);
+//	public void insert(MovieVO movieVO);
+//
+//	public int delete(Long mov_num);
 
 //	public int update(MovieVO movieVO);
 //

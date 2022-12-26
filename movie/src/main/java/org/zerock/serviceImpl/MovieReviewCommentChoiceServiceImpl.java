@@ -17,25 +17,25 @@ public class MovieReviewCommentChoiceServiceImpl implements MovieReviewCommentCh
 
 	private final MovieReviewCommentChoiceMapper movieReviewCommentChoiceMapper;
 	
-	@Override
-	public List<MovieReviewCommentChoiceVO> getList() {
-		return movieReviewCommentChoiceMapper.getList();
-	}
-
-	@Override
-	public MovieReviewCommentChoiceVO read(Long mov_rev_com_cho_num) {
-		return movieReviewCommentChoiceMapper.read(mov_rev_com_cho_num);
-	}
-
-	@Override
-	public void insert(MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
-		movieReviewCommentChoiceMapper.insert(movieReviewCommentChoiceVO);
-		
-	}
-
-	@Override
-	public int delete(Long mov_rev_com_cho_num) {
-		return movieReviewCommentChoiceMapper.delete(mov_rev_com_cho_num);
-	}
+//	@Override
+//	public List<MovieReviewCommentChoiceVO> getList() {
+//		return movieReviewCommentChoiceMapper.getList();
+//	}
+//
+//	@Override
+//	public MovieReviewCommentChoiceVO read(Long mov_rev_com_cho_num) {
+//		return movieReviewCommentChoiceMapper.read(mov_rev_com_cho_num);
+//	}
+//
+//	@Override
+//	public void insert(MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
+//		movieReviewCommentChoiceMapper.insert(movieReviewCommentChoiceVO);
+//		
+//	}
+//
+//	@Override
+//	public int delete(Long mov_rev_com_cho_num) {
+//		return movieReviewCommentChoiceMapper.delete(mov_rev_com_cho_num);
+//	}
 
 }

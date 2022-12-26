@@ -17,25 +17,25 @@ public class MovieReviewChoiceServiceImpl implements MovieReviewChoiceService {
 
 	private final MovieReviewChoiceMapper movieReviewChoiceMapper;
 	
-	@Override
-	public List<MovieReviewChoiceVO> getList() {
-		return movieReviewChoiceMapper.getList();
-	}
-
-	@Override
-	public MovieReviewChoiceVO read(Long mov_rev_cho_num) {
-		return movieReviewChoiceMapper.read(mov_rev_cho_num);
-	}
-
-	@Override
-	public void insert(MovieReviewChoiceVO movieReviewChoiceVO) {
-		movieReviewChoiceMapper.insert(movieReviewChoiceVO);
-	}
-
-	@Override
-	public int delete(Long mov_rev_cho_num) {
-		return movieReviewChoiceMapper.delete(mov_rev_cho_num);
-	}
+//	@Override
+//	public List<MovieReviewChoiceVO> getList() {
+//		return movieReviewChoiceMapper.getList();
+//	}
+//
+//	@Override
+//	public MovieReviewChoiceVO read(Long mov_rev_cho_num) {
+//		return movieReviewChoiceMapper.read(mov_rev_cho_num);
+//	}
+//
+//	@Override
+//	public void insert(MovieReviewChoiceVO movieReviewChoiceVO) {
+//		movieReviewChoiceMapper.insert(movieReviewChoiceVO);
+//	}
+//
+//	@Override
+//	public int delete(Long mov_rev_cho_num) {
+//		return movieReviewChoiceMapper.delete(mov_rev_cho_num);
+//	}
 
 	
 	

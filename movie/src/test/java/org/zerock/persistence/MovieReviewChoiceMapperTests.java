@@ -21,36 +21,36 @@ public class MovieReviewChoiceMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewChoiceMapper reviewChoiceMapper;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		reviewChoiceMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		reviewChoiceMapper.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieReviewChoiceVO movieReviewChoiceVO = 
-				MovieReviewChoiceVO.builder().mov_rev_num(2L).mem_num(1L).build();
-		reviewChoiceMapper.insert(movieReviewChoiceVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		reviewChoiceMapper.delete(4L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		reviewChoiceMapper.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		reviewChoiceMapper.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieReviewChoiceVO movieReviewChoiceVO = 
+//				MovieReviewChoiceVO.builder().mov_rev_num(2L).mem_num(1L).build();
+//		reviewChoiceMapper.insert(movieReviewChoiceVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		reviewChoiceMapper.delete(4L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

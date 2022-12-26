@@ -32,7 +32,7 @@
 	
 	<select id="movieReviewRead" resultType="org.zerock.domain.MovieReviewVO">
 		<![CDATA[
-		SELECT * FROM movie_review WHERE mov_num = #{mov_num}
+		SELECT r.*, s.mov_sco_point FROM movie.movie_review r JOIN movie_score s ON r.mov_rev_num = s.mov_rev_num WHERE r.mov_num = #{r.mov_numm}
 		]]>
 	</select>
 

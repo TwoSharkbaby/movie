@@ -19,35 +19,35 @@ public class ActorMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private ActorMapper actorMapper;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		actorMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		actorMapper.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		ActorVO actorVO = ActorVO.builder().act_name("kkk11").mov_num(3L).build();
-		actorMapper.insert(actorVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		actorMapper.delete(6L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		actorMapper.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		actorMapper.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		ActorVO actorVO = ActorVO.builder().act_name("kkk11").mov_num(3L).build();
+//		actorMapper.insert(actorVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		actorMapper.delete(6L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

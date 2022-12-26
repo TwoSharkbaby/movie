@@ -32,6 +32,6 @@ public class MovieReviewVO {
 	
 	public Long mem_num;  
 	
-	public double mov_sco_point;
+	public Double mov_sco_point;
 	
 }

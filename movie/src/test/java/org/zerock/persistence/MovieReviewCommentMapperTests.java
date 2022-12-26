@@ -19,42 +19,42 @@ public class MovieReviewCommentMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewCommentMapper movieReviewCommentMapper;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieReviewCommentMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		movieReviewCommentMapper.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieReviewCommentVO movieReviewCommentVO = 
-				MovieReviewCommentVO.builder().mov_rev_com_content("ざしじ").mem_num(3L).mov_rev_num(1L).build();
-		movieReviewCommentMapper.insert(movieReviewCommentVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieReviewCommentMapper.delete(4L);
-		log.info("----------------------------------------------");
-	}
-	
-	@Test
-	public void testGetCommentList() {
-		log.info("----------------------------------------------");
-		movieReviewCommentMapper.getCommentList(3L).forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentMapper.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentMapper.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieReviewCommentVO movieReviewCommentVO = 
+//				MovieReviewCommentVO.builder().mov_rev_com_content("ざしじ").mem_num(3L).mov_rev_num(1L).build();
+//		movieReviewCommentMapper.insert(movieReviewCommentVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentMapper.delete(4L);
+//		log.info("----------------------------------------------");
+//	}
+//	
+//	@Test
+//	public void testGetCommentList() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentMapper.getCommentList(3L).forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

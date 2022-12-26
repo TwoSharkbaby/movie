@@ -1,13 +1,10 @@
 package org.zerock.persistence;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.ActorVO;
 import org.zerock.domain.MovieScoreVO;
 import org.zerock.mapper.MovieScoreMapper;
 
@@ -22,34 +19,34 @@ public class MovieScoreMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieScoreMapper movieScoreMapper;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieScoreMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		movieScoreMapper.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieScoreVO movieScoreVO = MovieScoreVO.builder().mov_sco_point(5).mov_num(2L).mov_rev_num(1L).build();
-		movieScoreMapper.insert(movieScoreVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieScoreMapper.delete(4L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieScoreMapper.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		movieScoreMapper.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieScoreVO movieScoreVO = MovieScoreVO.builder().mov_sco_point(5.0).mov_num(2L).mov_rev_num(1L).build();
+//		movieScoreMapper.insert(movieScoreVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieScoreMapper.delete(4L);
+//		log.info("----------------------------------------------");
+//	}
 	
 	@Test
 	public void testScore() {

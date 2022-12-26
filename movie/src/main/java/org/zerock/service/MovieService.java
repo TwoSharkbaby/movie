@@ -10,9 +10,9 @@ public interface MovieService {
 	
 	public MovieVO read(Long mov_num);
 
-	public void insert(MovieVO movieVO);
-
-	public int delete(Long mov_num);
+//	public void insert(MovieVO movieVO);
+//
+//	public int delete(Long mov_num);
 
 //	public boolean modify(MovieVO vo);
 //	

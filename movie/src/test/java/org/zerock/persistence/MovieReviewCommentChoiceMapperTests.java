@@ -19,36 +19,36 @@ public class MovieReviewCommentChoiceMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewCommentChoiceMapper movieReviewCommentChoiceMapper;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieReviewCommentChoiceMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-
-	}
-
-	@Test
-	public void testRead() {
-		log.info("----------------------------------------------");
-		movieReviewCommentChoiceMapper.read(1L);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieReviewCommentChoiceVO movieReviewCommentChoiceVO = 
-				MovieReviewCommentChoiceVO.builder().mov_rev_com_num(1L).mem_num(3L).build();
-		movieReviewCommentChoiceMapper.insert(movieReviewCommentChoiceVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieReviewCommentChoiceMapper.delete(4L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentChoiceMapper.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//
+//	}
+//
+//	@Test
+//	public void testRead() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentChoiceMapper.read(1L);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieReviewCommentChoiceVO movieReviewCommentChoiceVO = 
+//				MovieReviewCommentChoiceVO.builder().mov_rev_com_num(1L).mem_num(3L).build();
+//		movieReviewCommentChoiceMapper.insert(movieReviewCommentChoiceVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieReviewCommentChoiceMapper.delete(4L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

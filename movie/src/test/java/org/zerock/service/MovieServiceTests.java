@@ -33,20 +33,20 @@ public class MovieServiceTests {
 		log.info("----------------------------------------------");
 	}
 
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieVO movieVO = MovieVO.builder().mov_title("고라").mov_director("kim").build();
-		movieService.insert(movieVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieService.delete(5L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieVO movieVO = MovieVO.builder().mov_title("고라").mov_director("kim").build();
+//		movieService.insert(movieVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieService.delete(5L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {

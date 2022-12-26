@@ -34,20 +34,20 @@ public class MovieMapperTests {
 		log.info("----------------------------------------------");
 	}
 
-	@Test
-	public void testInsert() {
-		log.info("----------------------------------------------");
-		MovieVO movieVO = MovieVO.builder().mov_title("고라").mov_director("kim").build();
-		movieMapper.insert(movieVO);
-		log.info("----------------------------------------------");
-	}
-
-	@Test
-	public void testDelete() {
-		log.info("----------------------------------------------");
-		movieMapper.delete(4L);
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testInsert() {
+//		log.info("----------------------------------------------");
+//		MovieVO movieVO = MovieVO.builder().mov_title("고라").mov_director("kim").build();
+//		movieMapper.insert(movieVO);
+//		log.info("----------------------------------------------");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		log.info("----------------------------------------------");
+//		movieMapper.delete(4L);
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testTotal() {
