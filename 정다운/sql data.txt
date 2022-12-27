@@ -45,11 +45,9 @@ insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(1, 3, 4);
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 2, 4); #영화 리뷰 글이 없으니 안들어감 good
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 4, 2); #영화가 없으니 안들어감 good
 
-insert into movie_review_choice(mov_rev_num, mem_num) values(1, 1, 1);
-insert into movie_review_choice(mov_rev_num, mem_num) values(1, 2, 1);
-insert into movie_review_choice(mov_rev_num, mem_num) values(1, 3, 1);
-insert into movie_review_choice(mov_rev_num, mem_num) values(4, 1, 1); # 영화 리뷰글이 없으니 안들어감 good
-insert into movie_review_choice(mov_rev_num, mem_num) values(3, 4, 1); # 맴버가 없으니 안들어감 good
+insert into movie_review_choice(mov_rev_num, mem_num, mov_rev_cho_which) values(1, 1, 1);
+insert into movie_review_choice(mov_rev_num, mem_num, mov_rev_cho_which) values(1, 2, 1);
+insert into movie_review_choice(mov_rev_num, mem_num, mov_rev_cho_which) values(1, 3, 1);
 
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
 values('돈받고리뷰쓰냐?', now(), 2, 0, 1, 1);
@@ -62,8 +60,6 @@ values('중꺽마?', now(), 0, 0, 4, 1); # 맴버가 없어서 안들어감 good
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
 values('배고픔 현제시간 오전11:34분', now(), 0, 0, 1, 4); # 영화 리뷰가 없어서 안들어감 good
 
-insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(1, 1);
-insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(1, 3);
-insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(2, 2);
-insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(4, 1);  # 해당 덧글이 없어서 안들어감 good
-insert into movie_review_comment_choice(mov_rev_com_num, mem_num) values(1, 4);  # 맴버가 없어서 안들어감 good
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) values(1, 1, 1);
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) values(1, 3, 1);
+insert into movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) values(2, 2, 1);
