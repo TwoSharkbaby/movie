@@ -26,7 +26,7 @@ insert into member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contac
 values('tjwnsdud', '1234', '서준영', '라파덕후', 'tjwnsdud@naver.com', '01000000000', now());
 
 insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
-values("핵노잼", "돈이아깝습니다", now(), 0, 0, 1, 1);
+values("핵노잼", "돈이아깝습니다", now(), 3, 0, 1, 1);
 insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
 values("핵꿀잼", "혼자봐도재밌습니다", now(), 0, 0, 1, 2);
 insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
@@ -45,16 +45,16 @@ insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(1, 3, 4);
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 2, 4); #영화 리뷰 글이 없으니 안들어감 good
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 4, 2); #영화가 없으니 안들어감 good
 
-insert into movie_review_choice(mov_rev_num, mem_num) values(1, 1);
-insert into movie_review_choice(mov_rev_num, mem_num) values(1, 2);
-insert into movie_review_choice(mov_rev_num, mem_num) values(1, 3);
-insert into movie_review_choice(mov_rev_num, mem_num) values(4, 1); # 영화 리뷰글이 없으니 안들어감 good
-insert into movie_review_choice(mov_rev_num, mem_num) values(3, 4); # 맴버가 없으니 안들어감 good
+insert into movie_review_choice(mov_rev_num, mem_num) values(1, 1, 1);
+insert into movie_review_choice(mov_rev_num, mem_num) values(1, 2, 1);
+insert into movie_review_choice(mov_rev_num, mem_num) values(1, 3, 1);
+insert into movie_review_choice(mov_rev_num, mem_num) values(4, 1, 1); # 영화 리뷰글이 없으니 안들어감 good
+insert into movie_review_choice(mov_rev_num, mem_num) values(3, 4, 1); # 맴버가 없으니 안들어감 good
 
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
-values('돈받고리뷰쓰냐?', now(), 0, 0, 1, 1);
+values('돈받고리뷰쓰냐?', now(), 2, 0, 1, 1);
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
-values('ㅇㅈ?', now(), 0, 0, 1, 2);
+values('ㅇㅈ?', now(), 1, 0, 1, 2);
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
 values('ㄴㅇㅈ?', now(), 0, 0, 2, 3);
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
