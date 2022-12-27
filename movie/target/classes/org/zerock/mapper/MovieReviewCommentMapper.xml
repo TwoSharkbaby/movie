@@ -39,6 +39,30 @@
 		SELECT * FROM movie_review_comment WHERE mov_rev_num = #{mov_rev_num}
 		]]>
 	</select>
+	
+	<update id="goodUpdate">
+		<![CDATA[
+		UPDATE movie_review_comment set mov_rev_com_good = (mov_rev_com_good)+1 where mov_rev_com_num=#{mov_rev_com_num}
+		]]>
+	</update>
+
+	<update id="goodDowndate">
+		<![CDATA[
+		UPDATE movie_review_comment set mov_rev_com_good = (mov_rev_com_good)-1 where mov_rev_com_num=#{mov_rev_com_num}
+		]]>
+	</update>
+
+	<update id="badUpdate">
+		<![CDATA[
+		UPDATE movie_review_comment set mov_rev_com_bad = (mov_rev_com_bad)+1 where mov_rev_com_num=#{mov_rev_com_num}
+		]]>
+	</update>
+
+	<update id="badDowndate">
+		<![CDATA[
+		UPDATE movie_review_comment set mov_rev_com_bad = (mov_rev_com_bad)-1 where mov_rev_com_num=#{mov_rev_com_num}
+		]]>
+	</update>
 
 	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
 		where bno=#{bno} ]]> </update> -->

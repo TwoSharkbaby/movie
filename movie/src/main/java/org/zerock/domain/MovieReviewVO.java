@@ -15,23 +15,23 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MovieReviewVO {
 
-	public Long mov_rev_num;
+	private Long mov_rev_num;
 	
-	public String mov_rev_title;
+	private String mov_rev_title;
 	
-	public String mov_rev_content;
+	private String mov_rev_content;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	public Date mov_rev_regdate;
+	private Date mov_rev_regdate;
 	
-	public Long mov_rev_good;
+	private Long mov_rev_good;
 	
-	public Long mov_rev_bad;
+	private Long mov_rev_bad;
 	
-	public Long mov_num;
+	private Long mov_num;
 	
-	public Long mem_num;  
+	private Long mem_num;  
 	
-	public Double mov_sco_point;
+	private Double mov_sco_point;
 	
 }

@@ -3,38 +3,54 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.zerock.mapper.MovieReviewCommentChoiceMapper">
+<mapper
+	namespace="org.zerock.mapper.MovieReviewCommentChoiceMapper">
 
-	<select id="getList" resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
+	<select id="getList"
+		resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
 		<![CDATA[
 		SELECT * FROM movie_review_comment_choice WHERE mov_rev_com_cho_num > 0
 		]]>
 	</select>
 
-	<select id="read" resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
+	<select id="read"
+		resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
 		<![CDATA[
 		SELECT * FROM movie_review_comment_choice WHERE mov_rev_com_cho_num = #{mov_rev_com_cho_num}
 		]]>
 	</select>
 
-	<insert id="insert" keyProperty="mov_rev_com_cho_num" useGeneratedKeys="true">
+	<insert id="insert" keyProperty="mov_rev_com_cho_num"
+		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie_review_comment_choice(mov_rev_com_num, mem_num) 
-		VALUES (#{mov_rev_com_num},#{mem_num})
+		INSERT INTO movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) 
+		VALUES (#{mov_rev_com_num},#{mem_num},#{mov_rev_com_cho_which})
 		]]>
 	</insert>
 
 	<delete id="delete">
 		<![CDATA[
-		DELETE FROM movie_review_comment_choice WHERE mov_rev_com_cho_num=#{mov_rev_com_cho_num}
+		DELETE FROM movie_review_comment_choice 
+		WHERE mov_rev_com_num = #{mov_rev_com_num} AND mem_num = #{mem_num}
 		]]>
 	</delete>
 
-<!-- 	<update id="update">
+	<select id="choiceRead"
+		resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
 		<![CDATA[
-		update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() where bno=#{bno}
+		SELECT * FROM movie_review_comment_choice 
+		WHERE mov_rev_com_num = #{mov_rev_com_num} AND mem_num = #{mem_num}
 		]]>
-	</update> -->
+	</select>
+
+	<update id="update">
+		<![CDATA[
+		update movie_review_comment_choice set mov_rev_com_cho_which =#{mov_rev_com_cho_which} where mov_rev_com_cho_num=#{mov_rev_com_cho_num}
+		]]>
+	</update>
+
+	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
+		where bno=#{bno} ]]> </update> -->
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

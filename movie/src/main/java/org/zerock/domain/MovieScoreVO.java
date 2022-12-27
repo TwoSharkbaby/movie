@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MovieScoreVO {
 
-	public Long mov_sco_num;
+	private Long mov_sco_num;
 	
-	public Double mov_sco_point;
+	private Double mov_sco_point;
 	
-	public Long mov_num;
+	private Long mov_num;
 	
-	public Long mov_rev_num;
+	private Long mov_rev_num;
 }

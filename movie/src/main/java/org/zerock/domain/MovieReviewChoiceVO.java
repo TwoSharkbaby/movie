@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MovieReviewChoiceVO {
 
-	
-	public Long mov_rev_cho_num;
+	private Long mov_rev_cho_num;
 
-	public Long mov_rev_num;
+	private Long mov_rev_num;
 	
-	public Long mem_num;
+	private Long mem_num;
+	
+	private int mov_rev_cho_which;
 	
 	
 }

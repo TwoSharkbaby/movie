@@ -16,5 +16,7 @@ public interface MovieReviewChoiceMapper {
 
 	public int delete(MovieReviewChoiceVO movieReviewChoiceVO);
 	
+	public void update(MovieReviewChoiceVO movieReviewChoiceVO);
+	
 	
 }

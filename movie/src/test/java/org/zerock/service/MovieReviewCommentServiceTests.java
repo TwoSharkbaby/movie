@@ -17,6 +17,20 @@ public class MovieReviewCommentServiceTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewCommentService movieReviewCommentService;
+	
+	@Test
+	public void testGoodUpdate() {
+		log.info("----------------------------------------------");
+		movieReviewCommentService.goodUpdate(1L, 1L);
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testBadUpdate() {
+		log.info("----------------------------------------------");
+		movieReviewCommentService.badUpdate(1L, 1L);
+		log.info("----------------------------------------------");
+	}
 
 //	@Test
 //	public void testGetList() {

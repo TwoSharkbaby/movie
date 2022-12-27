@@ -19,8 +19,8 @@
 
 	<insert id="insert" keyProperty="mov_rev_cho_num" useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie_review_choice(mov_rev_num, mem_num) 
-		VALUES (#{mov_rev_num},#{mem_num})
+		INSERT INTO movie_review_choice(mov_rev_num, mem_num, mov_rev_cho_which) 
+		VALUES (#{mov_rev_num},#{mem_num},#{mov_rev_cho_which})
 		]]>
 	</insert>
 
@@ -38,11 +38,11 @@
 		]]>
 	</select>
 
-<!-- 	<update id="update">
+	<update id="update">
 		<![CDATA[
-		update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() where bno=#{bno}
+		update movie_review_choice set mov_rev_cho_which =#{mov_rev_cho_which} where mov_rev_cho_num=#{mov_rev_cho_num}
 		]]>
-	</update> -->
+	</update> 
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

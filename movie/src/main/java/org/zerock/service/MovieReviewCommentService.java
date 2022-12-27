@@ -1,10 +1,5 @@
 package org.zerock.service;
 
-import java.util.List;
-
-import org.zerock.domain.MovieReviewCommentVO;
-
-
 public interface MovieReviewCommentService {
 
 //	public List<MovieReviewCommentVO> getList();
@@ -21,6 +16,8 @@ public interface MovieReviewCommentService {
 //	
 //	public int remove(Long mov_rev_com_num); //
 	
+	public void goodUpdate(Long mov_rev_com_num, Long mem_num);
 	
+	public void badUpdate(Long mov_rev_com_num, Long mem_num);
 	
 }

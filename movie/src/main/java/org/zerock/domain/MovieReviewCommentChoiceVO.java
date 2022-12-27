@@ -16,4 +16,6 @@ public class MovieReviewCommentChoiceVO {
 	private Long mov_rev_com_num;
 	
 	private Long mem_num;
+	
+	private int mov_rev_com_cho_which;
 }

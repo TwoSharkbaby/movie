@@ -18,17 +18,17 @@ public class MovieReviewCommentVO {
 	
 	private Long mov_rev_com_num;
 	
-	public String mov_rev_com_content;
+	private String mov_rev_com_content;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss") 
-	public Date mov_rev_com_regdate; 
+	private Date mov_rev_com_regdate; 
 	
-	public Long mov_rev_com_good;
+	private Long mov_rev_com_good;
 	
-	public Long mov_rev_com_bad;
+	private Long mov_rev_com_bad;
 	
-	public Long mem_num;
+	private Long mem_num;
 	
-	public Long mov_rev_num;
+	private Long mov_rev_num;
 	
 }
