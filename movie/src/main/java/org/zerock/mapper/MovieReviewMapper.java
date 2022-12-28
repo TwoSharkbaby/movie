@@ -2,6 +2,7 @@ package org.zerock.mapper;
 
 import java.util.List;
 
+import org.zerock.domain.ChoiceVO;
 import org.zerock.domain.MovieReviewVO;
 
 public interface MovieReviewMapper {
@@ -23,5 +24,7 @@ public interface MovieReviewMapper {
 	public void badUpdate(Long mov_rev_num);
 	
 	public void badDowndate(Long mov_rev_num);
+	
+	public ChoiceVO checkChoice(Long mov_rev_num);
 	
 }

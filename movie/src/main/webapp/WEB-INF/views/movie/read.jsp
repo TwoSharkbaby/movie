@@ -90,8 +90,7 @@
 				<th>리뷰제목</th>
 				<th>리뷰내용</th>
 				<th>등록일</th>
-				<th>좋아요</th>
-				<th>싫어요</th>
+				<th>좋아요싫어요</th>
 				<th>영화번호</th>
 				<th>작성자</th>
 				<th>평점</th>
@@ -113,10 +112,8 @@
 							<td><c:out value="${review.mov_rev_content}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${review.mov_rev_regdate}" /></td>
-							<td><c:out value="${review.mov_rev_good}" />
-								<button id="review_good"  name="review_good" data-idx="<c:out value="${review.mov_rev_num}" />" >좋아요</button></td>
-							<td><c:out value="${review.mov_rev_bad}" />
-								<button id="review_bad" name="review_bad" data-idx="<c:out value="${review.mov_rev_num}" />" >싫어요</button></td>
+							<td><button id="review_good"  name="review_good" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_good}" /></button>
+							<button id="review_bad" name="review_bad" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_bad}" /></button></td>
 							<td><c:out value="${review.mov_num}" /></td>
 							<td><c:out value="${review.mem_num}" /></td>
 							<td><c:out value="${review.mov_sco_point}" /></td>
@@ -131,37 +128,56 @@
 		</tbody>
 	</table>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
 	
-	var review_good = $("#review_good");
-	var review_bad = $("#review_bad");
-	
 	$("button[name='review_good']").on("click", function(e){
-		var mov_rev_num = $(this).data("idx");
-		console.log(mov_rev_num);
 		
-		let data = {
-				mov_rev_num: $(this).data("idx")
+		var mov_rev_num = $(this).data("idx");
+		var good = $(this);
+		var bad = $(this).next('button');
+		
+		var data = {
+				mov_rev_num: mov_rev_num,
+				mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
 			};
 			$.ajax({
-				type: "PUT",
-				url: "/replies/" + mov_rev_num,
+				type: "POST",
+				url: "/review/good",
 				data: JSON.stringify(data), // http body 데이터
 				contentType: "application/json; charset=utf-8",  // body 데이터가 어떤 타입인지(mine)
 				dataType: "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-			}).done(function(resp) { // resp <= 과 같이 담아서 사용하기 위함
-				alert("좋아요");
+			}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+				good.html(response.good);
+				bad.html(response.bad);
 			}).fail(function(error) {
-				alert(JSON.stringify(error));
+				alert("올바른 경로가 아닙니다");
 			});
 		
 	});
 	
 	$("button[name='review_bad']").on("click", function(e){
-		var mov_rev_num = $(this).data("idx");
-		console.log(mov_rev_num);
 		
+		var mov_rev_num = $(this).data("idx");
+		var bad = $(this); 
+		var good = $(this).prev('button');;
+		
+		var data = {
+				mov_rev_num: mov_rev_num,
+				mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
+			};
+			$.ajax({
+				type: "POST",
+				url: "/review/bad",
+				data: JSON.stringify(data), // http body 데이터
+				contentType: "application/json; charset=utf-8",  // body 데이터가 어떤 타입인지(mine)
+				dataType: "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+			}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+				good.html(response.good);
+				bad.html(response.bad);
+			}).fail(function(error) {
+				alert("올바른 경로가 아닙니다");
+			});
 	});
 	
 });

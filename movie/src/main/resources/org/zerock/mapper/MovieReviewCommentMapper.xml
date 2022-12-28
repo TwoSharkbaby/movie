@@ -39,7 +39,7 @@
 		SELECT * FROM movie_review_comment WHERE mov_rev_num = #{mov_rev_num}
 		]]>
 	</select>
-	
+
 	<update id="goodUpdate">
 		<![CDATA[
 		UPDATE movie_review_comment set mov_rev_com_good = (mov_rev_com_good)+1 where mov_rev_com_num=#{mov_rev_com_num}
@@ -63,6 +63,12 @@
 		UPDATE movie_review_comment set mov_rev_com_bad = (mov_rev_com_bad)-1 where mov_rev_com_num=#{mov_rev_com_num}
 		]]>
 	</update>
+
+	<select id="checkChoice" resultType="org.zerock.domain.ChoiceVO">
+		<![CDATA[
+		SELECT mov_rev_com_good AS good, mov_rev_com_bad AS bad FROM movie_review_comment WHERE mov_rev_com_num = #{mov_rev_com_num}
+		]]>
+	</select>
 
 	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
 		where bno=#{bno} ]]> </update> -->

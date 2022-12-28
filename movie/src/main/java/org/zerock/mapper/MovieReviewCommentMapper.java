@@ -1,5 +1,7 @@
 package org.zerock.mapper;
 
+import org.zerock.domain.ChoiceVO;
+
 public interface MovieReviewCommentMapper {
 	
 //	public List<MovieReviewCommentVO> getList();
@@ -19,5 +21,7 @@ public interface MovieReviewCommentMapper {
 	public void badUpdate(Long mov_rev_com_num);
 	
 	public void badDowndate(Long mov_rev_com_num);
+	
+	public ChoiceVO checkChoice(Long mov_rev_com_num);
 	
 }

@@ -18,6 +18,13 @@ public class MovieReviewCommentMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewCommentMapper movieReviewCommentMapper;
+	
+	@Test
+	public void testCheckChoice() {
+		log.info("----------------------------------------------");
+		log.info(movieReviewCommentMapper.checkChoice(1L));
+		log.info("----------------------------------------------");
+	}
 
 //	@Test
 //	public void testGetList() {

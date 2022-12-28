@@ -63,6 +63,13 @@
 		]]>
 	</update>
 
+	<select id="checkChoice"
+		resultType="org.zerock.domain.ChoiceVO">
+		<![CDATA[
+		SELECT mov_rev_good AS good, mov_rev_bad AS bad FROM movie_review WHERE mov_rev_num = #{mov_rev_num}
+		]]>
+	</select>
+
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 
 		test="type == 'T'.toString()"> title like CONCAT('%', #{keyword}, '%') </when> 

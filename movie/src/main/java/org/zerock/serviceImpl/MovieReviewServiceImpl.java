@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.ChoiceVO;
 import org.zerock.domain.MovieReviewChoiceVO;
 import org.zerock.domain.MovieReviewVO;
 import org.zerock.mapper.MovieReviewChoiceMapper;
@@ -49,7 +50,7 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 
 	@Transactional  
 	@Override      
-	public void goodUpdate(Long mov_rev_num, Long mem_num) {
+	public ChoiceVO goodUpdate(Long mov_rev_num, Long mem_num) {
 		MovieReviewChoiceVO movieReviewChoiceVO = 
 				MovieReviewChoiceVO.builder().mov_rev_num(mov_rev_num)
 				.mem_num(mem_num).mov_rev_cho_which(1).build(); 
@@ -57,22 +58,25 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		if(checkVO == null) {
 			movieReviewMapper.goodUpdate(mov_rev_num);
 			movieReviewChoiceMapper.insert(movieReviewChoiceVO);
+			return movieReviewMapper.checkChoice(mov_rev_num);
 		} else {
 			if(checkVO.getMov_rev_cho_which() == 1) {
 				movieReviewMapper.goodDowndate(mov_rev_num);
 				movieReviewChoiceMapper.delete(movieReviewChoiceVO);
+				return movieReviewMapper.checkChoice(mov_rev_num);
 			} else {
 				movieReviewMapper.badDowndate(mov_rev_num);
 				movieReviewMapper.goodUpdate(mov_rev_num);
 				checkVO.setMov_rev_cho_which(1);
 				movieReviewChoiceMapper.update(checkVO);
+				return movieReviewMapper.checkChoice(mov_rev_num);
 			}
 		}
 	}
 
 	@Transactional
 	@Override
-	public void badUpdate(Long mov_rev_num, Long mem_num) {
+	public ChoiceVO badUpdate(Long mov_rev_num, Long mem_num) {
 		MovieReviewChoiceVO movieReviewChoiceVO = 
 				MovieReviewChoiceVO.builder().mov_rev_num(mov_rev_num)
 				.mem_num(mem_num).mov_rev_cho_which(2).build(); 
@@ -80,15 +84,18 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		if(checkVO == null) {
 			movieReviewMapper.badUpdate(mov_rev_num);
 			movieReviewChoiceMapper.insert(movieReviewChoiceVO);
+			return movieReviewMapper.checkChoice(mov_rev_num);
 		} else {
 			if(checkVO.getMov_rev_cho_which() == 2) {
 				movieReviewMapper.badDowndate(mov_rev_num);
 				movieReviewChoiceMapper.delete(movieReviewChoiceVO);
+				return movieReviewMapper.checkChoice(mov_rev_num);
 			} else {
 				movieReviewMapper.goodDowndate(mov_rev_num);
 				movieReviewMapper.badUpdate(mov_rev_num);
 				checkVO.setMov_rev_cho_which(2);
 				movieReviewChoiceMapper.update(checkVO);
+				return movieReviewMapper.checkChoice(mov_rev_num);
 			}
 		}
 	}
