@@ -39,15 +39,15 @@ values('로맨스4', '로맨스4', '로맨스', '로맨스영화입니다', '202
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('로맨스5', '로맨스5', '로맨스', '로맨스영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디1', '코미디1', '코미디', '코미디영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
+values('코미디1', '코미디1', '코미디', '코미디영화입니다', '2021-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디2', '코미디2', '코미디', '코미디영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
+values('코미디2', '코미디2', '코미디', '코미디영화입니다', '2021-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디3', '코미디3', '코미디', '코미디영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
+values('코미디3', '코미디3', '코미디', '코미디영화입니다', '2021-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디4', '코미디4', '코미디', '코미디영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
+values('코미디4', '코미디4', '코미디', '코미디영화입니다', '2021-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디5', '코미디5', '코미디', '코미디영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
+values('코미디5', '코미디5', '코미디', '코미디영화입니다', '2021-12-22', '02:30:12',  now(), null, null); 
 
 insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num)
 values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 1); 
