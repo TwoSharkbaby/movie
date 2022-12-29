@@ -59,8 +59,6 @@ insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, 
 values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 2); 
 insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
 values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 3); 
-insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
-values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 4); # 영화가 없으니 안들어감 good
 
 insert into member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
 values('wjdekdns', '1234', '정다운', '고라파덕후', 'wjdekdns@naver.com', '01000000000', now());
@@ -77,17 +75,11 @@ insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_re
 values("핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 3);
 insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
 values("그냥그럼", "ㅋㅋㅋ", now(), 0, 0, 3, 2);
-insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
-values("핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 4, 3); # 영화가 없으니 안들어감 good
-insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
-values("핵꿀잼", "흑흑ㅠㅠ", now(), 0, 0, 2, 4); # 맴버가 없으니 안들어감 good
 
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(5, 1, 1);
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(4, 1, 2);
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 2, 3);
 insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(1, 3, 4);
-insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 2, 4); #영화 리뷰 글이 없으니 안들어감 good
-insert into movie_score(mov_sco_point, mov_num, mov_rev_num) values(3, 4, 2); #영화가 없으니 안들어감 good
 
 insert into movie_review_choice(mov_rev_num, mem_num, mov_rev_cho_which) values(1, 1, 1);
 insert into movie_review_choice(mov_rev_num, mem_num, mov_rev_cho_which) values(1, 2, 1);
@@ -99,10 +91,6 @@ insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_r
 values('ㅇㅈ?', now(), 1, 0, 1, 2);
 insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
 values('ㄴㅇㅈ?', now(), 0, 0, 2, 3);
-insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
-values('중꺽마?', now(), 0, 0, 4, 1); # 맴버가 없어서 안들어감 good
-insert into movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
-values('배고픔 현제시간 오전11:34분', now(), 0, 0, 1, 4); # 영화 리뷰가 없어서 안들어감 good
 
 insert into movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) values(1, 1, 1);
 insert into movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) values(1, 3, 1);
