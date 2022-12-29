@@ -24,7 +24,18 @@ public class MovieMapperTests {
 		log.info("----------------------------------------------");
 		movieMapper.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
-
+	}
+	
+	@Test
+	public void testGenreList() {
+		log.info("----------------------------------------------");
+		movieMapper.getActionList().forEach(b -> log.info(b));
+		movieMapper.getFantasyList().forEach(b -> log.info(b));
+		movieMapper.getHorrorList().forEach(b -> log.info(b));
+		movieMapper.getRomanceList().forEach(b -> log.info(b));
+		movieMapper.getComedyList().forEach(b -> log.info(b));
+		movieMapper.getLatestList().forEach(b -> log.info(b));
+		log.info("----------------------------------------------");
 	}
 
 	@Test

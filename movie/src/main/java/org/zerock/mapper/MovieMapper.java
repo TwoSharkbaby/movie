@@ -8,6 +8,18 @@ public interface MovieMapper {
 
 	public List<MovieVO> getList();
 
+	public List<MovieVO> getActionList();
+	
+	public List<MovieVO> getFantasyList();
+	
+	public List<MovieVO> getHorrorList();
+	
+	public List<MovieVO> getRomanceList();
+	
+	public List<MovieVO> getComedyList();
+	
+	public List<MovieVO> getLatestList();
+
 //	public List<MovieVO> getListWithPaging(Criteria cri);
 
 	public MovieVO read(Long mov_num);

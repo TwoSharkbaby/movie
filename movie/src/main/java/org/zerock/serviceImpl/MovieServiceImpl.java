@@ -48,6 +48,36 @@ public class MovieServiceImpl implements MovieService {
 		return movieVO;
 	}
 
+	@Override
+	public List<MovieVO> getActionList() {
+		return movieMapper.getActionList();
+	}
+
+	@Override
+	public List<MovieVO> getFantasyList() {
+		return movieMapper.getFantasyList();
+	}
+
+	@Override
+	public List<MovieVO> getHorrorList() {
+		return movieMapper.getHorrorList();
+	}
+
+	@Override
+	public List<MovieVO> getRomanceList() {
+		return movieMapper.getRomanceList();
+	}
+
+	@Override
+	public List<MovieVO> getComedyList() {
+		return movieMapper.getComedyList();
+	}
+
+	@Override
+	public List<MovieVO> getLatestList() {
+		return movieMapper.getLatestList();
+	}
+
 //	@Override
 //	public void insert(MovieVO movieVO) {
 //		movieMapper.insert(movieVO);

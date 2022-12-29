@@ -24,7 +24,12 @@ public class MovieController {
 	
 	@GetMapping("/list")
 	public void list(Model model) {
-		model.addAttribute("list", movieService.getList());
+		model.addAttribute("action", movieService.getActionList());
+		model.addAttribute("fantasy", movieService.getFantasyList());
+		model.addAttribute("horror", movieService.getHorrorList());
+		model.addAttribute("romance", movieService.getRomanceList());
+		model.addAttribute("comedy", movieService.getComedyList());
+		model.addAttribute("latest", movieService.getLatestList());
 	}
 	
 	@GetMapping("/read/{mov_num}")
