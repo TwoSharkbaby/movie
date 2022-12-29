@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -68,13 +70,13 @@ public class MovieReviewCommentController {
 //		}
 //		
 //		
-//		@GetMapping(value = "/pages/{mov_rev_com_num}/{page}",
-//				produces = {MediaType.APPLICATION_JSON_VALUE,
-//				MediaType.APPLICATION_XML_VALUE})
-//		public ResponseEntity<CommentPageDTO> getList(@PathVariable("page")int page, @PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
-//			log.info(".................." + page);
-//			Criteria cri = new Criteria(page, 10);
-//				return new ResponseEntity<>(service.getListPage(cri, mov_rev_com_num), HttpStatus.OK);
+		@GetMapping(value = "/pages/{mov_rev_num}/{page}",
+				produces = {MediaType.APPLICATION_JSON_VALUE,
+				MediaType.APPLICATION_XML_VALUE})
+		public ResponseEntity<List<MovieReviewCommentVO>> getList(@PathVariable("page")int page, @PathVariable("mov_rev_num") Long mov_rev_num) {
+			log.info(".................." + page);
+			Criteria cri = new Criteria(page, 10);
+				return new ResponseEntity<>(service.getList(cri, mov_rev_num), HttpStatus.OK);
 //		}
 //		
 //		@PostMapping(value = "/new",
@@ -92,10 +94,10 @@ public class MovieReviewCommentController {
 //		}
 		
 				
-	
+		}}
 		
 		
 		
 		
 		
-}
+
