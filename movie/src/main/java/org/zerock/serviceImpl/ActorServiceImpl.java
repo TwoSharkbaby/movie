@@ -28,12 +28,12 @@ public class ActorServiceImpl implements ActorService {
 //	public List<ActorVO> getList() {
 //		return actorMapper.getList();
 //	}
-//
-//	@Override
-//	public ActorVO read(Long act_num) {
-//		return actorMapper.read(act_num);
-//	}
-//
+
+	@Override
+	public ActorVO read(Long act_num) {
+		return actorMapper.read(act_num);
+	}
+
 //	@Override
 //	public void insert(ActorVO actorVO) {
 //		actorMapper.insert(actorVO);

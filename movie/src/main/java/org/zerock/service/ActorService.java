@@ -7,9 +7,9 @@ import org.zerock.domain.ActorVO;
 public interface ActorService {
 
 //	public List<ActorVO> getList();
-//	
-//	public ActorVO read(Long act_num);
-//
+	
+	public ActorVO read(Long act_num);
+
 //	public void insert(ActorVO actorVO);
 //
 //	public int delete(Long act_num);
