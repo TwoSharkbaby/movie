@@ -162,7 +162,8 @@
 				<c:when test="${!empty review}">
 					<c:forEach items="${review}" var="review">
 						<tr>
-							<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>
+							<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" />
+							<button id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글보기" /></td>
 							<td><c:out value="${review.mov_rev_title}" /></td>
 							<td><c:out value="${review.mov_rev_content}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
@@ -217,6 +218,31 @@
 						}
 
 					};
+					
+					
+					
+					$("button[name='comment']").on("click", function(e){
+						var mov_rev_num = param.mov_rev_num;
+						
+						
+						
+						var data = {
+								mov_rev_num: mov_rev_num,
+								mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
+							};
+					      $.getJSON( 
+					              "review/"+mov_rev_num+".json",
+					              function(data){
+					                if(callback){
+					                  callback(data);
+					                }
+					              }
+					            ).fail(function(xhr, status, err){
+					              if(error){
+					                error();
+					              }
+					            });
+					});
 
 					var modal = $(".modal");
 
