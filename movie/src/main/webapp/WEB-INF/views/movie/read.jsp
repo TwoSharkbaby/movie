@@ -48,6 +48,16 @@
 		</tbody>
 	</table>
 
+	<a href="/movie/list"><button>뒤로 돌아가기</button></a>
+	<a href="/movie/modify/<c:out value="${movie.mov_num}" />"><button>수정하기</button></a>
+	<form action="/movie/delete" method="post">
+		<input type="hidden" name="mov_num"
+			value="<c:out value="${movie.mov_num}" />">
+		<button type="submit">삭제하기</button>
+	</form>
+
+	<hr />
+
 	<table width="100%">
 		<thead>
 			<tr>
@@ -79,9 +89,12 @@
 
 	<!-- 자바스크립트로 모달창을 이용해서 배우상세정보 보기 페이지 -->
 
-	<a href="/movie/list"><button>뒤로 돌아가기</button></a>
-
 	<hr />
+
+	<div>
+		<a href="/review/insert/<c:out value="${movie.mov_num}" />"><button
+				type="submit">리뷰등록하기</button></a>
+	</div>
 
 	<table width="100%">
 		<thead>
@@ -94,6 +107,8 @@
 				<th>영화번호</th>
 				<th>작성자</th>
 				<th>평점</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -112,11 +127,26 @@
 							<td><c:out value="${review.mov_rev_content}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${review.mov_rev_regdate}" /></td>
-							<td><button id="review_good"  name="review_good" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_good}" /></button>
-							<button id="review_bad" name="review_bad" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_bad}" /></button></td>
+							<td><button id="review_good" name="review_good"
+									data-idx="<c:out value="${review.mov_rev_num}" />">
+									<c:out value="${review.mov_rev_good}" />
+								</button>
+								<button id="review_bad" name="review_bad"
+									data-idx="<c:out value="${review.mov_rev_num}" />">
+									<c:out value="${review.mov_rev_bad}" />
+								</button></td>
 							<td><c:out value="${review.mov_num}" /></td>
 							<td><c:out value="${review.mem_num}" /></td>
 							<td><c:out value="${review.mov_sco_point}" /></td>
+							<td><a
+								href="/review/modify/<c:out value="${review.mov_num}" />/<c:out value="${review.mov_rev_num}" />"><button>수정하기</button></a></td>
+							<td><form action="/review/delete" method="post">
+									<input type="hidden" name="mov_rev_num"
+										value="<c:out value="${review.mov_rev_num}" />"> 
+									<input type="hidden" name="mov_num"
+										value="<c:out value="${review.mov_num}" />">
+									<button type="submit">삭제하기</button>
+								</form></td>
 						</tr>
 						<br />
 
@@ -128,62 +158,79 @@
 		</tbody>
 	</table>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	$("button[name='review_good']").on("click", function(e){
-		
-		var mov_rev_num = $(this).data("idx");
-		var good = $(this);
-		var bad = $(this).next('button');
-		
-		var data = {
-				mov_rev_num: mov_rev_num,
-				mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
-			};
-			$.ajax({
-				type: "POST",
-				url: "/review/good",
-				data: JSON.stringify(data), // http body 데이터
-				contentType: "application/json; charset=utf-8",  // body 데이터가 어떤 타입인지(mine)
-				dataType: "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-			}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-				good.html(response.good);
-				bad.html(response.bad);
-			}).fail(function(error) {
-				alert("올바른 경로가 아닙니다");
-			});
-		
-	});
-	
-	$("button[name='review_bad']").on("click", function(e){
-		
-		var mov_rev_num = $(this).data("idx");
-		var bad = $(this); 
-		var good = $(this).prev('button');;
-		
-		var data = {
-				mov_rev_num: mov_rev_num,
-				mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
-			};
-			$.ajax({
-				type: "POST",
-				url: "/review/bad",
-				data: JSON.stringify(data), // http body 데이터
-				contentType: "application/json; charset=utf-8",  // body 데이터가 어떤 타입인지(mine)
-				dataType: "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-			}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-				good.html(response.good);
-				bad.html(response.bad);
-			}).fail(function(error) {
-				alert("올바른 경로가 아닙니다");
-			});
-	});
-	
-});
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			var result = '<c:out value="${result}"/>';
 
+			checkModal(result);
 
-</script>
+			history.replaceState({}, null, null);
+
+			function checkModal(result) {
+
+				if (result === '' || history.state) {
+					return;
+				} else {
+					alert(result);
+				}
+				
+			}
+
+			$("button[name='review_good']").on("click", function(e) {
+
+				var mov_rev_num = $(this).data("idx");
+				var good = $(this);
+				var bad = $(this).next('button');
+
+				var data = {
+					mov_rev_num : mov_rev_num,
+					mem_num : 1
+				// ## 로그인 처리하면 고정값 수정필요 ##
+				};
+				$.ajax({
+					type : "POST",
+					url : "/review/good",
+					data : JSON.stringify(data), // http body 데이터
+					contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+					dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+				}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+					good.html(response.good);
+					bad.html(response.bad);
+				}).fail(function(error) {
+					alert("올바른 경로가 아닙니다");
+				});
+
+			});
+
+			$("button[name='review_bad']").on("click", function(e) {
+
+				var mov_rev_num = $(this).data("idx");
+				var bad = $(this);
+				var good = $(this).prev('button');
+				;
+
+				var data = {
+					mov_rev_num : mov_rev_num,
+					mem_num : 1
+				// ## 로그인 처리하면 고정값 수정필요 ##
+				};
+				$.ajax({
+					type : "POST",
+					url : "/review/bad",
+					data : JSON.stringify(data), // http body 데이터
+					contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+					dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+				}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+					good.html(response.good);
+					bad.html(response.bad);
+				}).fail(function(error) {
+					alert("올바른 경로가 아닙니다");
+				});
+			});
+
+		});
+	</script>
 
 </body>
 </html>

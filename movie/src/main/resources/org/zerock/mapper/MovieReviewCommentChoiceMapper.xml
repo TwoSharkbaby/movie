@@ -48,6 +48,13 @@
 		update movie_review_comment_choice set mov_rev_com_cho_which =#{mov_rev_com_cho_which} where mov_rev_com_cho_num=#{mov_rev_com_cho_num}
 		]]>
 	</update>
+	
+	<delete id="deleteReviewCommentChoices">
+		<![CDATA[
+		DELETE FROM movie_review_comment_choice 
+		WHERE mov_rev_com_num = #{mov_rev_com_num}
+		]]>
+	</delete>
 
 	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
 		where bno=#{bno} ]]> </update> -->

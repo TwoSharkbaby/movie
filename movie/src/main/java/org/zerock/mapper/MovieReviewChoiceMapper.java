@@ -18,5 +18,7 @@ public interface MovieReviewChoiceMapper {
 	
 	public void update(MovieReviewChoiceVO movieReviewChoiceVO);
 	
+	public void deleteReviewChoices(Long mov_num);
+	
 	
 }

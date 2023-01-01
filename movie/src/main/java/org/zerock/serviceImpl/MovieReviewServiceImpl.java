@@ -8,7 +8,10 @@ import org.zerock.domain.ChoiceVO;
 import org.zerock.domain.MovieReviewChoiceVO;
 import org.zerock.domain.MovieReviewVO;
 import org.zerock.mapper.MovieReviewChoiceMapper;
+import org.zerock.mapper.MovieReviewCommentChoiceMapper;
+import org.zerock.mapper.MovieReviewCommentMapper;
 import org.zerock.mapper.MovieReviewMapper;
+import org.zerock.mapper.MovieScoreMapper;
 import org.zerock.service.MovieReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,29 +23,52 @@ import lombok.extern.log4j.Log4j;
 public class MovieReviewServiceImpl implements MovieReviewService {
 
 	private final MovieReviewMapper movieReviewMapper;
+	private final MovieScoreMapper movieScoreMapper;
 	private final MovieReviewChoiceMapper movieReviewChoiceMapper;  
+	private final MovieReviewCommentMapper movieReviewCommentMapper;
+	private final MovieReviewCommentChoiceMapper movieReviewCommentChoiceMapper;
 
 //	@Override
 //	public List<MovieReviewVO> getList() {
 //		return movieReviewMapper.getList();
 //	}
-//
-//	@Override
-//	public MovieReviewVO read(Long mov_rev_num) {
-//		return movieReviewMapper.read(mov_rev_num);
-//	}
-//
-//	@Override
-//	public void insert(MovieReviewVO movieReviewVO) {
-//		movieReviewMapper.insert(movieReviewVO);
-//		
-//	}
-//
-//	@Override
-//	public int delete(Long mov_rev_num) {
-//		return movieReviewMapper.delete(mov_rev_num);
-//	}
 
+	@Transactional
+	@Override
+	public MovieReviewVO read(Long mov_rev_num) {
+		MovieReviewVO vo = movieReviewMapper.read(mov_rev_num);
+		vo.setMov_sco_point(movieScoreMapper.reviewRead(mov_rev_num));
+		return vo;
+	}
+	
+	@Transactional
+	@Override
+	public int insert(MovieReviewVO movieReviewVO) {
+		movieReviewMapper.insert(movieReviewVO);
+		movieReviewVO.setMov_rev_num(movieReviewVO.getMov_rev_num());
+		return movieScoreMapper.insert(movieReviewVO);
+	}
+
+	@Transactional
+	@Override
+	public int modify(MovieReviewVO movieReviewVO) {
+		movieReviewMapper.update(movieReviewVO);
+		return movieScoreMapper.update(movieReviewVO);
+	}
+
+	@Transactional
+	@Override
+	public int delete(Long mov_rev_num) {
+		movieReviewCommentMapper.findByReviewComment(mov_rev_num).forEach(commentNum -> {
+			movieReviewCommentChoiceMapper.deleteReviewCommentChoices(commentNum);
+			movieReviewCommentMapper.deleteReviewComments(commentNum);
+		});
+		movieReviewChoiceMapper.deleteReviewChoices(mov_rev_num);
+		movieScoreMapper.deleteScores(mov_rev_num);
+		return movieReviewMapper.delete(mov_rev_num);
+	}
+
+	@Transactional
 	@Override
 	public List<MovieReviewVO> movieReviewRead(Long mov_num) {
 		return movieReviewMapper.movieReviewRead(mov_num);
@@ -99,6 +125,5 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 			}
 		}
 	}
-	
 	
 }

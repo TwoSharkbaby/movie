@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieVO;
 import org.zerock.mapper.MovieMapper;
 
@@ -44,44 +45,51 @@ public class MovieMapperTests {
 		movieMapper.read(1L);
 		log.info("----------------------------------------------");
 	}
-
-//	@Test
-//	public void testInsert() {
-//		log.info("----------------------------------------------");
-//		MovieVO movieVO = MovieVO.builder().mov_title("고라").mov_director("kim").build();
-//		movieMapper.insert(movieVO);
-//		log.info("----------------------------------------------");
-//	}
-//
-//	@Test
-//	public void testDelete() {
-//		log.info("----------------------------------------------");
-//		movieMapper.delete(4L);
-//		log.info("----------------------------------------------");
-//	}
 	
-//	@Test
-//	public void testTotal() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?뀒?뒪?듃");
-//		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
-//	}
-//	
-//	@Test
-//	public void testGetListWithPaging() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?뀒?뒪?듃");
-//		boardMapper.getListWithPaging(cri);
-//	}
-//	@Test
-//	public void testUpdate() {
-//		BoardVO vo = BoardVO.builder().bno(3L).title("?궃?굹?궃").content("臾대굹?궃").writer("猷⑤씪?엫").build();
-//		int result = boardMapper.update(vo);
-//		log.info("===========================================================");
-//		log.info("count.............." + result);
-//		log.info("===========================================================");
-//	}
+	@Test
+	public void testGetTotalCount() {
+		Criteria cri = new Criteria();
+		cri.setType("TGD");
+		cri.setKeyword("1");
+		log.info(".........................Total:" + movieMapper.getTotalCount(cri));
+	}
+	
+	@Test
+	public void testGetListWithPaging() {
+		Criteria cri = new Criteria();
+		cri.setType("TGD");
+		cri.setKeyword("1");
+		log.info(".........................testGetListWithPaging:" + movieMapper.getListWithPaging(cri));
+	}
+	
+	@Test
+	public void testGetActorListWithPaging() {
+		Criteria cri = new Criteria();
+		cri.setKeyword("길동이");
+		log.info(".........................getActorListWithPaging:" + movieMapper.getActorListWithPaging(cri));
+	}
+
+	@Test
+	public void testInsert() {
+		log.info("----------------------------------------------");
+		MovieVO movieVO = MovieVO.builder().mov_title("고라").mov_director("kim").build();
+		movieMapper.insert(movieVO);
+		log.info("----------------------------------------------");
+	}
+
+	@Test
+	public void testDelete() {
+		log.info("----------------------------------------------");
+		movieMapper.delete(145L);
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testUpdate() {
+		log.info("===========================================================");
+		MovieVO vo = MovieVO.builder().mov_num(145L).mov_title("고라").mov_director("kim").build();
+		movieMapper.update(vo);
+		log.info("===========================================================");
+	}
 
 }

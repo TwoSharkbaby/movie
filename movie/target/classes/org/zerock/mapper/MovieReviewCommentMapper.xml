@@ -69,6 +69,18 @@
 		SELECT mov_rev_com_good AS good, mov_rev_com_bad AS bad FROM movie_review_comment WHERE mov_rev_com_num = #{mov_rev_com_num}
 		]]>
 	</select>
+	
+	<select id="findByReviewComment" resultType="long">
+		<![CDATA[
+		SELECT mov_rev_com_num FROM movie_review_comment WHERE mov_rev_num = #{mov_rev_num}
+		]]>
+	</select>
+	
+	<delete id="deleteReviewComments">
+		<![CDATA[
+		DELETE FROM movie_review_comment WHERE mov_rev_num=#{mov_rev_num}
+		]]>
+	</delete>
 
 	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
 		where bno=#{bno} ]]> </update> -->

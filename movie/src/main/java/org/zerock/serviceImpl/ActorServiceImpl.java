@@ -3,6 +3,7 @@ package org.zerock.serviceImpl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.ActorVO;
 import org.zerock.mapper.ActorMapper;
 import org.zerock.service.ActorService;
@@ -17,6 +18,7 @@ public class ActorServiceImpl implements ActorService {
 	
 	private final ActorMapper actorMapper;
 
+	@Transactional
 	@Override
 	public List<ActorVO> movieActorList(Long mov_num) {
 		return actorMapper.movieActorList(mov_num);

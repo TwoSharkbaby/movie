@@ -36,6 +36,12 @@
 		SELECT * FROM actor WHERE mov_num = #{mov_num}
 		]]>
 	</select>
+	
+	<delete id="deleteActors">
+		<![CDATA[
+		DELETE FROM actor WHERE mov_num=#{mov_num}
+		]]>
+	</delete>
 
 	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
 		where bno=#{bno} ]]> </update> -->

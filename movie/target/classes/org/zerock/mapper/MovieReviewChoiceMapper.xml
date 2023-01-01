@@ -43,6 +43,13 @@
 		update movie_review_choice set mov_rev_cho_which =#{mov_rev_cho_which} where mov_rev_cho_num=#{mov_rev_cho_num}
 		]]>
 	</update> 
+	
+	<delete id="deleteReviewChoices">
+		<![CDATA[
+		DELETE FROM movie_review_choice 
+		WHERE mov_rev_num = #{mov_rev_num}
+		]]>
+	</delete>
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

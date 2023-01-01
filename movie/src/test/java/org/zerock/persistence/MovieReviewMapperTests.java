@@ -33,15 +33,15 @@ public class MovieReviewMapperTests {
 //		movieReviewMapper.read(1L);
 //		log.info("----------------------------------------------");
 //	}
-//
-//	@Test
-//	public void testInsert() {
-//		log.info("----------------------------------------------");
-//		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
-//		movieReviewMapper.insert(movieReviewVO);
-//		log.info("----------------------------------------------");
-//	}
-//
+
+	@Test
+	public void testInsert() {
+		log.info("----------------------------------------------");
+		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
+		movieReviewMapper.insert(movieReviewVO);
+		log.info("----------------------------------------------");
+	}
+
 //	@Test
 //	public void testDelete() {
 //		log.info("----------------------------------------------");
@@ -74,6 +74,15 @@ public class MovieReviewMapperTests {
 	public void testCheckChoice() {
 		log.info("----------------------------------------------");
 		log.info(movieReviewMapper.checkChoice(1L));
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testFindByReview() {
+		log.info("----------------------------------------------");
+		movieReviewMapper.findByReview(1L).forEach(a -> {
+			log.info(a);
+		});
 		log.info("----------------------------------------------");
 	}
 	

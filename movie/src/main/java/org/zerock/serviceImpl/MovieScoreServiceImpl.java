@@ -3,6 +3,7 @@ package org.zerock.serviceImpl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.MovieScoreVO;
 import org.zerock.mapper.MovieScoreMapper;
 import org.zerock.service.MovieScoreService;
@@ -37,6 +38,7 @@ public class MovieScoreServiceImpl implements MovieScoreService{
 //		return movieScoreMapper.delete(mov_sco_num);
 //	}
 
+	@Transactional
 	@Override
 	public double score(Long mov_sco_num) {
 		return movieScoreMapper.score(mov_sco_num);

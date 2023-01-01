@@ -2,6 +2,7 @@ package org.zerock.mapper;
 
 import java.util.List;
 
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieVO;
 
 public interface MovieMapper {
@@ -20,17 +21,19 @@ public interface MovieMapper {
 	
 	public List<MovieVO> getLatestList();
 
-//	public List<MovieVO> getListWithPaging(Criteria cri);
-
 	public MovieVO read(Long mov_num);
+	
+	public List<MovieVO> getListWithPaging(Criteria cri);
+	
+	public List<MovieVO> getActorListWithPaging(Criteria cri);
+	
+	public int getTotalCount(Criteria cri);
 
-//	public void insert(MovieVO movieVO);
-//
-//	public int delete(Long mov_num);
+	public int insert(MovieVO movieVO);
 
-//	public int update(MovieVO movieVO);
-//
-//	public int getTotalCount(Criteria cri);
-//
+	public int delete(Long mov_num);
+	
+	public int update(MovieVO movieVO);
+
 //	public void updateReplyCnt(@Param("mov_num") Long mov_num, @Param("amount") int amount);
 }

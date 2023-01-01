@@ -25,6 +25,13 @@ public class MovieReviewCommentMapperTests {
 		log.info(movieReviewCommentMapper.checkChoice(1L));
 		log.info("----------------------------------------------");
 	}
+	
+	@Test
+	public void testFindByReviewComment() {
+		log.info("----------------------------------------------");
+		movieReviewCommentMapper.findByReviewComment(3L);
+		log.info("----------------------------------------------");
+	}
 
 //	@Test
 //	public void testGetList() {
