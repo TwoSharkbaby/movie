@@ -1,9 +1,12 @@
 package org.zerock.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.ChoiceVO;
 import org.zerock.domain.MovieReviewCommentChoiceVO;
+import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.mapper.MovieReviewCommentChoiceMapper;
 import org.zerock.mapper.MovieReviewCommentMapper;
 import org.zerock.service.MovieReviewCommentService;
@@ -69,6 +72,11 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 				return movieReviewCommentMapper.checkChoice(mov_rev_com_num);
 			}
 		}
+	}
+	
+	@Override
+	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
+		return movieReviewCommentMapper.getCommentList(mov_rev_num);
 	}
 
 //	@Override

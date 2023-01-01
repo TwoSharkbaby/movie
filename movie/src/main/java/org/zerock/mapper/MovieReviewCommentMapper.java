@@ -3,6 +3,7 @@ package org.zerock.mapper;
 import java.util.List;
 
 import org.zerock.domain.ChoiceVO;
+import org.zerock.domain.MovieReviewCommentVO;
 
 public interface MovieReviewCommentMapper {
 	
@@ -14,7 +15,7 @@ public interface MovieReviewCommentMapper {
 //
 //	public int delete(Long mov_rev_com_num);
 //	
-//	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num);
+	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num);
 	
 	public void goodUpdate(Long mov_rev_com_num);
 	

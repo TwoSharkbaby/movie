@@ -1,13 +1,19 @@
 package org.zerock.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.ChoiceVO;
 import org.zerock.domain.MovieReviewCommentChoiceVO;
+import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.service.MovieReviewCommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,11 +27,13 @@ public class MovieReviewCommentController {
 
 	private final MovieReviewCommentService movieReviewCommentService;
 
-//		@GetMapping(value = "/{mov_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
-//		MediaType.APPLICATION_XML_VALUE })
-//public ResponseEntity<List<MovieReviewVO>> getList(@PathVariable Long mov_num) {
-//	return new ResponseEntity<>(movieReviewService.movieReviewRead(mov_num), HttpStatus.OK);
-//}
+	@GetMapping(value = "/{mov_rev_num}",
+			produces = {MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE})
+	public ResponseEntity<List<MovieReviewCommentVO>> getList(@PathVariable("mov_rev_num") Long mov_rev_num) {
+		log.info(".................." + mov_rev_num);
+			return new ResponseEntity<>(movieReviewCommentService.getCommentList(mov_rev_num), HttpStatus.OK)
+					;}
 
 	@PostMapping(value = "/good", consumes = "application/json")
 	public ResponseEntity<ChoiceVO> goodUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
