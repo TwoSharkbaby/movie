@@ -10,9 +10,11 @@ public interface ActorMapper {
 	
 	public ActorVO read(Long act_num);
 
-//	public void insert(ActorVO actorVO);
-//
-//	public int delete(Long act_num);
+	public int insert(ActorVO actorVO);
+	
+	public int update(ActorVO actorVO);
+
+	public int delete(Long act_num);
 	
 	public List<ActorVO> movieActorList(Long mov_num);
 	

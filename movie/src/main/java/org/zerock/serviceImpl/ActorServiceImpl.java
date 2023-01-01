@@ -34,14 +34,19 @@ public class ActorServiceImpl implements ActorService {
 		return actorMapper.read(act_num);
 	}
 
-//	@Override
-//	public void insert(ActorVO actorVO) {
-//		actorMapper.insert(actorVO);
-//	}
-//
-//	@Override
-//	public int delete(Long act_num) {
-//		return actorMapper.delete(act_num);
-//	}
+	@Override
+	public int insert(ActorVO actorVO) {
+		return actorMapper.insert(actorVO);
+	}
+
+	@Override
+	public int modify(ActorVO actorVO) {
+		return actorMapper.update(actorVO);
+	}
+
+	@Override
+	public int delete(Long act_num) {
+		return actorMapper.delete(act_num);
+	}
 
 }

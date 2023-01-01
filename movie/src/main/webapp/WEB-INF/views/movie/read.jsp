@@ -65,12 +65,19 @@
 
 	<hr />
 
+	<div>
+		<a href="/actor/insert/<c:out value="${movie.mov_num}" />"><button
+				type="submit">배우등록하기</button></a>
+	</div>
+
 	<table width="100%">
 		<thead>
 			<tr>
 				<th>배우번호</th>
 				<th>배우이름</th>
 				<th>섬네일사진</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -93,6 +100,15 @@
 								</button>
 							</td>
 							<td><c:out value="${actor.act_thumb}" /></td>
+							<td><a
+								href="/actor/modify/<c:out value="${actor.act_num}" />"><button>수정하기</button></a></td>
+							<td><form action="/actor/delete" method="post">
+									<input type="hidden" name="act_num"
+										value="<c:out value="${actor.act_num}" />"> <input
+										type="hidden" name="mov_num"
+										value="<c:out value="${actor.mov_num}" />">
+									<button type="submit">삭제하기</button>
+								</form></td>
 						</tr>
 					</c:forEach>
 				</c:when>

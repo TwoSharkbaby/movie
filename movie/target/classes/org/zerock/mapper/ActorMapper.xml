@@ -24,6 +24,13 @@
 		VALUES (#{act_name},#{act_birth},#{act_sex},#{act_info},now(),#{act_img},#{act_thumb},#{mov_num})
 		]]>
 	</insert>
+	
+	<update id="update"> 
+		<![CDATA[ 
+		update actor set act_name=#{act_name}, act_birth=#{act_birth}, act_sex=#{act_sex},
+		act_info=#{act_info}, act_img=#{act_img}, act_thumb=#{act_thumb} where act_num=#{act_num} 
+		]]>
+	</update>
 
 	<delete id="delete">
 		<![CDATA[
@@ -31,20 +38,18 @@
 		]]>
 	</delete>
 
-	<select id="movieActorList" resultType="org.zerock.domain.ActorVO">
+	<select id="movieActorList"
+		resultType="org.zerock.domain.ActorVO">
 		<![CDATA[
 		SELECT * FROM actor WHERE mov_num = #{mov_num}
 		]]>
 	</select>
-	
+
 	<delete id="deleteActors">
 		<![CDATA[
 		DELETE FROM actor WHERE mov_num=#{mov_num}
 		]]>
 	</delete>
-
-	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
-		where bno=#{bno} ]]> </update> -->
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

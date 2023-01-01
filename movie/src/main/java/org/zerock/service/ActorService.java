@@ -10,12 +10,12 @@ public interface ActorService {
 	
 	public ActorVO read(Long act_num);
 
-//	public void insert(ActorVO actorVO);
-//
-//	public int delete(Long act_num);
+	public int insert(ActorVO actorVO);
 	
-//	public boolean modify(ActorVO vo);
-//	
+	public int modify(ActorVO actorVO);
+
+	public int delete(Long act_num);	
+	
 //	public int getTotal(Criteria cri);
 	
 	public List<ActorVO> movieActorList(Long mov_num);
