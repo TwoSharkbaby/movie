@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.StringUtils;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieVO;
 import org.zerock.mapper.MovieMapper;
@@ -89,6 +90,21 @@ public class MovieMapperTests {
 		log.info("===========================================================");
 		MovieVO vo = MovieVO.builder().mov_num(145L).mov_title("°í¶ó").mov_director("kim").build();
 		movieMapper.update(vo);
+		log.info("===========================================================");
+	}
+	
+	@Test
+	public void test() {
+		log.info("===========================================================");
+		
+		String text = "2023\01\02/eea923af-6466-43db-8bc0-afd4c7f8e9a1_what.jpg";
+		int index = text.indexOf("/");
+		String uuName = text.substring(index+1);
+		String name = uuName.substring(uuName.lastIndexOf("_")+1);
+		log.info("name = " + name);
+		log.info("uuName = " + uuName);
+
+		
 		log.info("===========================================================");
 	}
 
