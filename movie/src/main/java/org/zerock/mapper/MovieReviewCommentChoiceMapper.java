@@ -20,4 +20,6 @@ public interface MovieReviewCommentChoiceMapper {
 	
 	public void update(MovieReviewCommentChoiceVO movieReviewCommentChoiceVO);
 	
+	public void deleteReviewCommentChoices(Long mov_rev_com_num);
+	
 }

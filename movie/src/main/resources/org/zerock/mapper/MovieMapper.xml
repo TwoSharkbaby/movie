@@ -11,18 +11,69 @@
 		]]>
 	</select>
 
+	<select id="getActionList"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_genre = '액션' ORDER BY mov_release DESC LIMIT 15
+		]]>
+	</select>
+
+	<select id="getFantasyList"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_genre = '판타지' ORDER BY mov_release DESC LIMIT 15
+		]]>
+	</select>
+
+	<select id="getHorrorList"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_genre = '공포' ORDER BY mov_release DESC LIMIT 15
+		]]>
+	</select>
+
+	<select id="getRomanceList"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_genre = '로맨스' ORDER BY mov_release DESC LIMIT 15
+		]]>
+	</select>
+
+	<select id="getComedyList"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_genre = '코미디' ORDER BY mov_release DESC LIMIT 15
+		]]>
+	</select>
+
+	<select id="getLatestList"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie ORDER BY mov_release DESC LIMIT 15
+		]]>
+	</select>
+
 	<select id="read" resultType="org.zerock.domain.MovieVO">
 		<![CDATA[
 		SELECT * FROM movie WHERE mov_num = #{mov_num}
 		]]>
 	</select>
 
-	<insert id="insert" keyProperty="mov_num" useGeneratedKeys="true">
+	<insert id="insert" keyProperty="mov_num"
+		useGeneratedKeys="true">
 		<![CDATA[
 		INSERT INTO movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 		VALUES (#{mov_title},#{mov_director},#{mov_genre},#{mov_synopsis},#{mov_release},#{mov_runtime},now(),#{mov_img},#{mov_thumb})
 		]]>
 	</insert>
+
+	<update id="update"> 
+		<![CDATA[ 
+		update movie set mov_title =#{mov_title},mov_director=#{mov_director},mov_genre=#{mov_genre},mov_synopsis=#{mov_synopsis},
+		mov_release=#{mov_release},mov_runtime=#{mov_runtime},mov_img=#{mov_img},mov_thumb=#{mov_thumb}
+		where mov_num=#{mov_num} 
+		]]>
+	</update>
 
 	<delete id="delete">
 		<![CDATA[
@@ -30,32 +81,65 @@
 		]]>
 	</delete>
 
-<!-- 	<update id="update">
+	<sql id="criteria">
+		<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							<![CDATA[
+							mov_title like CONCAT('%', #{keyword}, '%')
+							]]>
+						</when>
+						<when test="type == 'G'.toString()">
+							<![CDATA[
+							mov_genre like CONCAT('%', #{keyword}, '%')
+							]]>
+						</when>
+						<when test="type == 'D'.toString()">
+							<![CDATA[
+							mov_director like CONCAT('%', #{keyword}, '%')
+							]]>
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<select id="getTotalCount" resultType="int">
 		<![CDATA[
-		update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() where bno=#{bno}
+		SELECT count(*) FROM movie WHERE mov_num > 0
 		]]>
-	</update> -->
+		<include refid="criteria" />
+	</select>
 
-	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
-		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 
-		test="type == 'T'.toString()"> title like CONCAT('%', #{keyword}, '%') </when> 
-		<when test="type == 'C'.toString()"> content like CONCAT('%', #{keyword}, 
-		'%') </when> <when test="type == 'W'.toString()"> writer like CONCAT('%', 
-		#{keyword}, '%') </when> </choose> </trim> </foreach> </trim> </sql> -->
+	<select id="getListWithPaging"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_num > 0
+		]]>
+		<include refid="criteria" />
+		<![CDATA[
+		ORDER BY mov_num DESC
+		LIMIT #{pageStart}, #{amount}
+		]]>
+	</select>
 
-	<!-- <select id="getTotalCount" resultType="int"> <![CDATA[ SELECT count(*) 
-		FROM tbl_board WHERE bno > 0 ]]> <include refid="criteria" /> </select> -->
-
-	<!-- <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO"> 
-		<![CDATA[ SELECT * FROM tbl_board WHERE bno > 0 ]]> <include refid="criteria" 
-		/> ORDER BY bno DESC LIMIT #{pageStart}, #{amount} </select> -->
+	<select id="getActorListWithPaging"
+		resultType="org.zerock.domain.MovieVO">
+		<![CDATA[
+		SELECT * FROM movie WHERE mov_num IN (
+		SELECT mov_num FROM actor WHERE act_name = #{keyword})
+		ORDER BY mov_num DESC
+		LIMIT #{pageStart}, #{amount}
+		]]>
+	</select>
 
 	<!-- <insert id="insertSelectKey"> <selectKey order="BEFORE" keyProperty="bno" 
 		resultType="Long"> <![CDATA[ select MAX(bno)+1 from tbl_board ]]> </selectKey> 
 		<![CDATA[ insert into tbl_board(bno, title, content, writer) values (#{bno},#{title},#{content},#{writer}) 
 		]]> </insert> -->
-
-
 
 	<!-- <update id="updateReplyCnt"> UPDATE tbl_board SET replycnt=replycnt+#{amount} 
 		WHERE bno=#{bno} </update> -->

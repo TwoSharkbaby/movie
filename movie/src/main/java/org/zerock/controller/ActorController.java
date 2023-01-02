@@ -1,7 +1,13 @@
 package org.zerock.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.ActorVO;
 import org.zerock.service.ActorService;
 
 import lombok.RequiredArgsConstructor;
@@ -13,53 +19,49 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 public class ActorController {
 
-	private final ActorService service;
+	private final ActorService actorService;
 	
-//	@GetMapping("/list")
-//	public void list(Criteria cri, Model model) {
-//		log.info("list......" + cri);
-//		model.addAttribute("list", service.getList(cri));
-//		model.addAttribute("pageMaker", 
-//		new PageDTO(cri, service.getTotal(cri)));
-//	}
+	@GetMapping("/insert/{mov_num}")
+	public String insert(@PathVariable Long mov_num, Model model) {
+		model.addAttribute("mov_num", mov_num);
+		return "actor/insert";
+	}
 
+	@GetMapping("/modify/{act_num}")
+	public String modify(@PathVariable Long act_num, Model model) {
+		model.addAttribute("actor", actorService.read(act_num));
+		return "actor/modify";
+	}
 
-//	@GetMapping({"/get", "/modify"})
-//	public void get(@RequestParam("act_num") Long act_num, @ModelAttribute("cri") Criteria cri, Model model) {
-//		log.info(act_num);
-//		model.addAttribute("actor", service.get(act_num));
-//	}
-//	
-//	@PostMapping("/modify")
-//	public String modify(ActorVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes rtts) {
-//		log.info("modify...............................");
-//		if(service.modify(vo)) {
-//			rtts.addFlashAttribute("result", "success");
-//		}
-//		
-//		return "redirect:/actor/list" + cri.getListLink();	}
-//
-//	@PostMapping("/register")
-//	public String register(ActorVO vo, RedirectAttributes rtts) {
-//		log.info("register : " + vo);
-//		rtts.addFlashAttribute("result", vo.getAct_num());
-//		return "redirect:/actor/list";
-//	}
-//	
-//	@GetMapping("/register")
-//	public void register() {
-//		
-//	}
-//	
-//	@PostMapping("remove")
-//	public String remove(@RequestParam("act_num") Long act_num, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
-//		
-//		log.info("remove....................");
-//		if(service.remove(act_num)) {
-//			rttr.addFlashAttribute("result", "success");
-//		}
-//		return "redirect:/actor/list";
-//	}
+	@PostMapping("/insert") 
+	public String insert(ActorVO vo, RedirectAttributes rtts) {
+		if (actorService.insert(vo) == 1) {
+			rtts.addFlashAttribute("result", "success");
+		} else {
+			rtts.addFlashAttribute("result", "failure");
+		}
+		return "redirect:/movie/read/" + vo.getMov_num();
+	}
+
+	@PostMapping("/modify")
+	public String modify(ActorVO vo, RedirectAttributes rtts) {
+		if (actorService.modify(vo) == 1) {
+			rtts.addFlashAttribute("result", "success");
+		} else {
+			rtts.addFlashAttribute("result", "failure");
+		}
+		return "redirect:/movie/read/" + vo.getMov_num();
+	}
+
+	@PostMapping("/delete")
+	public String delete(Long act_num, Long mov_num, RedirectAttributes rtts) {
+		if (actorService.delete(act_num) == 1) {
+			rtts.addFlashAttribute("result", "success");
+		} else {
+			rtts.addFlashAttribute("result", "failure");
+		}
+		return "redirect:/movie/read/" + mov_num;
+	}
 	
 	
 }

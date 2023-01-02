@@ -23,8 +23,14 @@ public class MovieServiceTests {
 		log.info("----------------------------------------------");
 		movieService.getList().forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
-
 	}
+	
+//	@Test
+//	public void testGenreList() {
+//		log.info("----------------------------------------------");
+//		movieService.getActionList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//	}
 
 	@Test
 	public void testRead() {

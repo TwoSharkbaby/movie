@@ -32,15 +32,15 @@ public class MovieReviewServiceTests {
 //		movieReviewService.read(1L);
 //		log.info("----------------------------------------------");
 //	}
-//
-//	@Test
-//	public void testInsert() {
-//		log.info("----------------------------------------------");
-//		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
-//		movieReviewService.insert(movieReviewVO);
-//		log.info("----------------------------------------------");
-//	}
-//
+
+	@Test
+	public void testInsert() {
+		log.info("----------------------------------------------");
+		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(25L).mem_num(1L).mov_sco_point(2.0).build();
+		movieReviewService.insert(movieReviewVO);
+		log.info("----------------------------------------------");
+	}
+
 //	@Test
 //	public void testDelete() {
 //		log.info("----------------------------------------------");

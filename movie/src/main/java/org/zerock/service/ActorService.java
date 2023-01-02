@@ -7,15 +7,15 @@ import org.zerock.domain.ActorVO;
 public interface ActorService {
 
 //	public List<ActorVO> getList();
-//	
-//	public ActorVO read(Long act_num);
-//
-//	public void insert(ActorVO actorVO);
-//
-//	public int delete(Long act_num);
 	
-//	public boolean modify(ActorVO vo);
-//	
+	public ActorVO read(Long act_num);
+
+	public int insert(ActorVO actorVO);
+	
+	public int modify(ActorVO actorVO);
+
+	public int delete(Long act_num);	
+	
 //	public int getTotal(Criteria cri);
 	
 	public List<ActorVO> movieActorList(Long mov_num);
