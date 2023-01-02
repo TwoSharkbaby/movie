@@ -80,8 +80,8 @@
 									value="${movie.mov_runtime}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${movie.mov_regdate}" /></td>
-							<td><img src="<c:out value="${movie.mov_img}" />"></td>
-							<td><img src="<c:out value="${movie.mov_thumb}" />"></td>
+							<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
+							<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 							<td><c:out value="${movie.mov_sco_point}" /></td>
 						</tr>
 					</c:forEach>

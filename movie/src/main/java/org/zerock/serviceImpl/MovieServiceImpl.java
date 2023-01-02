@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.AttachFileDTO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieVO;
 import org.zerock.mapper.ActorMapper;
@@ -121,6 +122,12 @@ public class MovieServiceImpl implements MovieService {
 	@Transactional
 	@Override
 	public int insert(MovieVO movieVO) {
+		String img = movieVO.getMov_img();
+		String thumb = movieVO.getMov_thumb();
+		img.replace("\\", "/");
+		movieVO.setMov_img(img);
+		thumb.replace("\\", "/");
+		movieVO.setMov_thumb(thumb);
 		return movieMapper.insert(movieVO);
 	}
 
@@ -138,6 +145,15 @@ public class MovieServiceImpl implements MovieService {
 		movieReviewMapper.deleteReviews(mov_num);
 		actorMapper.deleteActors(mov_num);
 		return movieMapper.delete(mov_num);
+	}
+
+	@Override
+	public AttachFileDTO readAttachFileDTO(Long mov_num) {
+		MovieVO movieVO = movieMapper.read(mov_num);
+		String thumb = movieVO.getMov_thumb();
+		//thumb.split(thumb)
+		AttachFileDTO dto = AttachFileDTO.builder().fileName(null).uploadPath(null).uuid(null).image(false).build();
+		return dto;
 	}
 
 }

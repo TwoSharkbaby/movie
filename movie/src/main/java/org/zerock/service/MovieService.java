@@ -2,6 +2,7 @@ package org.zerock.service;
 
 import java.util.List;
 
+import org.zerock.domain.AttachFileDTO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieVO;
 
@@ -32,5 +33,7 @@ public interface MovieService {
 	public int delete(Long mov_num);
 	
 	public int modify(MovieVO movieVO);
+	
+	public AttachFileDTO readAttachFileDTO(Long mov_num);
 	
 }
