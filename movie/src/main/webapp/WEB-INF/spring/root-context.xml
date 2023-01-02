@@ -20,7 +20,7 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:mysql://127.0.0.1:3306/movie?useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Seoul"></property>
+			value="jdbc:log4jdbc:mysql://127.0.0.1:3305/movie?useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Seoul"></property>
 		<property name="username" value="movie"></property>
 		<property name="password" value="qwer1234!@#$"></property>
 	</bean>

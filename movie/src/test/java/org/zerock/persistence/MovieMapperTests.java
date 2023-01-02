@@ -92,20 +92,5 @@ public class MovieMapperTests {
 		movieMapper.update(vo);
 		log.info("===========================================================");
 	}
-	
-	@Test
-	public void test() {
-		log.info("===========================================================");
-		
-		String text = "2023\01\02/eea923af-6466-43db-8bc0-afd4c7f8e9a1_what.jpg";
-		int index = text.indexOf("/");
-		String uuName = text.substring(index+1);
-		String name = uuName.substring(uuName.lastIndexOf("_")+1);
-		log.info("name = " + name);
-		log.info("uuName = " + uuName);
-
-		
-		log.info("===========================================================");
-	}
 
 }

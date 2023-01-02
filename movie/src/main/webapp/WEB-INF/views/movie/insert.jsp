@@ -119,7 +119,7 @@ $(document).ready(function(e){
 		        str += "<img src='/display?fileName="+fileCallPath+"'>";
 		        str += "</div>";
 		        str + "</li>";
-		        $("input[name='mov_thumb']").val(obj.uploadPath+"/"+obj.uuid +"_"+obj.fileName);
+		        $("input[name='mov_thumb']").val(obj.uploadPath+"/s_"+obj.uuid +"_"+obj.fileName);
 			}else{
 				var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);            
 	            var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
