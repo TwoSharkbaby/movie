@@ -46,5 +46,19 @@ public class MovieReviewCommentController {
 		ChoiceVO vo = movieReviewCommentService.badUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(), movieReviewCommentChoiceVO.getMem_num());
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/new",
+	consumes = "application/json",
+	produces = { MediaType.TEXT_PLAIN_VALUE})
+public ResponseEntity<String> create(@RequestBody MovieReviewCommentVO vo){
+
+log.info("comment" + vo);
+
+int insertCount = movieReviewCommentService.insert(vo);
+
+return (insertCount == 1)
+		? new ResponseEntity<>("success", HttpStatus.OK)
+		: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+}
 
 }

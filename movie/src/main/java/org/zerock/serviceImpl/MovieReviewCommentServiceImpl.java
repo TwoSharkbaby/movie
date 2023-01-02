@@ -84,25 +84,33 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 //		return movieReviewCommentMapper.getList();
 //	}
 //
-//	@Override
-//	public MovieReviewCommentVO read(Long mov_rev_com_num) {
-//		return movieReviewCommentMapper.read(mov_rev_com_num);
-//	}
-//
-//	@Override
-//	public void insert(MovieReviewCommentVO movieReviewCommentVO) {
-//		movieReviewCommentMapper.insert(movieReviewCommentVO);
-//		
-//	}
-//
-//	@Override
-//	public int delete(Long mov_rev_com_num) {
-//		return movieReviewCommentMapper.delete(mov_rev_com_num);
-//	}
+	@Override
+	public MovieReviewCommentVO read(Long mov_rev_com_num) {
+		return movieReviewCommentMapper.read(mov_rev_com_num);
+	}
+
+	@Override
+	public int insert(MovieReviewCommentVO movieReviewCommentVO) {
+	
+		return movieReviewCommentMapper.insert(movieReviewCommentVO);
+		
+	}
+
+	@Override
+	public int delete(Long mov_rev_com_num) {
+		return movieReviewCommentMapper.delete(mov_rev_com_num);
+	}
 //
 //	@Override
 //	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
 //		return movieReviewCommentMapper.getCommentList(mov_rev_num);
 //	}
+	
+	
+
+
+
+	
+	
 
 }

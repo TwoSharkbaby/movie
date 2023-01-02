@@ -47,14 +47,15 @@ public class MovieReviewCommentMapperTests {
 //		log.info("----------------------------------------------");
 //	}
 //
-//	@Test
-//	public void testInsert() {
-//		log.info("----------------------------------------------");
-//		MovieReviewCommentVO movieReviewCommentVO = 
-//				MovieReviewCommentVO.builder().mov_rev_com_content("¤¶¤·¤¸").mem_num(3L).mov_rev_num(1L).build();
-//		movieReviewCommentMapper.insert(movieReviewCommentVO);
-//		log.info("----------------------------------------------");
-//	}
+	@Test
+	public void testInsert() {
+		log.info("----------------------------------------------");
+		MovieReviewCommentVO movieReviewCommentVO = 
+				MovieReviewCommentVO.builder().mov_rev_com_content("ìš°ì™•êµ³3").mem_num(1L).mov_rev_num(1L).build();
+		movieReviewCommentMapper.insert(movieReviewCommentVO);
+		log.info("----------------------------------------------");
+	}
+
 //
 //	@Test
 //	public void testDelete() {
@@ -74,7 +75,7 @@ public class MovieReviewCommentMapperTests {
 //	public void testTotal() {
 //		Criteria cri = new Criteria();
 //		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
+//		cri.setKeyword("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½");
 //		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
 //	}
 //	
@@ -82,12 +83,12 @@ public class MovieReviewCommentMapperTests {
 //	public void testGetListWithPaging() {
 //		Criteria cri = new Criteria();
 //		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
+//		cri.setKeyword("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½");
 //		boardMapper.getListWithPaging(cri);
 //	}
 //	@Test
 //	public void testUpdate() {
-//		BoardVO vo = BoardVO.builder().bno(3L).title("?‚œ?‚˜?‚œ").content("ë¬´ë‚˜?‚œ").writer("ë£¨ë¼?„").build();
+//		BoardVO vo = BoardVO.builder().bno(3L).title("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½").content("ë¬´ë‚˜?ï¿½ï¿½").writer("ë£¨ë¼?ï¿½ï¿½").build();
 //		int result = boardMapper.update(vo);
 //		log.info("===========================================================");
 //		log.info("count.............." + result);

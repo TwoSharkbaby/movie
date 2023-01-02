@@ -9,11 +9,11 @@ public interface MovieReviewCommentService {
 
 //	public List<MovieReviewCommentVO> getList();
 //	
-//	public MovieReviewCommentVO read(Long mov_rev_com_num);
+	public MovieReviewCommentVO read(Long mov_rev_com_num);
 //
-//	public void insert(MovieReviewCommentVO movieReviewCommentVO);
+	public int insert(MovieReviewCommentVO movieReviewCommentVO);
 //
-//	public int delete(Long mov_rev_com_num);
+	public int delete(Long mov_rev_com_num);
 //	
 	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num);
 	

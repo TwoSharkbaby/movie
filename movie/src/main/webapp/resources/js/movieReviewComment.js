@@ -5,7 +5,7 @@ var movieReviewCommentService = (function() {
      console.log("add comment.......");
      $.ajax({
        type: 'post',
-      url: '/mov_rev_num/new', // URI
+      url: '/comment/new', // URI
       data: JSON.stringify(comment), // { "reply":"JS TEST", "replyer" : "tester","bno" : 1572827 }
       contentType : "application/json; charset=utf-8", 
       success : function(result, status, xhr){
@@ -24,7 +24,7 @@ var movieReviewCommentService = (function() {
   function getList(param, callback, error){
       var mov_rev_num = param.mov_rev_num;
       $.getJSON( 
-          "/mov_rev_num/"+mov_rev_num+".json",
+          "/comment/"+mov_rev_num+".json",
           function(data){ // ReplyPageDTO
             if(callback){
               callback(data);
