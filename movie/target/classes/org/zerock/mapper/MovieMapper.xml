@@ -135,6 +135,13 @@
 		LIMIT #{pageStart}, #{amount}
 		]]>
 	</select>
+	
+	<select id="readAttachFileDTO"
+		resultType="String">
+		<![CDATA[
+		SELECT mov_thumb FROM movie WHERE mov_num = #{mov_num}
+		]]>
+	</select>
 
 	<!-- <insert id="insertSelectKey"> <selectKey order="BEFORE" keyProperty="bno" 
 		resultType="Long"> <![CDATA[ select MAX(bno)+1 from tbl_board ]]> </selectKey> 

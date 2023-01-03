@@ -92,5 +92,12 @@ public class MovieMapperTests {
 		movieMapper.update(vo);
 		log.info("===========================================================");
 	}
+	
+	@Test
+	public void testReadAttachFileDTO() {
+		log.info("----------------------------------------------");
+		movieMapper.readAttachFileDTO(16L);
+		log.info("----------------------------------------------");
+	}
 
 }

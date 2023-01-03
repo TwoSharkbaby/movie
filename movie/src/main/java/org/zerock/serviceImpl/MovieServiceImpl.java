@@ -149,10 +149,13 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public AttachFileDTO readAttachFileDTO(Long mov_num) {
-		MovieVO movieVO = movieMapper.read(mov_num);
-		String thumb = movieVO.getMov_thumb();
-		//thumb.split(thumb)
-		AttachFileDTO dto = AttachFileDTO.builder().fileName(null).uploadPath(null).uuid(null).image(false).build();
+		String thumb = movieMapper.readAttachFileDTO(mov_num);
+		thumb.replace("/", "\\");
+		String path = thumb.substring(0, 10);
+		String uuName = thumb.substring(thumb.lastIndexOf("s_")+2);
+		String name = uuName.substring(uuName.lastIndexOf("_")+1);
+		String uu = uuName.replace("_"+name, "");
+		AttachFileDTO dto = AttachFileDTO.builder().fileName(name).uploadPath(path).uuid(uu).image(false).build();
 		return dto;
 	}
 

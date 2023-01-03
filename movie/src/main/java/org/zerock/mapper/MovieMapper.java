@@ -34,6 +34,8 @@ public interface MovieMapper {
 	public int delete(Long mov_num);
 	
 	public int update(MovieVO movieVO);
+	
+	public String readAttachFileDTO(Long mov_num);
 
 //	public void updateReplyCnt(@Param("mov_num") Long mov_num, @Param("amount") int amount);
 }

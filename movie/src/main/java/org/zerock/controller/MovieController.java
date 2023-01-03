@@ -89,7 +89,7 @@ public class MovieController {
 		} else {
 			rtts.addFlashAttribute("result", "failure");
 		}
-		return "redirect:/movie/list";
+		return "redirect:/movie/read/" + vo.getMov_num() ;
 	}
 
 	@PostMapping("/delete")

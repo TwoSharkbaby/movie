@@ -38,6 +38,13 @@ public class MovieServiceTests {
 		movieService.read(1L);
 		log.info("----------------------------------------------");
 	}
+	
+	@Test
+	public void testReadAttachFileDTO() {
+		log.info("----------------------------------------------");
+		log.info(movieService.readAttachFileDTO(16L));
+		log.info("----------------------------------------------");
+	}
 
 //	@Test
 //	public void testInsert() {
