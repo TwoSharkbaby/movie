@@ -67,6 +67,10 @@ values('tjgustlr', '1234', '서현식', '파덕후', 'tjgustlr@naver.com', '0100
 insert into member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
 values('tjwnsdud', '1234', '서준영', '라파덕후', 'tjwnsdud@naver.com', '01000000000', now());
 
+insert into auth values(1, "ROLE_ADMIN");
+insert into auth values(2, "ROLE_USER");
+insert into auth values(3, "ROLE_USER");
+
 insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
 values("핵노잼", "돈이아깝습니다", now(), 3, 0, 1, 1);
 insert into movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
