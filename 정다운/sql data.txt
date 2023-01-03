@@ -5,19 +5,11 @@ values('액션2', '액션2', '액션', '액션영화입니다', '2022-12-22', '0
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('액션3', '액션3', '액션', '액션영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('액션4', '액션4', '액션', '액션영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('액션5', '액션5', '액션', '액션영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('판타지1', '판타지1', '판타지', '판타지영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('판타지2', '판타지2', '판타지', '판타지영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('판타지3', '판타지3', '판타지', '판타지영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('판타지4', '판타지4', '판타지', '판타지영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('판타지5', '판타지5', '판타지', '판타지영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('공포1', '공포1', '공포', '공포영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
@@ -25,29 +17,17 @@ values('공포2', '공포2', '공포', '공포영화입니다', '2022-12-22', '0
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('공포3', '공포3', '공포', '공포영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('공포4', '공포4', '공포', '공포영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('공포5', '공포5', '공포', '공포영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('로맨스1', '로맨스1', '로맨스', '로맨스영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('로맨스2', '로맨스2', '로맨스', '로맨스영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('로맨스3', '로맨스3', '로맨스', '로맨스영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('로맨스4', '로맨스4', '로맨스', '로맨스영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('로맨스5', '로맨스5', '로맨스', '로맨스영화입니다', '2022-12-22', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('코미디1', '코미디1', '코미디', '코미디영화입니다', '2022-12-28', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('코미디2', '코미디2', '코미디', '코미디영화입니다', '2022-12-28', '02:30:12',  now(), null, null); 
 insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
 values('코미디3', '코미디3', '코미디', '코미디영화입니다', '2022-12-28', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디4', '코미디4', '코미디', '코미디영화입니다', '2022-12-28', '02:30:12',  now(), null, null); 
-insert into movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-values('코미디5', '코미디5', '코미디', '코미디영화입니다', '2022-12-28', '02:30:12',  now(), null, null); 
 
 insert into actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num)
 values('서현식', '1994-03-27', '남성', '잘생겼다', now(), null, null, 1); 
