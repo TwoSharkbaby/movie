@@ -4,6 +4,8 @@ CREATE TABLE actor ( act_num bigint NOT NULL AUTO_INCREMENT, act_name varchar(50
 
 CREATE TABLE member ( mem_num bigint NOT NULL AUTO_INCREMENT, mem_id varchar(50) NOT NULL, mem_pw varchar(100) NOT NULL, mem_name varchar(50) NOT NULL, mem_nickname varchar(50) NOT NULL, mem_email varchar(50) DEFAULT NULL, mem_contact varchar(15) DEFAULT NULL, mem_regdate datetime DEFAULT NULL, PRIMARY KEY (mem_num) );
 
+CREATE TABLE auth ( mem_num bigint NOT NULL, auth varchar(10) NOT NULL, KEY whic_mem_num_idx (mem_num), CONSTRAINT whic_mem_num FOREIGN KEY (mem_num) REFERENCES member (mem_num));
+
 CREATE TABLE movie_review ( mov_rev_num bigint NOT NULL AUTO_INCREMENT, mov_rev_title varchar(100) NOT NULL, mov_rev_content varchar(2000) DEFAULT NULL, mov_rev_regdate datetime DEFAULT NULL, mov_rev_good int DEFAULT NULL, mov_rev_bad int DEFAULT NULL, mov_num bigint NOT NULL, mem_num bigint NOT NULL, PRIMARY KEY (mov_rev_num), KEY which_mov_num (mov_num), KEY who_rev_num (mem_num), CONSTRAINT which_movi FOREIGN KEY (mov_num) REFERENCES movie (mov_num), CONSTRAINT who_rev FOREIGN KEY (mem_num) REFERENCES member (mem_num) ) ;
 
 CREATE TABLE movie_score ( mov_sco_num bigint NOT NULL AUTO_INCREMENT, mov_sco_point int NOT NULL, mov_num bigint NOT NULL, mov_rev_num bigint NOT NULL, PRIMARY KEY (mov_sco_num), KEY which_mov_idx (mov_num), KEY whic_rev_idx (mov_rev_num), CONSTRAINT whic_rev FOREIGN KEY (mov_rev_num) REFERENCES movie_review (mov_rev_num), CONSTRAINT which_mov FOREIGN KEY (mov_num) REFERENCES movie (mov_num));
