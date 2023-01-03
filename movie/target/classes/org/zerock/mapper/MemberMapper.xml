@@ -11,13 +11,33 @@
 		]]>
 	</select>
 
-	<select id="read" resultType="org.zerock.domain.MemberVO">
+	<resultMap type="org.zerock.domain.MemberVO" id="memberMap">
+		<id property="mem_num" column="mem_num" />
+		<result property="mem_id" column="mem_id" />
+		<result property="mem_pw" column="mem_pw" />
+		<result property="mem_name" column="mem_name" />
+		<result property="mem_nickname" column="mem_nickname" />
+		<result property="mem_email" column="mem_email" />
+		<result property="mem_contact" column="mem_contact" />
+		<result property="mem_regdate" column="mem_regdate" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+
+	<resultMap type="org.zerock.domain.AuthVO" id="authMap">
+		<result property="mem_num" column="mem_num" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+	<select id="read" resultMap="memberMap">
 		<![CDATA[
-		SELECT * FROM member WHERE mem_num = #{mem_num}
+		SELECT member.* auth.auth FROM member mem 
+		LEFT JOIN auth ON mem.mem_num = auth.mem_num WHERE mem.mem_id = #{mem_id}
 		]]>
 	</select>
 
-	<insert id="insert" keyProperty="mem_num" useGeneratedKeys="true">
+	<insert id="insert" keyProperty="mem_num"
+		useGeneratedKeys="true">
 		<![CDATA[
 		INSERT INTO member(mem_id, mem_pw, mem_name, mem_nickname, mem_email, mem_contact, mem_regdate) 
 		VALUES (#{mem_id},#{mem_pw},#{mem_name},#{mem_nickname},#{mem_email},#{mem_contact},now())
@@ -30,11 +50,35 @@
 		]]>
 	</delete>
 
-<!-- 	<update id="update">
+	<insert id="insertAuth">
 		<![CDATA[
-		update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() where bno=#{bno}
+		insert into auth(mem_num, auth) values (#{mem_num},#{auth})
 		]]>
-	</update> -->
+	</insert>
+
+	<select id="findById" resultMap="memberMap">
+		<![CDATA[
+		SELECT member.*, auth.auth 
+		FROM member 
+		left join auth on member.mem_num = auth.mem_num 
+		where member.mem_id = #{mem_id}
+		]]>
+	</select>
+	
+	<select id="checkId" resultType="String">
+		<![CDATA[
+		SELECT mem_id FROM member where mem_id = #{mem_id}
+		]]>
+	</select>
+	
+	<delete id="deleteAuth">
+		<![CDATA[
+		DELETE FROM auth WHERE mem_num=#{mem_num}
+		]]>
+	</delete>
+
+	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
+		where bno=#{bno} ]]> </update> -->
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

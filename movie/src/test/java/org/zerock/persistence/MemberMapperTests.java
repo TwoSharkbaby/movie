@@ -12,7 +12,8 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+"file:src/main/webapp/WEB-INF/spring/security-context.xml" })
 @Log4j
 public class MemberMapperTests {
 	
@@ -26,14 +27,14 @@ public class MemberMapperTests {
 //		log.info("----------------------------------------------");
 //
 //	}
-//
-//	@Test
-//	public void testRead() {
-//		log.info("----------------------------------------------");
-//		memberMapper.read(1L);
-//		log.info("----------------------------------------------");
-//	}
-//
+
+	@Test
+	public void testRead() {
+		log.info("----------------------------------------------");
+		log.info(memberMapper.findById("123"));
+		log.info("----------------------------------------------");
+	}
+
 //	@Test
 //	public void testInsert() {
 //		log.info("----------------------------------------------");

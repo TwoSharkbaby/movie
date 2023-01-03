@@ -1,21 +1,17 @@
 package org.zerock.service;
 
-import java.util.List;
-
 import org.zerock.domain.MemberVO;
 
 public interface MemberService {
 
 //	public List<MemberVO> getList();
-//
-//	public MemberVO read(Long mem_num);
-//
-//	public void insert(MemberVO memberVO);
-//
-//	public int delete(Long mem_num);
+	
+	public MemberVO read(String mem_id);
 
-//	public boolean modify(MemberVO vo);
-//
-//	public int getTotal(Criteria cri);
+	public int insert(MemberVO memberVO);
+	
+	public int update(MemberVO memberVO);
+
+	public int delete(String mem_num);
 
 }
