@@ -62,16 +62,19 @@ public class MovieController {
 		return "movie/search";
 	}
 
+	// admin권한
 	@GetMapping("/insert")
 	public void insert() {
 	}
 
+	// admin권한
 	@GetMapping("/modify/{mov_num}")
 	public String modify(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("movie", movieService.read(mov_num));
 		return "movie/modify";
 	}
 
+	// admin권한
 	@PostMapping("/insert")
 	public String insert(MovieVO vo, RedirectAttributes rtts) {
 		if (movieService.insert(vo) == 1) {
@@ -82,6 +85,7 @@ public class MovieController {
 		return "redirect:/movie/list";
 	}
 
+	// admin권한
 	@PostMapping("/modify")
 	public String modify(MovieVO vo, RedirectAttributes rtts) {
 		if (movieService.modify(vo) == 1) {
@@ -92,6 +96,7 @@ public class MovieController {
 		return "redirect:/movie/read/" + vo.getMov_num() ;
 	}
 
+	// admin권한 + 사진 삭제
 	@PostMapping("/delete")
 	public String delete(Long mov_num, RedirectAttributes rtts) {
 //		BoardAttachVO attaList = = boardService.getAttachList(bno);

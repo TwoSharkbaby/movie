@@ -89,7 +89,7 @@
 									<c:out value="${actor.act_name}" />
 								</button>
 							</td>
-							<td><c:out value="${actor.act_thumb}" /></td>
+							<td><img src='/imgs/<c:out value="${actor.act_thumb}" />'></td>
 							<td><a
 								href="/actor/modify/<c:out value="${actor.act_num}" />"><button>수정하기</button></a></td>
 							<td><form action="/actor/delete" method="post">
@@ -211,6 +211,9 @@
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
+					
+					var csrfHeaderName = "${_csrf.headerName}";
+					var csrfTokenValue = "${_csrf.token}";
 
 					var result = '<c:out value="${result}"/>';
 
@@ -241,6 +244,9 @@
 						$.ajax({
 							type : "GET",
 							url : "/actor/" + act_num,
+							beforeSend: function(xhr){
+								xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+							},
 							contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
 							dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
 						}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
@@ -256,7 +262,7 @@
 						$(".modal-body-act_birth").html(displayTime(response.act_birth));
 						$(".modal-body-act_sex").html(response.act_sex);
 						$(".modal-body-act_info").html(response.act_info);
-						$(".modal-body-act_img").html(response.act_img);
+						$(".modal-body-act_img").html("<td><img src='/imgs/" + response.act_img + "'></td>");
 						$(".modal").modal("show");
 					};
 
@@ -295,6 +301,9 @@
 						$.ajax({
 							type : "POST",
 							url : "/review/good",
+							beforeSend: function(xhr){
+								xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+							},
 							data : JSON.stringify(data), // http body 데이터
 							contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
 							dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
@@ -322,6 +331,9 @@
 						$.ajax({
 							type : "POST",
 							url : "/review/bad",
+							beforeSend: function(xhr){
+								xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+							},
 							data : JSON.stringify(data), // http body 데이터
 							contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
 							dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여

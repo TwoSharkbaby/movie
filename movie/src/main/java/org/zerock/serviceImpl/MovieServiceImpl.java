@@ -147,6 +147,7 @@ public class MovieServiceImpl implements MovieService {
 		return movieMapper.delete(mov_num);
 	}
 
+	@Transactional
 	@Override
 	public AttachFileDTO readAttachFileDTO(Long mov_num) {
 		String thumb = movieMapper.readAttachFileDTO(mov_num);

@@ -7,48 +7,42 @@
 
 <%@include file="../includes/header.jsp"%>
 
-	<form action="/movie/insert" method="post">
-		<input type="text" name="mov_title" placeholder="제목" /> <input
-			type="text" name="mov_director" placeholder="감독" /> <input
-			type="text" name="mov_genre" placeholder="장르" /> <input type="text"
-			name="mov_synopsis" placeholder="줄거리" /> <input type="date"
-			name="mov_release" /> <input type="time" name="mov_runtime" /> 
-			<input type="text" name="mov_img" />
-			<input type="text" name="mov_thumb" />
-			<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-		<button value="submit">등록하기</button>
-	</form>
+<form action="/movie/insert" method="post">
+	<input type="text" name="mov_title" placeholder="제목" /> <input
+		type="text" name="mov_director" placeholder="감독" /> <input
+		type="text" name="mov_genre" placeholder="장르" /> <input type="text"
+		name="mov_synopsis" placeholder="줄거리" /> <input type="date"
+		name="mov_release" /> <input type="time" name="mov_runtime" /> <input
+		type="text" name="mov_img" /> <input type="text" name="mov_thumb" />
+	<input type="hidden" name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+	<button value="submit">등록하기</button>
+</form>
 
-	<div class="row">
+<div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading"></div>
-			<!-- /.panel-heading -->
 			<div class="panel-body">
-
 				<div class="form-group uploadDiv">
 					<input type="file" name='uploadFile'>
 				</div>
-
 				<div class='uploadResult'>
 					<ul>
-
 					</ul>
 				</div>
-
 			</div>
-			<!--  end panel-body -->
-
 		</div>
-		<!--  end panel-body -->
 	</div>
-	<!-- end panel -->
 </div>
-	
+
 
 <script>
 $(document).ready(function(e){
+	
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+	var cloneObj = $(".uploadDiv").clone();
 
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");/* 정규 표현식 */
 	var maxSize = 5242880; // 5M
@@ -58,19 +52,16 @@ $(document).ready(function(e){
 			alert("파일 사이즈 초과");
 			return false;
 		}
-		
 		if(regex.test(fileName)){
 			alert("해당 종류의 파일은 업로드할 수 없습니다.");
 			return false;
 		}
-		
 		return true;
 	} // checkExtendsion end
 	
 	$("input[type='file']").change(function(e){
 		var formData = new FormData(); 
 		var inputFile = $("input[name='uploadFile']");
-		
 		var files = inputFile[0].files; 
 		console.log(files);
 		
@@ -83,6 +74,9 @@ $(document).ready(function(e){
 		
 		$.ajax({
 			url:'/uploadAjaxAction',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
 			contentType:false,
 			processData:false,
 			data:formData,
@@ -141,12 +135,17 @@ $(document).ready(function(e){
 		
 		$.ajax({
 			url : "/deleteFile",
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
 			data : {fileName:targetFile, type:type},
 			dataType : 'text',
 			type : 'POST',
 			success : function(result){
 				alert(result);
 				targetLi.remove();
+				$("input[name='mov_thumb']").val("");
+				$("input[name='mov_img']").val("");
 				$(".uploadDiv").html(cloneObj.html());
 			}
 		}); // ajax end

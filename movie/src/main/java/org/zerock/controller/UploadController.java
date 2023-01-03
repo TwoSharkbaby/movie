@@ -33,7 +33,6 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Controller
 @Log4j
 public class UploadController {
-	// p.548
 	
 	@PostMapping("/deleteFile")
 	@ResponseBody
@@ -53,47 +52,6 @@ public class UploadController {
 		}
 		
 		return new ResponseEntity<>("delete", HttpStatus.OK);
-	}
-
-	// p.531
-	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
-		log.info("download file : " + fileName);
-		Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-		log.info("resource : " + resource);
-
-		if (resource.exists() == false) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		String resourceName = resource.getFilename();
-
-		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
-
-		HttpHeaders headers = new HttpHeaders();
-		try {
-
-			String downloadName = "";
-			// IE
-			if (userAgent.contains("Trident")) {
-				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+", " ");
-			} else if (userAgent.contains("Edge")) {
-				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8");
-			} else {
-				downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
-			}
-
-			headers.add("Content-Disposition", "attachment;filename=" + downloadName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-	}
-
-	@GetMapping("/uploadAjax")
-	public void uploadAjax() {
-		log.info("uploadAjax....");
 	}
 
 	// REST + Controller = @RestController -> Controller + ResponseBody
@@ -136,17 +94,11 @@ public class UploadController {
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
 					thumbnail.close();
 				}
-
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
 		return new ResponseEntity<>(attachFileDTO, HttpStatus.OK);
-	}
-
-	@GetMapping("/uploadForm")
-	public void uploadForm() {
-		log.info("upload Form");
 	}
 
 	@PostMapping("/uploadFormAction")

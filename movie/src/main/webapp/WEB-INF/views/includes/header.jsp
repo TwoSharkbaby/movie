@@ -25,14 +25,14 @@ img {
 </head>
 <body>
 
-	<sec:authentication property="principal" var="pinfo" />
+	<sec:authentication property="principal" var="principal" />
 
 	<sec:authorize access="isAuthenticated()">
 		<h1>
-			<c:out value="${pinfo.username}"></c:out>
+			아이디 : <c:out value="${principal.username}"></c:out>
 		</h1>
 		<h1>
-			<c:out value="${pinfo.authorities}"></c:out>
+			권한 : <c:out value="${principal.authorities}"></c:out>
 		</h1>
 		<a href="/customLogout"><button>Logout</button></a>
 	</sec:authorize>
