@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.AttachFileDTO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ImgVO;
 import org.zerock.domain.MovieVO;
 import org.zerock.mapper.ActorMapper;
 import org.zerock.mapper.MovieMapper;
@@ -158,6 +159,17 @@ public class MovieServiceImpl implements MovieService {
 		String uu = uuName.replace("_"+name, "");
 		AttachFileDTO dto = AttachFileDTO.builder().fileName(name).uploadPath(path).uuid(uu).image(false).build();
 		return dto;
+	}
+
+	@Transactional
+	@Override
+	public ImgVO readImgThumb(Long mov_num) {
+		ImgVO vo = movieMapper.readImgThumb(mov_num);
+		String img = "C:\\upload\\" + vo.getImg().replace("\\", "/");
+		vo.setImg(img);
+		String thumb = "C:\\upload\\" + vo.getThumb().replace("\\", "/");
+		vo.setThumb(thumb);
+		return vo;
 	}
 
 }

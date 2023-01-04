@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.ActorVO;
 import org.zerock.domain.AttachFileDTO;
+import org.zerock.domain.ImgVO;
 import org.zerock.mapper.ActorMapper;
 import org.zerock.service.ActorService;
 
@@ -60,17 +61,41 @@ public class ActorServiceImpl implements ActorService {
 		return actorMapper.delete(act_num);
 	}
 	
-//	@Transactional
-//	@Override
-//	public AttachFileDTO readAttachFileDTO(Long mov_num) {
-//		String thumb = movieMapper.readAttachFileDTO(mov_num);
-//		thumb.replace("/", "\\");
-//		String path = thumb.substring(0, 10);
-//		String uuName = thumb.substring(thumb.lastIndexOf("s_")+2);
-//		String name = uuName.substring(uuName.lastIndexOf("_")+1);
-//		String uu = uuName.replace("_"+name, "");
-//		AttachFileDTO dto = AttachFileDTO.builder().fileName(name).uploadPath(path).uuid(uu).image(false).build();
-//		return dto;
-//	}
+	@Transactional
+	@Override
+	public AttachFileDTO readAttachFileDTO(Long act_num) {
+		String thumb = actorMapper.readAttachFileDTO(act_num);
+		thumb.replace("/", "\\");
+		String path = thumb.substring(0, 10);
+		String uuName = thumb.substring(thumb.lastIndexOf("s_")+2);
+		String name = uuName.substring(uuName.lastIndexOf("_")+1);
+		String uu = uuName.replace("_"+name, "");
+		AttachFileDTO dto = AttachFileDTO.builder().fileName(name).uploadPath(path).uuid(uu).image(false).build();
+		return dto;
+	}
+
+	@Transactional
+	@Override
+	public ImgVO readImgThumb(Long act_num) {
+		ImgVO vo = actorMapper.readImgThumb(act_num);
+		String img = "C:\\upload\\" + vo.getImg().replace("\\", "/");
+		vo.setImg(img);
+		String thumb = "C:\\upload\\" + vo.getThumb().replace("\\", "/");
+		vo.setThumb(thumb);
+		return vo;
+	}
+
+	@Transactional
+	@Override
+	public List<ImgVO> readActorImgs(Long mov_num) {
+		List<ImgVO> list = actorMapper.readActorImgs(mov_num);
+		list.forEach(vo -> {
+			String img = "C:\\upload\\" + vo.getImg().replace("\\", "/");
+			vo.setImg(img);
+			String thumb = "C:\\upload\\" + vo.getThumb().replace("\\", "/");
+			vo.setThumb(thumb);
+		});
+		return list;
+	}
 
 }

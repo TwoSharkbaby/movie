@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.AttachFileDTO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ImgVO;
 import org.zerock.domain.MovieVO;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.ActorService;
@@ -96,12 +97,16 @@ public class MovieController {
 		return "redirect:/movie/read/" + vo.getMov_num() ;
 	}
 
-	// admin권한 + 사진 삭제
+	// admin권한
 	@PostMapping("/delete")
 	public String delete(Long mov_num, RedirectAttributes rtts) {
-//		BoardAttachVO attaList = = boardService.getAttachList(bno);
+		ImgVO vo = movieService.readImgThumb(mov_num);
+		List<ImgVO> list = actorService.readActorImgs(mov_num);
 		if (movieService.delete(mov_num) == 1) {
-//			deleteFile();  첨부파일 삭제 구현
+			list.forEach(actor -> {
+				deleteFile(actor);
+			});
+			deleteFile(vo);
 			rtts.addFlashAttribute("result", "success");
 		} else {
 			rtts.addFlashAttribute("result", "failure");
@@ -115,24 +120,15 @@ public class MovieController {
 		return new ResponseEntity<>(movieService.readAttachFileDTO(mov_num), HttpStatus.OK);
 	}
 
-	private void deleteFile(AttachFileDTO attachList) {
-
+	private void deleteFile(ImgVO vo) {
 		try {
-			String path = "C:\\upload\\" + attachList.getUploadPath() + "\\" + attachList.getUuid() + "_"
-					+ attachList.getFileName();
-			Path file = Paths.get(path);
-			Files.deleteIfExists(file);
-			if (Files.probeContentType(file).startsWith("image")) {
-				String thumNailPath = "C:\\upload\\" + attachList.getUploadPath() + "\\s_" + attachList.getUuid() + "_"
-						+ attachList.getFileName();
-				Path thumNail = Paths.get(thumNailPath);
-				Files.delete(thumNail);
-			}
-
+			Path img = Paths.get(vo.getImg());
+			Files.deleteIfExists(img);
+			Path thumb = Paths.get(vo.getThumb());
+			Files.deleteIfExists(thumb);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
-
 	}
 
 }

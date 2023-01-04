@@ -50,6 +50,27 @@
 		DELETE FROM actor WHERE mov_num=#{mov_num}
 		]]>
 	</delete>
+	
+	<select id="readAttachFileDTO"
+		resultType="String">
+		<![CDATA[
+		SELECT act_thumb FROM actor WHERE act_num = #{act_num}
+		]]>
+	</select>
+	
+	<select id="readImgThumb"
+		resultType="org.zerock.domain.ImgVO">
+		<![CDATA[
+		SELECT act_img AS img, act_thumb AS thumb FROM actor WHERE act_num = #{act_num}
+		]]>
+	</select>
+	
+	<select id="readActorImgs"
+		resultType="org.zerock.domain.ImgVO">
+		<![CDATA[
+		SELECT act_img AS img, act_thumb AS thumb FROM actor WHERE mov_num = #{mov_num}
+		]]>
+	</select>
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

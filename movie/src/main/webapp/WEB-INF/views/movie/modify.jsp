@@ -192,6 +192,40 @@
 							alert(result);
 							targetLi.remove();
 							$(".uploadDiv").html(cloneObj.html());
+							$("input[type='file']").change(function(e) {
+
+								var formData = new FormData();
+
+								var inputFile = $("input[name='uploadFile']");
+
+								var files = inputFile[0].files;
+
+								for (var i = 0; i < files.length; i++) {
+
+								if (!checkExtension(files[i].name, files[i].size)) {
+									return false;
+								}
+								formData.append("uploadFile", files[i]);
+								}
+
+								$.ajax({
+									url : '/uploadAjaxAction',
+									beforeSend: function(xhr){
+										xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+									},
+									processData : false,
+									contentType : false,
+									data : formData,
+									type : 'POST',
+									dataType : 'json',
+									success : function(result) {
+										console.log(result);
+										showUploadResult(result); //업로드 결과 처리 함수 
+									}
+								}); //$.ajax
+
+							});
+							
 						}
 					}); // ajax end
 							

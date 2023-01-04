@@ -147,6 +147,37 @@ $(document).ready(function(e){
 				$("input[name='mov_thumb']").val("");
 				$("input[name='mov_img']").val("");
 				$(".uploadDiv").html(cloneObj.html());
+				
+				$("input[type='file']").change(function(e){
+					var formData = new FormData(); 
+					var inputFile = $("input[name='uploadFile']");
+					var files = inputFile[0].files; 
+					console.log(files);
+					
+					for(var i = 0; i < files.length; i++){
+						if(!checkExtension(files[i].name, files[i].size)){
+							return false;
+						}
+						formData.append("uploadFile", files[i]);
+					}
+					
+					$.ajax({
+						url:'/uploadAjaxAction',
+						beforeSend: function(xhr){
+							xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+						},
+						contentType:false,
+						processData:false,
+						data:formData,
+						type:'POST',
+						dataType:'json',
+						success: function(result){
+							$("input[name='mov_img']").val(result.uploadPath+"/"+result.img_path);
+							showUploadResult(result);
+						}
+					});
+					
+				}); // change end
 			}
 		}); // ajax end
 		

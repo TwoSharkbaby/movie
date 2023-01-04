@@ -3,6 +3,7 @@ package org.zerock.mapper;
 import java.util.List;
 
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ImgVO;
 import org.zerock.domain.MovieVO;
 
 public interface MovieMapper {
@@ -36,6 +37,8 @@ public interface MovieMapper {
 	public int update(MovieVO movieVO);
 	
 	public String readAttachFileDTO(Long mov_num);
+	
+	public ImgVO readImgThumb(Long mov_num);
 
 //	public void updateReplyCnt(@Param("mov_num") Long mov_num, @Param("amount") int amount);
 }

@@ -1,13 +1,23 @@
 package org.zerock.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.ActorVO;
+import org.zerock.domain.AttachFileDTO;
+import org.zerock.domain.ImgVO;
 import org.zerock.service.ActorService;
 
 import lombok.RequiredArgsConstructor;
@@ -55,12 +65,37 @@ public class ActorController {
 
 	@PostMapping("/delete")
 	public String delete(Long act_num, Long mov_num, RedirectAttributes rtts) {
+		ImgVO vo = actorService.readImgThumb(act_num);
 		if (actorService.delete(act_num) == 1) {
+			deleteFile(vo);
 			rtts.addFlashAttribute("result", "success");
 		} else {
 			rtts.addFlashAttribute("result", "failure");
 		}
 		return "redirect:/movie/read/" + mov_num;
+	}
+	
+	@GetMapping(value = "/{act_num}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@ResponseBody
+	public ResponseEntity<ActorVO> read(@PathVariable("act_num") Long act_num) {
+		return new ResponseEntity<>(actorService.read(act_num), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<AttachFileDTO> getAttachList(Long act_num) {
+		return new ResponseEntity<>(actorService.readAttachFileDTO(act_num), HttpStatus.OK);
+	}
+
+	private void deleteFile(ImgVO vo) {
+		try {
+			Path img = Paths.get(vo.getImg());
+			Files.deleteIfExists(img);
+			Path thumb = Paths.get(vo.getThumb());
+			Files.deleteIfExists(thumb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

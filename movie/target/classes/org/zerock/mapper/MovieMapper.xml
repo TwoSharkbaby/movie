@@ -142,6 +142,13 @@
 		SELECT mov_thumb FROM movie WHERE mov_num = #{mov_num}
 		]]>
 	</select>
+	
+	<select id="readImgThumb"
+		resultType="org.zerock.domain.ImgVO">
+		<![CDATA[
+		SELECT mov_img AS img, mov_thumb AS thumb FROM movie WHERE mov_num = #{mov_num}
+		]]>
+	</select>
 
 	<!-- <insert id="insertSelectKey"> <selectKey order="BEFORE" keyProperty="bno" 
 		resultType="Long"> <![CDATA[ select MAX(bno)+1 from tbl_board ]]> </selectKey> 
