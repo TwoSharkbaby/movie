@@ -44,9 +44,15 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 	@Transactional
 	@Override
 	public int insert(MovieReviewVO movieReviewVO) {
-		movieReviewMapper.insert(movieReviewVO);
-		movieReviewVO.setMov_rev_num(movieReviewVO.getMov_rev_num());
-		return movieScoreMapper.insert(movieReviewVO);
+		if(movieReviewMapper.repetitionCheck(movieReviewVO) == null) {
+			movieReviewMapper.insert(movieReviewVO);
+			movieReviewVO.setMov_rev_num(movieReviewVO.getMov_rev_num());
+			log.info("????");
+			return movieScoreMapper.insert(movieReviewVO);
+		} else {
+			log.info("영화리뷰는 한 영화당 한사람만 작성 할 수 있습니다");
+			return 0;
+		}
 	}
 
 	@Transactional

@@ -35,4 +35,6 @@ public interface MovieReviewMapper {
 	
 	public void deleteReviews(Long mov_num);
 	
+	public Boolean repetitionCheck(MovieReviewVO movieReviewVO);
+	
 }

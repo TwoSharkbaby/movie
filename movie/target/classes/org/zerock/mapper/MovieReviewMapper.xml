@@ -89,6 +89,12 @@
 		]]>
 	</delete>
 	
+	<select id="repetitionCheck" resultType="Boolean">
+		<![CDATA[
+		SELECT * FROM movie_review WHERE mov_num = #{mov_num} and mem_num = #{mov_num}
+		]]>
+	</select>
+	
 	
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 

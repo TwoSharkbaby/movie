@@ -41,7 +41,7 @@ public class MovieReviewController {
 		return "review/modify";
 	}
 
-	@PostMapping("/insert") // 리뷰 등록한사람 중복 체크해야됨
+	@PostMapping("/insert")
 	public String insert(MovieReviewVO vo, RedirectAttributes rtts) {
 		if (movieReviewService.insert(vo) == 1) {
 			rtts.addFlashAttribute("result", "success");
