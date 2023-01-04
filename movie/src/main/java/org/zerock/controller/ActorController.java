@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,18 +32,21 @@ public class ActorController {
 
 	private final ActorService actorService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/insert/{mov_num}")
 	public String insert(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("mov_num", mov_num);
 		return "actor/insert";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modify/{act_num}")
 	public String modify(@PathVariable Long act_num, Model model) {
 		model.addAttribute("actor", actorService.read(act_num));
 		return "actor/modify";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/insert") 
 	public String insert(ActorVO vo, RedirectAttributes rtts) {
 		if (actorService.insert(vo) == 1) {
@@ -53,6 +57,7 @@ public class ActorController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
 	public String modify(ActorVO vo, RedirectAttributes rtts) {
 		if (actorService.modify(vo) == 1) {
@@ -63,6 +68,7 @@ public class ActorController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
 	public String delete(Long act_num, Long mov_num, RedirectAttributes rtts) {
 		ImgVO vo = actorService.readImgThumb(act_num);
@@ -81,6 +87,7 @@ public class ActorController {
 		return new ResponseEntity<>(actorService.read(act_num), HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<AttachFileDTO> getAttachList(Long act_num) {

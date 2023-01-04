@@ -24,40 +24,42 @@ img {
 </style>
 </head>
 <body>
-	<h2><c:out value="${error }" /></h2>	<!--  삭제 해야 할 것들 -->
-	<h2><c:out value="${logout }" /></h2>  <!--  삭제 해야 할 것들 -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form" method="post" action="/login">
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="ID" name="username"  autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember-me" type="checkbox" >Remember Me
-                                    </label>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                                <a href="/customSingup" class="btn btn-lg btn-success btn-block">회원가입</a>
-                            </fieldset>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Please Sign In</h3>
+					</div>
+					<div class="panel-body">
+						<form role="form" method="post" action="/login">
+							<fieldset>
+								<div class="form-group">
+									<input class="form-control" placeholder="ID" name="username"
+										autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Password"
+										name="password" type="password" value="">
+								</div>
+								<div class="checkbox">
+									<label> <input name="remember-me" type="checkbox">Remember
+										Me
+									</label>
+								</div>
+								<!-- Change this to a button or input when using this as a form -->
+								<button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+								<a href="/customSingup" class="btn btn-lg btn-success btn-block">회원가입</a>
+							</fieldset>
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<script

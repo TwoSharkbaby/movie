@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,9 @@ public class MovieReviewController {
 		return "review/insert";
 	}
 
-	@GetMapping("/modify/{mov_num}/{mov_rev_num}")
-	public String modify(@PathVariable Long mov_num, @PathVariable Long mov_rev_num, Model model) {
+	@PreAuthorize("principal.member.mem_num == #mem_num")
+	@GetMapping("/modify/{mov_num}/{mov_rev_num}/{mem_num}")
+	public String modify(@PathVariable Long mov_num, @PathVariable Long mov_rev_num, @PathVariable Long mem_num, Model model) {
 		model.addAttribute("review", movieReviewService.read(mov_rev_num));
 		return "review/modify";
 	}
@@ -49,6 +51,7 @@ public class MovieReviewController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	@PreAuthorize("principal.member.mem_num == #vo.mem_num")
 	@PostMapping("/modify")
 	public String modify(MovieReviewVO vo, RedirectAttributes rtts) {
 		if (movieReviewService.modify(vo) == 1) {
@@ -59,8 +62,9 @@ public class MovieReviewController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	@PreAuthorize("principal.member.mem_num == #mem_num or hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
-	public String delete(Long mov_rev_num, Long mov_num, RedirectAttributes rtts) {
+	public String delete(Long mov_rev_num, Long mov_num, Long mem_num, RedirectAttributes rtts) {
 		if (movieReviewService.delete(mov_rev_num) == 1) {
 			rtts.addFlashAttribute("result", "success");
 		} else {

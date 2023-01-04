@@ -29,10 +29,8 @@ img {
 
 	<sec:authorize access="isAuthenticated()">
 		<h1>
-			아이디 : <c:out value="${principal.username}"></c:out>
-		</h1>
-		<h1>
-			권한 : <c:out value="${principal.authorities}"></c:out>
+			아이디 : <c:out value="${principal.username}"/> // pk넘버 : <c:out value="${principal.member.mem_num}"/> // // 권한 : <c:out value="${principal.authorities}"/>
+			
 		</h1>
 		<a href="/customLogout"><button>Logout</button></a>
 	</sec:authorize>

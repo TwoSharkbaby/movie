@@ -8,22 +8,15 @@
 <%@include file="../includes/header.jsp"%>
 
 <form action="/actor/modify" method="post">
-	<input type="text" name="act_name" placeholder="이름"
-		value="<c:out value="${actor.act_name}" />" /> <input type="date"
-		name="act_birth" placeholder="생일"
-		value="<c:out value="${actor.act_birth}" />" /> <input type="text"
-		name="act_sex" placeholder="성별"
-		value="<c:out value="${actor.act_sex}" />" /> <input type="text"
-		name=act_info placeholder="정보"
-		value="<c:out value="${actor.act_info}" />" /> <input type="text"
-		name=act_img placeholder="이미지"
-		value="<c:out value="${actor.act_img}" />" /> <input type="text"
-		name=act_thumb placeholder="섬네일"
-		value="<c:out value="${actor.act_thumb}" />" /> <input type="hidden"
-		name="act_num" value="<c:out value="${actor.act_num}" />" /> <input
-		type="hidden" name="mov_num"
-		value="<c:out value="${actor.mov_num}" />" /> <input type="hidden"
-		name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<input type="text" name="act_name" placeholder="이름" value="<c:out value="${actor.act_name}" />" />
+	<input type="date" name="act_birth" placeholder="생일" value="<c:out value="${actor.act_birth}" />" /> 
+	<input type="text" name="act_sex" placeholder="성별" value="<c:out value="${actor.act_sex}" />" /> 
+	<input type="text" name=act_info placeholder="정보" value="<c:out value="${actor.act_info}" />" /> 
+	<input type="text" name=act_img placeholder="이미지" value="<c:out value="${actor.act_img}" />" /> 
+	<input type="text" name=act_thumb placeholder="섬네일" value="<c:out value="${actor.act_thumb}" />" />
+	<input type="hidden" name="act_num" value="<c:out value="${actor.act_num}" />" /> 
+	<input type="hidden" name="mov_num" value="<c:out value="${actor.mov_num}" />" /> 
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<button value="submit">등록하기</button>
 </form>
 

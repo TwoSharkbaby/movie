@@ -16,6 +16,16 @@
 
 	<security:http>
 	
+<!-- 		  <security:intercept-url pattern="/memberinfo/**" access="isAuthenticated()" />
+          <security:intercept-url pattern="/write_view/**" access="isAuthenticated()" />
+          <security:intercept-url pattern="/memberModify/**" access="isAuthenticated()" />
+          <security:intercept-url pattern="/note/**" access="isAuthenticated()" />
+          <security:intercept-url pattern="/login_view/**" access="isAnonymous()" />
+          <security:intercept-url pattern="/**" access="permitAll" /> -->
+          
+        <security:intercept-url pattern="/review/**" access="isAuthenticated()" />
+        <security:intercept-url pattern="/comment/**" access="isAuthenticated()" />
+	
 		<security:form-login login-page="/customLogin" />
 
 		<security:logout logout-url="/logout"
@@ -26,7 +36,11 @@
 			ref="customAccessDeniedHandler" />
 
 		<security:remember-me
-			data-source-ref="dataSource" token-validity-seconds="604800" />
+			data-source-ref="dataSource" 
+			remember-me-parameter="remember-me"
+			token-validity-seconds="604800" />
+			
+		
 
 	</security:http>
 

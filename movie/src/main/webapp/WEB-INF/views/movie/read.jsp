@@ -167,44 +167,42 @@
 					</tr>
 				</c:when>
 
-				<c:when test="${!empty review}">
-					<c:forEach items="${review}" var="review">
-						<tr>
-							<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>
-							<td><c:out value="${review.mov_rev_title}" /></td>
-							<td><c:out value="${review.mov_rev_content}" /></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-									value="${review.mov_rev_regdate}" /></td>
-							<td><button id="review_good" name="review_good"
-									data-idx="<c:out value="${review.mov_rev_num}" />">
-									<c:out value="${review.mov_rev_good}" />
-								</button>
-								<button id="review_bad" name="review_bad"
-									data-idx="<c:out value="${review.mov_rev_num}" />">
-									<c:out value="${review.mov_rev_bad}" />
-								</button></td>
-							<td><c:out value="${review.mov_num}" /></td>
-							<td><c:out value="${review.mem_num}" /></td>
-							<td><c:out value="${review.mov_sco_point}" /></td>
-							<td><a
-								href="/review/modify/<c:out value="${review.mov_num}" />/<c:out value="${review.mov_rev_num}" />"><button>수정하기</button></a></td>
-							<td><form action="/review/delete" method="post">
-									<input type="hidden" name="mov_rev_num"
-										value="<c:out value="${review.mov_rev_num}" />"> <input
-										type="hidden" name="mov_num"
-										value="<c:out value="${review.mov_num}" />">
-										<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-									<button type="submit">삭제하기</button>
-								</form></td>
-						</tr>
-						<br />
+			<c:when test="${!empty review}">
+				<c:forEach items="${review}" var="review">
+					<tr>
+						<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>
+						<td><c:out value="${review.mov_rev_title}" /></td>
+						<td><c:out value="${review.mov_rev_content}" /></td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+								value="${review.mov_rev_regdate}" /></td>
+						<td><button id="review_good" name="review_good"
+								data-idx="<c:out value="${review.mov_rev_num}" />">
+								<c:out value="${review.mov_rev_good}" />
+							</button>
+							<button id="review_bad" name="review_bad"
+								data-idx="<c:out value="${review.mov_rev_num}" />">
+								<c:out value="${review.mov_rev_bad}" />
+							</button></td>
+						<td><c:out value="${review.mov_num}" /></td>
+						<td><c:out value="${review.mem_num}" /></td>
+						<td><c:out value="${review.mov_sco_point}" /></td>
+						<td><a
+							href="/review/modify/<c:out value="${review.mov_num}" />/<c:out value="${review.mov_rev_num}" />/<c:out value="${review.mem_num}"/>"><button>수정하기</button></a></td>
+						<td><form action="/review/delete" method="post">
+								<input type="hidden" name="mov_rev_num" value="<c:out value="${review.mov_rev_num}" />"> 
+								<input type="hidden" name="mov_num" value="<c:out value="${review.mov_num}" />"> 
+								<input type="hidden" name="mem_num" value="<c:out value="${review.mem_num}" />">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<button type="submit">삭제하기</button>
+							</form></td>
+					</tr>
+					<br />
 
-						<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
+					<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
 
-					</c:forEach>
-				</c:when>
-			</c:choose>
+				</c:forEach>
+			</c:when>
+		</c:choose>
 		</tbody>
 	</table>
 
@@ -292,10 +290,12 @@
 						var mov_rev_num = $(this).data("idx");
 						var good = $(this);
 						var bad = $(this).next('button');
-
+						<sec:authorize access="isAuthenticated()">
+						var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+						</sec:authorize>
 						var data = {
 							mov_rev_num : mov_rev_num,
-							mem_num : 1
+							mem_num : mem_num
 						// ## 로그인 처리하면 고정값 수정필요 ##
 						};
 						$.ajax({
@@ -321,11 +321,14 @@
 						var mov_rev_num = $(this).data("idx");
 						var bad = $(this);
 						var good = $(this).prev('button');
-						;
-
+						
+						<sec:authorize access="isAuthenticated()">
+						var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+						</sec:authorize>
+						
 						var data = {
 							mov_rev_num : mov_rev_num,
-							mem_num : 1
+							mem_num : mem_num
 						// ## 로그인 처리하면 고정값 수정필요 ##
 						};
 						$.ajax({

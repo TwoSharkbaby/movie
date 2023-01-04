@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,19 +64,19 @@ public class MovieController {
 		return "movie/search";
 	}
 
-	// admin권한
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/insert")
 	public void insert() {
 	}
 
-	// admin권한
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modify/{mov_num}")
 	public String modify(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("movie", movieService.read(mov_num));
 		return "movie/modify";
 	}
 
-	// admin권한
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/insert")
 	public String insert(MovieVO vo, RedirectAttributes rtts) {
 		if (movieService.insert(vo) == 1) {
@@ -86,7 +87,7 @@ public class MovieController {
 		return "redirect:/movie/list";
 	}
 
-	// admin권한
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
 	public String modify(MovieVO vo, RedirectAttributes rtts) {
 		if (movieService.modify(vo) == 1) {
@@ -97,7 +98,7 @@ public class MovieController {
 		return "redirect:/movie/read/" + vo.getMov_num() ;
 	}
 
-	// admin권한
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
 	public String delete(Long mov_num, RedirectAttributes rtts) {
 		ImgVO vo = movieService.readImgThumb(mov_num);
@@ -114,6 +115,7 @@ public class MovieController {
 		return "redirect:/movie/list";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<AttachFileDTO> getAttachList(Long mov_num) {

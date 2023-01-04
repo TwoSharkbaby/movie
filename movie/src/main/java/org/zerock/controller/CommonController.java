@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +10,6 @@ import org.zerock.domain.MemberVO;
 import org.zerock.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -19,6 +19,7 @@ public class CommonController {
 	
 	private final MemberService memberService;
 
+	@PreAuthorize("isAnonymous()")
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
 
@@ -34,6 +35,7 @@ public class CommonController {
 
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/customLogout")
 	public void logoutGET() {
 		log.info("custom logout");	
@@ -45,10 +47,12 @@ public class CommonController {
 		model.addAttribute("msg", "Access Denied");
 	}
 	
+	@PreAuthorize("isAnonymous()")
 	@GetMapping("/customSingup")
 	public void singup() {
 	}
 	
+	@PreAuthorize("isAnonymous()")
 	@PostMapping("/customSingup")
 	public String singup(MemberVO vo) {
 		log.info(vo);
