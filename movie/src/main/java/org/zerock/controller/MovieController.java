@@ -39,16 +39,6 @@ public class MovieController {
 	private final MovieReviewService movieReviewService;
 	private final ActorService actorService;
 
-	@GetMapping("/list")
-	public void list(Model model) {
-		model.addAttribute("latest", movieService.getLatestList());
-		model.addAttribute("action", movieService.getActionList());
-		model.addAttribute("fantasy", movieService.getFantasyList());
-		model.addAttribute("horror", movieService.getHorrorList());
-		model.addAttribute("romance", movieService.getRomanceList());
-		model.addAttribute("comedy", movieService.getComedyList());
-	}
-
 	@GetMapping("/read/{mov_num}")
 	public String read(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("movie", movieService.read(mov_num));
@@ -80,20 +70,20 @@ public class MovieController {
 	@PostMapping("/insert")
 	public String insert(MovieVO vo, RedirectAttributes rtts) {
 		if (movieService.insert(vo) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "영화 등록 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "영화 등록 실패");
 		}
-		return "redirect:/movie/list";
+		return "redirect:/";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
 	public String modify(MovieVO vo, RedirectAttributes rtts) {
 		if (movieService.modify(vo) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "영화 수정 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "영화 수정 실패");
 		}
 		return "redirect:/movie/read/" + vo.getMov_num() ;
 	}
@@ -108,11 +98,11 @@ public class MovieController {
 				deleteFile(actor);
 			});
 			deleteFile(vo);
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "영화 삭제 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "영화 삭제 실패");
 		}
-		return "redirect:/movie/list";
+		return "redirect:/";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

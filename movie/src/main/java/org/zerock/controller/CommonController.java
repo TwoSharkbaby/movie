@@ -66,11 +66,11 @@ public class CommonController {
 	@PostMapping("/customModify")
 	public String customModify(MemberVO memberVO, RedirectAttributes rtts) {
 		if(memberService.memberModify(memberVO) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "회원수정 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "회원수정 실패");
 		}
-		return "redirect:/movie/list";
+		return "redirect:/";
 	}
 
 }

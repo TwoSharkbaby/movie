@@ -40,7 +40,7 @@
 	</tbody>
 </table>
 
-<a href="/movie/list"><button>뒤로 돌아가기</button></a>
+<a href="/"><button>뒤로 돌아가기</button></a>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<a href="/movie/modify/<c:out value="${movie.mov_num}" />"><button>수정하기</button></a>
 	<form action="/movie/delete" method="post">

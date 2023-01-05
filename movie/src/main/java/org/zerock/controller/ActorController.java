@@ -50,9 +50,9 @@ public class ActorController {
 	@PostMapping("/insert") 
 	public String insert(ActorVO vo, RedirectAttributes rtts) {
 		if (actorService.insert(vo) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "배우 등록 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "배우 등록 실패");
 		}
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
@@ -61,9 +61,9 @@ public class ActorController {
 	@PostMapping("/modify")
 	public String modify(ActorVO vo, RedirectAttributes rtts) {
 		if (actorService.modify(vo) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "배우 수정 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "배우 수정 실패");
 		}
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
@@ -74,9 +74,9 @@ public class ActorController {
 		ImgVO vo = actorService.readImgThumb(act_num);
 		if (actorService.delete(act_num) == 1) {
 			deleteFile(vo);
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "배우 삭제 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "배우 삭제 실패");
 		}
 		return "redirect:/movie/read/" + mov_num;
 	}
