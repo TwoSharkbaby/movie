@@ -33,43 +33,49 @@ public class MovieReviewCommentMapperTests {
 		log.info("----------------------------------------------");
 	}
 
-//	@Test
-//	public void testGetList() {
-//		log.info("----------------------------------------------");
-//		movieReviewCommentMapper.getList().forEach(b -> log.info(b));
-//		log.info("----------------------------------------------");
-//	}
-//
-//	@Test
-//	public void testRead() {
-//		log.info("----------------------------------------------");
-//		movieReviewCommentMapper.read(1L);
-//		log.info("----------------------------------------------");
-//	}
+	@Test
+	public void testRead() {
+		log.info("----------------------------------------------");
+		movieReviewCommentMapper.read(1L);
+		log.info("----------------------------------------------");
+	}
 //
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
 		MovieReviewCommentVO movieReviewCommentVO = 
-				MovieReviewCommentVO.builder().mov_rev_com_content("우왕굳3").mem_num(1L).mov_rev_num(1L).build();
+				MovieReviewCommentVO.builder().mov_rev_com_content("우왕굳4").mem_num(1L).mov_rev_num(6L).build();
 		movieReviewCommentMapper.insert(movieReviewCommentVO);
 		log.info("----------------------------------------------");
 	}
 
 //
-//	@Test
-//	public void testDelete() {
-//		log.info("----------------------------------------------");
-//		movieReviewCommentMapper.delete(4L);
-//		log.info("----------------------------------------------");
-//	}
+	@Test
+	public void testDelete() {
+		log.info("----------------------------------------------");
+		movieReviewCommentMapper.delete(32L);
+		log.info("----------------------------------------------");
+	}
 //	
-//	@Test
-//	public void testGetCommentList() {
-//		log.info("----------------------------------------------");
-//		movieReviewCommentMapper.getCommentList(3L).forEach(b -> log.info(b));
-//		log.info("----------------------------------------------");
-//	}
+	@Test
+	public void testGetCommentList() {
+		log.info("----------------------------------------------");
+		movieReviewCommentMapper.getCommentList(3L).forEach(b -> log.info(b));
+		log.info("----------------------------------------------");
+	}
+	
+	@Test
+	public void testUpdate() {
+		Long targetMov_rev_com_num = 31L;
+		
+		MovieReviewCommentVO vo = movieReviewCommentMapper.read(targetMov_rev_com_num);
+		vo.setMov_rev_com_content("업데이트2");
+		int count = movieReviewCommentMapper.update(vo);
+		
+		log.info("update count" + count);
+		
+	}
+	
 	
 //	@Test
 //	public void testTotal() {
@@ -79,13 +85,6 @@ public class MovieReviewCommentMapperTests {
 //		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
 //	}
 //	
-//	@Test
-//	public void testGetListWithPaging() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?��?��?��");
-//		boardMapper.getListWithPaging(cri);
-//	}
 //	@Test
 //	public void testUpdate() {
 //		BoardVO vo = BoardVO.builder().bno(3L).title("?��?��?��").content("무나?��").writer("루라?��").build();

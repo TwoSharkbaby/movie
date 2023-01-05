@@ -78,12 +78,9 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
 		return movieReviewCommentMapper.getCommentList(mov_rev_num);
 	}
+	
 
-//	@Override
-//	public List<MovieReviewCommentVO> getList() {
-//		return movieReviewCommentMapper.getList();
-//	}
-//
+
 	@Override
 	public MovieReviewCommentVO read(Long mov_rev_com_num) {
 		return movieReviewCommentMapper.read(mov_rev_com_num);
@@ -100,17 +97,12 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 	public int delete(Long mov_rev_com_num) {
 		return movieReviewCommentMapper.delete(mov_rev_com_num);
 	}
-//
-//	@Override
-//	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
-//		return movieReviewCommentMapper.getCommentList(mov_rev_num);
-//	}
 	
-	
+@Override
+public int update(MovieReviewCommentVO vo) {
+	// TODO Auto-generated method stub
+	return movieReviewCommentMapper.update(vo);
+}
 
-
-
-	
-	
 
 }

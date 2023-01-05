@@ -162,7 +162,9 @@
 				<c:when test="${!empty review}">
 					<c:forEach items="${review}" var="review">
 						<tr>
-							<td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />"><c:out value="${review.mov_rev_num}" /></td>
+							<td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />"><c:out value="${review.mov_rev_num}" />
+							<button id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글작성" />
+							</td>
 							<td><c:out value="${review.mov_rev_title}" /></td>
 							<td><c:out value="${review.mov_rev_content}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
@@ -194,7 +196,7 @@
 						<tr>
 							<td>
 								<ul id="chat<c:out value="${review.mov_rev_num}" />"
-									class="chat" name="com"
+									class="chat2" name="com"
 									data-comment="<c:out value="${review.mov_rev_num}" />"></ul>
 							</td>
 						</tr>
@@ -205,46 +207,47 @@
 			</c:choose>
 		</tbody>
 	</table>
+	
+	
+<!-- Comment Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">COMMENT MODAL</h4>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>content</label> <input class="form-control" name='mov_rev_com_content'
+                  value='New content'>
+            </div>
+            <div class="form-group">
+               <label>mem_num</label> <input class="form-control" name='mem_num'
+                  value='mem_num'>
+            </div>
+            <div class="form-group">
+               <label>mov_rev_com_regdate</label> <input class="form-control"
+                  name='mov_rev_com_regdate' value='2018-01-01 13:13'>
+            </div>
+
+         </div>
+         <div class="modal-footer">
+            <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+            <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+            <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+            <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+         </div>
+      </div>
+      <!— /.modal-content —>
+   </div>
+   <!— /.modal-dialog —>
+</div>
+<!— /.modal —>
 
 
-
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">COMMENT MODAL</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label>content</label> <input class="form-control"
-							name='mov_rev_com_content' value='New content'>
-					</div>
-					<div class="form-group">
-						<label>mem_num</label> <input class="form-control" name='mem_num'
-							value='mem_num'>
-					</div>
-					<div class="form-group">
-						<label>mov_rev_com_regdate</label> <input class="form-control"
-							name='mov_rev_com_regdate' value='2018-01-01 13:13'>
-					</div>
-
-				</div>
-				<div class="modal-footer">
-					<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-					<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-					<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-					<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
-				</div>
-			</div>
-			<!— /.modal-content —>
-		</div>
-		<!— /.modal-dialog —>
-	</div>
-	<!— /.modal —>
 
 	<script type="text/javascript">
       $(document).ready(
@@ -425,6 +428,9 @@
 	            }
 	            commentUL.html(str);            
 	      });
+		   
+		   
+
 	   });
    
 
@@ -455,19 +461,85 @@
 
            
            var commentUL = $("#chat");
-           
-         
-
-         
-         
-         
+     
       });
       
    </script>
+   
+	<script type="text/javascript"
+		src="\resources\js\movieReviewComment.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var idx = $(this).data('idx');
 
+		var modal = $("#commentModal");
+	
+	var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+	var modalInputMemNum = modal.find("input[name='mem_num']");
+	var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+	
+	var modalModBtn = $("#modalModBtn");
+	var modalRemoveBtn = $("#modalRemoveBtn");
+	var modalRegisterBtn = $("#modalRegisterBtn");
+	
+	
+	
 
+    $(".chat2").on("click", "li", function(e){
+  	  var idx = $(this).data('idx');
+  	movieReviewCommentService.get(idx, function(comment){
+  		modalInputContent.val(comment.content);
+  		
+  	})
+  	  
+    });
+	
+	$("button[name='comment']").on("click", function(e){
+		var idx = $(this).data('idx');
+		
+		 var data = {
+		            mov_rev_num: idx,
+		            mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
+		         };
+		      console.log(data);
 
+		 modal.find("input").val("");
+		 modalInputMovRevComRegdate.closest("div").hide();
+		 modal.find("button[id != 'modalCloseBtn']").hide();
+		 
+		 modalRegisterBtn.show();
+		 $("#commentModal").modal("show");
+		
+		 modalRegisterBtn.on("click", function(e){
+	       
+			 var comment = {
+				mov_rev_com_content : modalInputContent.val(),
+	            mem_num : modalInputMemNum.val(),
+	            mov_rev_num: idx
+	         };
+	         movieReviewCommentService.add(comment, function(result){
+	            alert(result);
+	            modal.find("input").val("");
+	            modal.modal("hide");
+	            showList(1);
+	         });
+	      });
+	      
+	      $('#modalCloseBtn').on("click", function(e){
+	         modal.find("input").val("");
+	         modal.modal("hide");
+	      });
+	     
+	      
+		 
+		 
+	});
+	
 
-
+	
+	});
+	
+	</script>
+	
 </body>
 </html>

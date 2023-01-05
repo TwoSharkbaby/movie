@@ -19,10 +19,10 @@ public interface MovieReviewService {
 	
 	public List<MovieReviewVO> movieReviewRead(Long mov_num);
 	
-	// mem_numÀº ¸®ºä¸¦ ¾´»ç¶÷ÀÌ ¾Æ´Ï°í ÁÁ¾Æ¿ä½È¾î¿äÀÇ ¸É¹ö¸¦ ¶æÇÔ
+	// mem_numï¿½ï¿½ ï¿½ï¿½ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï°ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½È¾ï¿½ï¿½ï¿½ï¿½ ï¿½É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public ChoiceVO goodUpdate(Long mov_rev_num, Long mem_num);
 	
-	// mem_numÀº ¸®ºä¸¦ ¾´»ç¶÷ÀÌ ¾Æ´Ï°í ÁÁ¾Æ¿ä½È¾î¿äÀÇ ¸É¹ö¸¦ ¶æÇÔ
+	// mem_numï¿½ï¿½ ï¿½ï¿½ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï°ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½È¾ï¿½ï¿½ï¿½ï¿½ ï¿½É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public ChoiceVO badUpdate(Long mov_rev_num, Long mem_num);
 	
 //	public int getTotal(Criteria cri);

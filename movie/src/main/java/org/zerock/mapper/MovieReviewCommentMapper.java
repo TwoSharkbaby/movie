@@ -14,6 +14,8 @@ public interface MovieReviewCommentMapper {
 	public int insert(MovieReviewCommentVO movieReviewCommentVO);
 //
 	public int delete(Long mov_rev_com_num);
+	
+	public int update(MovieReviewCommentVO movieReviewCommentVO);
 //	
 	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num);
 	

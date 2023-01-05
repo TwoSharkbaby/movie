@@ -82,8 +82,9 @@
 		]]>
 	</delete>
 
-	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
-		where bno=#{bno} ]]> </update> -->
+ 	<update id="update"> 
+ 	<![CDATA[ update movie_review_comment set mov_rev_com_content=#{mov_rev_com_content},mem_num=#{mem_num},mov_rev_com_regdate=now() 
+		where mov_rev_com_num=#{mov_rev_com_num} ]]> </update> 
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 
