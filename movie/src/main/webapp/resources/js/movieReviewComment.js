@@ -25,7 +25,7 @@ var movieReviewCommentService = (function() {
       var mov_rev_num = param.mov_rev_num;
       $.getJSON( 
           "/comment/"+mov_rev_num+".json",
-          function(data){ // ReplyPageDTO
+          function(data){ 
             if(callback){
               callback(data);
             }

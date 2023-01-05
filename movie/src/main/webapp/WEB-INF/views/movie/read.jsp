@@ -162,9 +162,7 @@
 				<c:when test="${!empty review}">
 					<c:forEach items="${review}" var="review">
 						<tr>
-							<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" />
-							<button id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글보기" />
-					</td>
+							<td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />"><c:out value="${review.mov_rev_num}" /></td>
 							<td><c:out value="${review.mov_rev_title}" /></td>
 							<td><c:out value="${review.mov_rev_content}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
@@ -189,221 +187,194 @@
 										value="<c:out value="${review.mov_num}" />">
 									<button type="submit">삭제하기</button>
 								</form></td>
-						</tr>
-						<br />
 
-						<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
-					<div id=reply>
-	</div>
+
+
+							<br />
+						<tr>
+							<td>
+								<ul id="chat<c:out value="${review.mov_rev_num}" />"
+									class="chat" name="com"
+									data-comment="<c:out value="${review.mov_rev_num}" />"></ul>
+							</td>
+						</tr>
 					</c:forEach>
+
+
 				</c:when>
 			</c:choose>
 		</tbody>
 	</table>
-	
-	<div id=reply>
-	</div>
-	
-<div class='row'>
-	<div class="col-lg-12">
-		<!-- /.panel -->
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i>
-				<button id='addReplyBtn'>댓글 작성</button>
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">COMMENT MODAL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>content</label> <input class="form-control"
+							name='mov_rev_com_content' value='New content'>
+					</div>
+					<div class="form-group">
+						<label>mem_num</label> <input class="form-control" name='mem_num'
+							value='mem_num'>
+					</div>
+					<div class="form-group">
+						<label>mov_rev_com_regdate</label> <input class="form-control"
+							name='mov_rev_com_regdate' value='2018-01-01 13:13'>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+					<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+					<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+				</div>
 			</div>
-
-         <!-- /.panel-heading -->
-         <div class="panel-body">
-
-            <ul class="chat">
-               <li class="left clearfix" data-idx='1'>
-                  <div>
-                     <div class="header">
-                        <strong class="primary-font">user00</strong>
-                        <small class="pull-right text-muted">2018-01-01 13:13</small>
-                     </div>
-                     <p>Good Job!</p>
-                  </div>
-               </li>
-            </ul>
-            <!-- ./ end ul -->
-         </div>
-         <!— /.panel .chat-panel —>
-         <div class="panel-footer"></div>
-      </div>
-   </div>
-   <!— ./ end row —>
-</div>
-	
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"
-               aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">COMMENT MODAL</h4>
-         </div>
-         <div class="modal-body">
-            <div class="form-group">
-               <label>content</label> <input class="form-control" name='mov_rev_com_content'
-                  value='New content'>
-            </div>
-            <div class="form-group">
-               <label>mem_num</label> <input class="form-control" name='mem_num'
-                  value='mem_num'>
-            </div>
-            <div class="form-group">
-               <label>mov_rev_com_regdate</label> <input class="form-control"
-                  name='mov_rev_com_regdate' value='2018-01-01 13:13'>
-            </div>
-
-         </div>
-         <div class="modal-footer">
-            <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-            <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-            <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-            <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
-         </div>
-      </div>
-      <!— /.modal-content —>
-   </div>
-   <!— /.modal-dialog —>
-</div>
-<!— /.modal —>
+			<!— /.modal-content —>
+		</div>
+		<!— /.modal-dialog —>
+	</div>
+	<!— /.modal —>
 
 	<script type="text/javascript">
-		$(document).ready(
-				function() {
+      $(document).ready(
+            function() {
 
-					var result = '<c:out value="${result}"/>';
+               var result = '<c:out value="${result}"/>';
 
-					checkModal(result);
+               checkModal(result);
 
-					history.replaceState({}, null, null);
+               history.replaceState({}, null, null);
 
-					function checkModal(result) {
+               function checkModal(result) {
 
-						if (result === '' || history.state) {
-							return;
-						} else {
-							alert(result);
-						}
+                  if (result === '' || history.state) {
+                     return;
+                  } else {
+                     alert(result);
+                  }
 
-					};
-					
-				
+               };
+               
+            
 
-					var modal = $(".modal");
+               var modal = $(".modal");
 
-					$("button[name='actor_modal']").on("click", function(e) {
+               $("button[name='actor_modal']").on("click", function(e) {
 
-						e.preventDefault();
-						var act_num = $(this).data("idx");
+                  e.preventDefault();
+                  var act_num = $(this).data("idx");
 
-						var data = {
-							act_num : act_num
-						};
-						$.ajax({
-							type : "GET",
-							url : "/actor/" + act_num,
-							contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
-							dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-						}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-							showActorDetail(response);
-						}).fail(function(error) {
-							alert("올바른 경로가 아닙니다");
-						});
+                  var data = {
+                     act_num : act_num
+                  };
+                  $.ajax({
+                     type : "GET",
+                     url : "/actor/" + act_num,
+                     contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+                     dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+                  }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+                     showActorDetail(response);
+                  }).fail(function(error) {
+                     alert("올바른 경로가 아닙니다");
+                  });
 
-					});
+               });
 
-					function showActorDetail(response) {
-						$(".modal-title").html(response.act_name + "상세내용");
-						$(".modal-body-act_birth").html(displayTime(response.act_birth));
-						$(".modal-body-act_sex").html(response.act_sex);
-						$(".modal-body-act_info").html(response.act_info);
-						$(".modal-body-act_img").html(response.act_img);
-						$(".modal").modal("show");
-					};
+               function showActorDetail(response) {
+                  $(".modal-title").html(response.act_name + "상세내용");
+                  $(".modal-body-act_birth").html(displayTime(response.act_birth));
+                  $(".modal-body-act_sex").html(response.act_sex);
+                  $(".modal-body-act_info").html(response.act_info);
+                  $(".modal-body-act_img").html(response.act_img);
+                  $(".modal").modal("show");
+               };
 
-					function displayTime(timeValue) {
-						var today = new Date();
-						var gap = today.getTime() - timeValue;
-						var dateObj = new Date(timeValue);
+               function displayTime(timeValue) {
+                  var today = new Date();
+                  var gap = today.getTime() - timeValue;
+                  var dateObj = new Date(timeValue);
 
-						if (gap < (1000 * 60 * 60 * 24)) {
-							var hh = dateObj.getHours();
-							var mi = dateObj.getMinutes();
-							var ss = dateObj.getSeconds();
-							return [ (hh > 9 ? '' : '0') + hh, ':',
-									(mi > 9 ? '' : '0') + mi, ':',
-									(ss > 9 ? '' : '0') + ss ].join('');
-						} else {
-							var yy = dateObj.getFullYear();
-							var mm = dateObj.getMonth() + 1;
-							var dd = dateObj.getDate();
-							return [ yy, '/', (mm > 9 ? '' : '0') + mm, '/',
-									(dd > 9 ? '' : '0') + dd ].join('');
-						}
-					};
+                  if (gap < (1000 * 60 * 60 * 24)) {
+                     var hh = dateObj.getHours();
+                     var mi = dateObj.getMinutes();
+                     var ss = dateObj.getSeconds();
+                     return [ (hh > 9 ? '' : '0') + hh, ':',
+                           (mi > 9 ? '' : '0') + mi, ':',
+                           (ss > 9 ? '' : '0') + ss ].join('');
+                  } else {
+                     var yy = dateObj.getFullYear();
+                     var mm = dateObj.getMonth() + 1;
+                     var dd = dateObj.getDate();
+                     return [ yy, '/', (mm > 9 ? '' : '0') + mm, '/',
+                           (dd > 9 ? '' : '0') + dd ].join('');
+                  }
+               };
 
-					$("button[name='review_good']").on("click", function(e) {
+               $("button[name='review_good']").on("click", function(e) {
 
-						var mov_rev_num = $(this).data("idx");
-						var good = $(this);
-						var bad = $(this).next('button');
+                  var mov_rev_num = $(this).data("idx");
+                  var good = $(this);
+                  var bad = $(this).next('button');
 
-						var data = {
-							mov_rev_num : mov_rev_num,
-							mem_num : 1
-						// ## 로그인 처리하면 고정값 수정필요 ##
-						};
-						$.ajax({
-							type : "POST",
-							url : "/review/good",
-							data : JSON.stringify(data), // http body 데이터
-							contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
-							dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-						}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-							good.html(response.good);
-							bad.html(response.bad);
-						}).fail(function(error) {
-							alert("올바른 경로가 아닙니다");
-						});
+                  var data = {
+                     mov_rev_num : mov_rev_num,
+                     mem_num : 1
+                  // ## 로그인 처리하면 고정값 수정필요 ##
+                  };
+                  $.ajax({
+                     type : "POST",
+                     url : "/review/good",
+                     data : JSON.stringify(data), // http body 데이터
+                     contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+                     dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+                  }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+                     good.html(response.good);
+                     bad.html(response.bad);
+                  }).fail(function(error) {
+                     alert("올바른 경로가 아닙니다");
+                  });
 
-					});
+               });
 
-					$("button[name='review_bad']").on("click", function(e) {
+               $("button[name='review_bad']").on("click", function(e) {
 
-						var mov_rev_num = $(this).data("idx");
-						var bad = $(this);
-						var good = $(this).prev('button');
-						;
+                  var mov_rev_num = $(this).data("idx");
+                  var bad = $(this);
+                  var good = $(this).prev('button');
+                  ;
 
-						var data = {
-							mov_rev_num : mov_rev_num,
-							mem_num : 1
-						// ## 로그인 처리하면 고정값 수정필요 ##
-						};
-						$.ajax({
-							type : "POST",
-							url : "/review/bad",
-							data : JSON.stringify(data), // http body 데이터
-							contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
-							dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-						}).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-							good.html(response.good);
-							bad.html(response.bad);
-						}).fail(function(error) {
-							alert("올바른 경로가 아닙니다");
-						});
-					});
+                  var data = {
+                     mov_rev_num : mov_rev_num,
+                     mem_num : 1
+                  // ## 로그인 처리하면 고정값 수정필요 ##
+                  };
+                  $.ajax({
+                     type : "POST",
+                     url : "/review/bad",
+                     data : JSON.stringify(data), // http body 데이터
+                     contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+                     dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+                  }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+                     good.html(response.good);
+                     bad.html(response.bad);
+                  }).fail(function(error) {
+                     alert("올바른 경로가 아닙니다");
+                  });
+               });
 
-				});
-	</script>
+            });
+   </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -416,118 +387,87 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
 		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 		crossorigin="anonymous"></script>
-		
-	
-	
-<script type="text/javascript" src="\resources\js\movieReviewComment.js"></script>
-	<script type="text/javascript">
-$("button[name='comment']").on("click", function(e){
-		
-	
-		
-		var idx = $(this).data('idx');
-		
-		var data = {
-				mov_rev_num: idx,
-				mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
-			};
-		console.log(data);
-		
-		
-		 movieReviewCommentService.getList(data, function(list){
-			for(var i = 0, len = list.length||0; i < len; i++){
-				console.log(list[i]);
-			}
-		}); 
-			 
-	});
-	</script>
-	
-	
-	<script type="text/javascript" src="\resources\js\movieReviewComment.js"></script>
-	<script type="text/javascript">
-	$("button[name='comment']").on("click", function(e){
-		var idx = $(this).data('idx');
-		
-		var data = {
-				mov_rev_num: idx,
-				mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
-			};
-		
-		var commentUL = $(".chat");
-		
-		console.log(data);
-		
-		showList(1)
-		
-		function showList(){
-			 
-			movieReviewCommentService.getList(data, function(list){
-			
-				
-				var str ="";
-				if(list == null || list.length ==0){
-					commentUL.html("");
-					return;
-				}
-				
-				for(var i =0, len = list.length || 0; i < len; i++){
-	                  str +="<li class='left clearfix' data-idx='"+list[i].mov_rev_com_num+"'>";
-	                  str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
-	                  str +="<small class='pull-right text-muted'>"
-	                            + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
-	                  str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";
-	                  
-				}
-				commentUL.html(str);				
-			 }); // end function
-		} // end showList
-		
-		var modal = $("#myModal");
-		var modalInputContent
-		= modal.find("input[name='mov_rev_com_content']");
-		var modalInputMemNum
-		= modal.find("input[name='mem_num']");
-		var modalInputMovRevComRegdate
-		= modal.find("input[name='mov_rev_com_regdate']");
-		
-		var modalModBtn = $("#modalModBtn");
-		var modalRemoveBtn = $("#modalRemoveBtn");
-		var modalRegisterBtn = $("#modalRegisterBtn");
-		
-		$("#addReplyBtn").on("click", function(e){
-			
-			modal.find("input").val("");
-			modalInputMovRevComRegdate.closest("div").hide(); //.show();
-			modal.find("button[id != 'modalCloseBtn']").hide();
-			
-			modalRegisterBtn.show();
-			$("#myModal").modal("show");
-			
-		});
-		
-		
-		modalRegisterBtn.on("click", function(e){
-			var content = {
-				content: modalInputContent.val(),
-				replyer: modalInputMemNum.val(),
-				data
-			};
-			movieReviewCommentService.add(content, function(result){
-				alert(result);
-				modal.find("input").val("");
-				modal.modal("hide");
-				showList(-1);
-			});
-		});
-		
-		$('#modalCloseBtn').on("click", function(e){
-			modal.find("input").val("");
-			modal.modal("hide");
-		});
-	});
 
-	</script>		
+
+	<script type="text/javascript"
+		src="\resources\js\movieReviewComment.js"></script>
+	<script type="text/javascript">
+   $(document).ready(function(){
+	 	     
+	   $("td[id='comment']").each(function (index){
 	
+
+		   var idx = $(this).data('idx');
+	   
+		   
+		   var data = {
+		             mov_rev_num: idx,
+		             mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
+		          };
+		   
+		   console.log($(this).data("idx"))
+		   var commentUL = $("#chat" + idx);	   
+		   movieReviewCommentService.getList(data, function(list){
+		         
+	            
+	            var str ="";
+	            if(list == null || list.length ==0){
+	               commentUL.html("");
+	               return;
+	            }
+	            
+	            for(var i =0, len = list.length || 0; i < len; i++){
+	                     str +="<li class='left clearfix' data-idx='"+list[i].mov_rev_com_num+"'>";
+	                     str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
+	                     str +="<small class='pull-right text-muted'>"
+	                               + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+	                     str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
+	            }
+	            commentUL.html(str);            
+	      });
+	   });
+   
+
+	          
+	       
+   
+   });
+   
+   
+         
+
+  
+
+   </script>
+
+
+	<script type="text/javascript"
+		src="\resources\js\movieReviewComment.js"></script>
+	<script type="text/javascript">
+   
+   $(document).ready(function(){
+
+      var comment = $("td[id='comment']").data('comment');
+      var data = {
+                   mov_rev_num: comment ,
+                   mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
+                };
+
+           
+           var commentUL = $("#chat");
+           
+         
+
+         
+         
+         
+      });
+      
+   </script>
+
+
+
+
+
 </body>
 </html>
