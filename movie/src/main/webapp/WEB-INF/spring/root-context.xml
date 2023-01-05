@@ -42,6 +42,9 @@
 	</bean>
 	
 	<tx:annotation-driven/>
+	
+	<bean id="exceptionHandlerExceptionResolver" 
+    class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" />
 <!-- 	<task:annotation-driven/>
 	<aop:aspectj-autoproxy/> -->
 	
