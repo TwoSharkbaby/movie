@@ -43,6 +43,7 @@ public class MovieReviewController {
 
 	@PostMapping("/insert")
 	public String insert(MovieReviewVO vo, RedirectAttributes rtts) {
+		log.info("¿Œº≠∆Æ");
 		if (movieReviewService.insert(vo) == 1) {
 			rtts.addFlashAttribute("result", "success");
 		} else {

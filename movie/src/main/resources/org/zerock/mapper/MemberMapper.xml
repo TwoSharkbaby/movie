@@ -76,9 +76,20 @@
 		DELETE FROM auth WHERE mem_num=#{mem_num}
 		]]>
 	</delete>
+	
+	<select id="memberInfo" resultMap="memberMap">
+		<![CDATA[
+		SELECT mem.*, auth.auth FROM member mem 
+		LEFT JOIN auth ON mem.mem_num = auth.mem_num WHERE mem.mem_num = #{mem_num}
+		]]>
+	</select>
 
-	<!-- <update id="update"> <![CDATA[ update tbl_board set title =#{title},content=#{content},writer=#{writer},updatedate=now() 
-		where bno=#{bno} ]]> </update> -->
+	<update id="memberModify"> 
+		<![CDATA[ 
+		update member set mem_pw =#{mem_pw}, mem_nickname=#{mem_nickname},
+		mem_email=#{mem_email}, mem_contact=#{mem_contact} where mem_num=#{mem_num} 
+		]]>
+	</update>
 
 	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
 		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 

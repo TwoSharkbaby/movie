@@ -34,6 +34,21 @@ public class MemberMapperTests {
 		log.info(memberMapper.findById("123"));
 		log.info("----------------------------------------------");
 	}
+	
+	@Test
+	public void testCheckId() {
+		log.info("----------------------------------------------");
+		MemberVO memberVO = MemberVO.builder().mem_id("123").build();
+		String vo = memberMapper.checkId(memberVO.getMem_id());
+		if(memberVO.getMem_id().equals(vo)) {
+			log.info("같은 아이디가 존재함");
+		} else {
+			log.info("같은 아이디가 존재하지 않음");
+		}
+		log.info(memberVO.getMem_id());
+		log.info(vo);
+		log.info("----------------------------------------------");
+	}
 
 //	@Test
 //	public void testInsert() {

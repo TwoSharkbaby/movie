@@ -33,6 +33,7 @@ img {
 			
 		</h1>
 		<a href="/customLogout"><button>Logout</button></a>
+		<a href="/customModify/<c:out value="${principal.member.mem_num}"/>"><button>회원정보수정</button></a>
 	</sec:authorize>
 	<sec:authorize access="isAnonymous()">
 		<a href="/customLogin"><button>Login</button></a>

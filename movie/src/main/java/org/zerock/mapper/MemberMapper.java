@@ -22,5 +22,9 @@ public interface MemberMapper {
 	public String checkId(String mem_id);
 	
 	public int deleteAuth(String mem_num);
+	
+	public MemberVO memberInfo(Long mem_num);
+	
+	public int memberModify(MemberVO memberVO);
 
 }

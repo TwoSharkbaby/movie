@@ -13,5 +13,9 @@ public interface MemberService {
 	public int update(MemberVO memberVO);
 
 	public int delete(String mem_num);
+	
+	public MemberVO memberInfo(Long mem_num);
+	
+	public int memberModify(MemberVO memberVO);
 
 }

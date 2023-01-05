@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Bootstrap demo</title>
@@ -23,6 +23,7 @@ img {
 }
 </style>
 </head>
+
 <body>
 
 	<div class="container">
@@ -30,59 +31,37 @@ img {
 			<div class="col-md-4 col-md-offset-4">
 				<div class="login-panel panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Please Sign In</h3>
+						<h3 class="panel-title">회원수정하기</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" method="post" action="/login">
+						<form method="post" action="/customModify">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="ID" name="username"
-										autofocus>
+									<input class="form-control" placeholder="Password"
+										name="mem_pw" type="password" value="">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Password"
-										name="password" type="password" value="">
+									<input class="form-control" placeholder="Nickname" 
+									name="mem_nickname" value="<c:out value="${member.mem_nickname}"/>">
 								</div>
-								<div class="checkbox">
-									<label> <input name="remember-me" type="checkbox">Remember
-										Me
-									</label>
+								<div class="form-group">
+									<input class="form-control" placeholder="Email" 
+									name="mem_email" value="<c:out value="${member.mem_email}"/>">
 								</div>
-								<!-- Change this to a button or input when using this as a form -->
-								<button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-								<a href="/customSingup" class="btn btn-lg btn-success btn-block">회원가입</a>
+								<div class="form-group">
+									<input class="form-control" placeholder="Phone" 
+									name="mem_contact" value="<c:out value="${member.mem_contact}"/>">
+								</div>
+								<button type="submit" class="btn btn-lg btn-success btn-block">회원수정</button>
+								<input type="hidden" name="mem_num" value="<c:out value="${member.mem_num}"/>" />
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							</fieldset>
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			var result = '<c:out value="${result}"/>';
-
-			checkModal(result);
-
-			history.replaceState({}, null, null);
-
-			function checkModal(result) {
-
-				if (result === '' || history.state) {
-					return;
-				} else {
-					alert(result);
-				}
-
-			}
-
-		});
-</script>
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -96,6 +75,7 @@ img {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
 		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 		crossorigin="anonymous"></script>
+
 </body>
 
 </html>

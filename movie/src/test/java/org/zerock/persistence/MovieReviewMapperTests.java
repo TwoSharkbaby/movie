@@ -38,8 +38,9 @@ public class MovieReviewMapperTests {
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
-		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
-		movieReviewMapper.insert(movieReviewVO);
+		MovieReviewVO movieReviewVO = MovieReviewVO.builder()
+				.mov_rev_title("123").mov_num(1L).mem_num(1L).mov_sco_point(1.0).build();
+		log.info(movieReviewMapper.insert(movieReviewVO));
 		log.info("----------------------------------------------");
 	}
 
@@ -90,7 +91,8 @@ public class MovieReviewMapperTests {
 	@Test
 	public void testRepetitionCheck() {
 		log.info("----------------------------------------------");
-		MovieReviewVO vo = MovieReviewVO.builder().mov_num(1L).mem_num(1L).build();
+		MovieReviewVO vo = MovieReviewVO.builder().mov_num(1L).mem_num(2L).build();
+		log.info(movieReviewMapper.repetitionCheck(vo));
 		if(movieReviewMapper.repetitionCheck(vo) == null) {
 			log.info("널입니다");
 		} else {

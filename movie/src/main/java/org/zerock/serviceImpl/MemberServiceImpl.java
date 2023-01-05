@@ -15,10 +15,10 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 @Log4j
 public class MemberServiceImpl implements MemberService {
-	
+
 	private final MemberMapper memberMapper;
 	private final PasswordEncoder passwordEncoder;
-	
+
 //	@Override
 //	public List<MemberVO> getList() {
 //		return memberMapper.getList();
@@ -33,22 +33,25 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int insert(MemberVO memberVO) {
-		if(memberVO.getMem_id() != null && memberVO.getMem_id() != "" && 
-				memberVO.getMem_id() != memberMapper.checkId(memberVO.getMem_id())) {
-			try {
-				String pass = passwordEncoder.encode(memberVO.getMem_pw());
-				memberVO.setMem_pw(pass);
-				memberMapper.insert(memberVO);
-				AuthVO auth = AuthVO.builder().mem_num(memberVO.getMem_num()).auth("ROLE_USER").build();
-				memberMapper.insertAuth(auth);
+		if (memberVO.getMem_id() != null && memberVO.getMem_id() != "") {
+			if (memberVO.getMem_id().equals(memberMapper.checkId(memberVO.getMem_id()))) {
 				return 0;
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else {
+				try {
+					String pass = passwordEncoder.encode(memberVO.getMem_pw());
+					memberVO.setMem_pw(pass);
+					memberMapper.insert(memberVO);
+					AuthVO auth = AuthVO.builder().mem_num(memberVO.getMem_num()).auth("ROLE_USER").build();
+					memberMapper.insertAuth(auth);
+					return 1;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return 1;
+		return 0;
 	}
-	
+
 	@Transactional
 	@Override
 	public int update(MemberVO memberVO) {
@@ -56,10 +59,27 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Transactional
-	@Override  
+	@Override
 	public int delete(String mem_num) {
 		memberMapper.delete(mem_num);
 		return memberMapper.deleteAuth(mem_num);
+	}
+
+	@Override
+	public MemberVO memberInfo(Long mem_num) {
+		return memberMapper.memberInfo(mem_num);
+	}
+
+	@Override
+	public int memberModify(MemberVO memberVO) {
+		try {
+			String pass = passwordEncoder.encode(memberVO.getMem_pw());
+			memberVO.setMem_pw(pass);
+			return memberMapper.memberModify(memberVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

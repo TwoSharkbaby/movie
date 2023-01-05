@@ -89,9 +89,9 @@
 		]]>
 	</delete>
 	
-	<select id="repetitionCheck" resultType="Boolean">
+	<select id="repetitionCheck" resultType="Long">
 		<![CDATA[
-		SELECT * FROM movie_review WHERE mov_num = #{mov_num} and mem_num = #{mov_num}
+		SELECT mov_rev_num FROM movie_review WHERE mov_num = #{mov_num} and mem_num = #{mem_num}
 		]]>
 	</select>
 	
