@@ -26,8 +26,8 @@
         <security:intercept-url pattern="/review/**" access="isAuthenticated()" />
         <security:intercept-url pattern="/comment/**" access="isAuthenticated()" />
 	
-		<security:form-login login-page="/customLogin" />
-
+		<security:form-login login-page="/customLogin"/>
+		
 		<security:logout logout-url="/logout"
 			invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"
 			success-handler-ref="customLogoutSuccess" />

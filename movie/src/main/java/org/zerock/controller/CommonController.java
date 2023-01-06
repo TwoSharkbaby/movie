@@ -23,16 +23,19 @@ public class CommonController {
 
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/customLogin")
-	public void loginInput(Authentication auth, RedirectAttributes rtts) {
-		if(auth == null) {
-			rtts.addFlashAttribute("result", "아이디 또는 비밀번호가 틀렸습니다");
-		} 
+	public void loginInput(String error, String logout, Model model) {
+		if (error != null) {
+			model.addAttribute("result", "아이디 또는 비밀번호가 틀렸습니다");
+		}
+		if (logout != null) {
+			model.addAttribute("result", "로그아웃 되셨습니다");
+		}
 	}
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/customLogout")
 	public void logoutGET() {
-		log.info("custom logout");
+		log.info("custom logoutㅁㄴㅇㄹㄴㅁㅇㄹㄴㅁㄹㅇ");
 	}
 
 	@GetMapping("/accessError")
@@ -67,13 +70,15 @@ public class CommonController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/customModify")
-	public String customModify(MemberVO memberVO, RedirectAttributes rtts) {
+	public String customModify(MemberVO memberVO, Model model, RedirectAttributes rtts) {
 		if(memberService.memberModify(memberVO) == 1) {
-			rtts.addFlashAttribute("result", "회원수정 성공");
+			model.addAttribute("result","회원수정 성공");
+			//rtts.addAttribute("result", "회원수정 성공");
+			return "customLogout";
 		} else {
 			rtts.addFlashAttribute("result", "회원수정 실패");
+			return "redirect:/customModify/" + memberVO.getMem_num();
 		}
-		return "redirect:/";
 	}
 
 }
