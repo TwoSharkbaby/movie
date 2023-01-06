@@ -479,27 +479,6 @@
            mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
         };
    
-   
-   movieReviewCommentService.getList(data, function(list){
-       console.log(list);
-       
-       var str ="";
-       if(list == null || list.length ==0){
-          commentUL.html("");
-          return;
-       }
-       
-       for(var i =0, len = list.length || 0; i < len; i++){
-                str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
-                str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
-                str +="<small class='pull-right text-muted'>"
-                          + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
-                str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
-       }
-       commentUL.html(str);            
- });
-   
-   
    var modal = $("#commentModal");
    
    var modalInputContent = modal.find("input[name='mov_rev_com_content']");
@@ -538,7 +517,69 @@
            modalRemoveBtn.show();
            
            $("#commentModal").modal("show");
+
            
+           
+           modalModBtn.on("click", function(e){
+          	 console.log(mov_rev_com_num);
+               var comment = 
+               {mov_rev_com_num : modal.data("mov_rev_com_num"), 
+              		 mov_rev_com_content : modalInputContent.val(),
+              		 mem_num:1};
+               
+               
+             movieReviewCommentService.update(comment, function(result){
+                  alert(result);
+                  modal.modal("hide");
+                 movieReviewCommentService.getList(data, function(list){
+                    
+                    
+                    var str ="";
+                    if(list == null || list.length ==0){
+                       commentUL.html("");
+                       return;
+                    }
+                    
+                    for(var i =0, len = list.length || 0; i < len; i++){
+                             str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                             str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
+                             str +="<small class='pull-right text-muted'>"
+                                       + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                             str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
+                    }
+                    commentUL.html(str);            
+              });
+               });
+            });
+         
+
+           modalRemoveBtn.on("click", function(result){
+          	 var mov_rev_com_num = modal.data("mov_rev_com_num");
+          	console.log(mov_rev_com_num);
+          	 movieReviewCommentService.remove(mov_rev_com_num, function(list){
+          		 alert(result);
+          		 modal.modal("hide");
+                   movieReviewCommentService.getList(data, function(list){
+                       console.log(list);
+                       
+                       var str ="";
+                       if(list == null || list.length ==0){
+                          commentUL.html("");
+                          return;
+                       }
+                       
+                       for(var i =0, len = list.length || 0; i < len; i++){
+                                str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                                str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
+                                str +="<small class='pull-right text-muted'>"
+                                          + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                                str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
+                       }
+                       commentUL.html(str);            
+                 });
+          	 });
+          	 
+           });
            
            
         });
@@ -546,48 +587,7 @@
         
         
         
-         modalModBtn.on("click", function(e){
-        	 var mov_rev_com_num = $(this).data("mov_rev_com_num");
-        	 console.log(mov_rev_com_num);
-             var mov_rev_com_num = 
-             {mov_rev_com_num : modal.data("mov_rev_com_num"), 
-            		 mov_rev_com_content : modalInputContent.val()};
-             
-             
-           movieReviewCommentService.update(comment, function(result){
-                alert(result);
-                modal.modal("hide");
-               movieReviewCommentService.getList(data, function(list){
-                  
-                  
-                  var str ="";
-                  if(list == null || list.length ==0){
-                     commentUL.html("");
-                     return;
-                  }
-                  
-                  for(var i =0, len = list.length || 0; i < len; i++){
-                           str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
-                           str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
-                           str +="<small class='pull-right text-muted'>"
-                                     + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
-                           str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
-                  }
-                  commentUL.html(str);            
-            });
-             });
-          });
-       
-         modalRemoveBtn.on("click", function(result){
-        	 var mov_rev_com_num = modal.data("mov_rev_com_num");
-        	console.log(mov_rev_com_num);
-        	 movieReviewCommentService.remove(mov_rev_com_num, function(list){
-        		 alert(result);
-        		 modal.modal("hide");
-        	 });
-        	 
-         });
-         
+
          
          
          
