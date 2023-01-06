@@ -33,11 +33,11 @@ img {
 						<h3 class="panel-title">Please Sign In</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" method="post" action="/login">
+						<form id="regForm" role="form" method="post" action="/login">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="ID" name="username"
-										autofocus>
+										type="text" autofocus>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Password"
@@ -81,6 +81,24 @@ img {
 			}
 
 		});
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var regForm = $('#regForm');
+		$("#regForm .btn-success").on("click", function(e) {
+			e.preventDefault();
+			if (!regForm.find("input[name='username']").val()) {
+				alert("아이디를 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='password']").val()) {
+				alert("비밀번호를 입력해주세요!");
+				return false;
+			}
+			regForm.submit();
+		});
+
+	});
 </script>
 
 

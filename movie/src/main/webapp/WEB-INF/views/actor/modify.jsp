@@ -7,7 +7,7 @@
 
 <%@include file="../includes/header.jsp"%>
 
-<form action="/actor/modify" method="post">
+<form id="regForm" action="/actor/modify" method="post">
 	<input type="text" name="act_name" placeholder="이름" value="<c:out value="${actor.act_name}" />" />
 	<input type="date" name="act_birth" placeholder="생일" value="<c:out value="${actor.act_birth}" />" /> 
 	<input type="text" name="act_sex" placeholder="성별" value="<c:out value="${actor.act_sex}" />" /> 
@@ -37,6 +37,41 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var regForm = $('#regForm');
+		$("#regForm button").on("click", function(e) {
+			e.preventDefault();
+			if (!regForm.find("input[name='act_name']").val()) {
+				alert("배우 이름을 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='act_birth']").val()) {
+				alert("배우 생일을 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='act_sex']").val()) {
+				alert("배우 성별을 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='act_info']").val()) {
+				alert("배우 정보를 입력해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='act_img']").val()){
+				alert("배우 사진을 등록해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='act_thumb']").val()){
+				alert("배우 섬네일을 입력해주세요!");
+				return false;
+			}
+			regForm.submit();
+		});
+
+	});
+</script>
 
 <script>
 	$(document).ready(function() {

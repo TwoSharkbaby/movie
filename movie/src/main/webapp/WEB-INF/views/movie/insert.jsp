@@ -7,7 +7,7 @@
 
 <%@include file="../includes/header.jsp"%>
 
-<form action="/movie/insert" method="post">
+<form id="regForm" action="/movie/insert" method="post">
 	<input type="text" name="mov_title" placeholder="제목" /> 
 	<input type="text" name="mov_director" placeholder="감독" /> 
 	<input type="text" name="mov_genre" placeholder="장르" /> 
@@ -38,6 +38,48 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		var regForm = $('#regForm');
+		$("#regForm button").on("click", function(e) {
+			e.preventDefault();
+			if (!regForm.find("input[name='mov_title']").val()) {
+				alert("영화 제목을 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mov_director']").val()) {
+				alert("영화 감독을 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mov_genre']").val()) {
+				alert("영화 장르를 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mov_synopsis']").val()) {
+				alert("영화 줄거리를 입력해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mov_release']").val()){
+				alert("영화 개봉일을 등록해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mov_runtime']").val()){
+				alert("영화 러닝타임 입력해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mov_img']").val()){
+				alert("영화 이미지를 입력해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mov_thumb']").val()){
+				alert("영화 섬네일을 입력해주세요!");
+				return false;
+			}
+			regForm.submit();
+		});
+
+	});
+</script>
 
 <script>
 $(document).ready(function(e){

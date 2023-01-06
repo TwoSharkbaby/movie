@@ -34,23 +34,23 @@ img {
 						<h3 class="panel-title">회원수정하기</h3>
 					</div>
 					<div class="panel-body">
-						<form method="post" action="/customModify">
+						<form id="regForm" method="post" action="/customModify">
 							<fieldset>
 								<div class="form-group">
 									비밀번호<input class="form-control" placeholder="Password"
-										name="mem_pw" type="password" value="">
+										name="mem_pw" type="password" >
 								</div>
 								<div class="form-group">
 									닉네임<input class="form-control" type="text" name="mem_nickname" 
-									value="<c:out value="${member.mem_nickname}"/>"/> 
+									type="text" value="<c:out value="${member.mem_nickname}"/>"/> 
 								</div>
 								<div class="form-group">
 									이메일<input class="form-control" placeholder="Email" 
-									name="mem_email" value="<c:out value="${member.mem_email}"/>">
+									type="text" name="mem_email" value="<c:out value="${member.mem_email}"/>">
 								</div>
 								<div class="form-group">
 									연락처<input class="form-control" placeholder="Phone" 
-									name="mem_contact" value="<c:out value="${member.mem_contact}"/>">
+									type="text" name="mem_contact" value="<c:out value="${member.mem_contact}"/>">
 								</div>
 								<button type="submit" class="btn btn-lg btn-success btn-block">회원수정</button>
 								<input type="hidden" name="mem_num" value="<c:out value="${member.mem_num}"/>" />
@@ -79,6 +79,32 @@ img {
 
 		};
 	</script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var regForm = $('#regForm');
+		$("#regForm .btn-success").on("click", function(e) {
+			e.preventDefault();
+			if (!regForm.find("input[name='mem_pw']").val()) {
+				alert("비밀번호를 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mem_nickname']").val()) {
+				alert("닉네임을 입력해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mem_email']").val()){
+				alert("이메일을 등록해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mem_contact']").val()){
+				alert("연락처를 입력해주세요!");
+				return false;
+			}
+			regForm.submit();
+		});
+
+	});
+</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

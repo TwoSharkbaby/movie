@@ -35,12 +35,10 @@ public class CommonController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/customLogout")
 	public void logoutGET() {
-		log.info("custom logoutㅁㄴㅇㄹㄴㅁㅇㄹㄴㅁㄹㅇ");
 	}
 
 	@GetMapping("/accessError")
 	public void accessDenied(Authentication auth, Model model) {
-		log.info("access Denied : " + auth);
 		model.addAttribute("msg", "Access Denied");
 	}
 
@@ -73,7 +71,6 @@ public class CommonController {
 	public String customModify(MemberVO memberVO, Model model, RedirectAttributes rtts) {
 		if(memberService.memberModify(memberVO) == 1) {
 			model.addAttribute("result","회원수정 성공");
-			//rtts.addAttribute("result", "회원수정 성공");
 			return "customLogout";
 		} else {
 			rtts.addFlashAttribute("result", "회원수정 실패");

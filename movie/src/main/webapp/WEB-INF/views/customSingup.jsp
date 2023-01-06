@@ -34,27 +34,27 @@ img {
 						<h3 class="panel-title">회원가입하기</h3>
 					</div>
 					<div class="panel-body">
-						<form method="post" action="/customSingup">
+						<form id="regForm" method="post" action="/customSingup">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="ID" name="mem_id"
-										autofocus>
+										type="text" autofocus>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Password"
 										name="mem_pw" type="password" value="">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Username" name="mem_name">
+									<input class="form-control" placeholder="Username" type="text" name="mem_name">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Nickname" name="mem_nickname">
+									<input class="form-control" placeholder="Nickname" type="text" name="mem_nickname">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Email" name="mem_email">
+									<input class="form-control" placeholder="Email" type="text" name="mem_email">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Phone" name="mem_contact">
+									<input class="form-control" placeholder="Phone" type="text" name="mem_contact">
 								</div>
 								<button type="submit" class="btn btn-lg btn-success btn-block">회원가입</button>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -65,6 +65,41 @@ img {
 			</div>
 		</div>
 	</div>
+	
+<script type="text/javascript">
+	$(document).ready(function() {
+		var regForm = $('#regForm');
+		$("#regForm .btn-success").on("click", function(e) {
+			e.preventDefault();
+			if (!regForm.find("input[name='mem_id']").val()) {
+				alert("아이디를 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mem_pw']").val()) {
+				alert("비밀번호를 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mem_name']").val()) {
+				alert("이름을 입력해주세요!");
+				return false;
+			}
+			if (!regForm.find("input[name='mem_nickname']").val()) {
+				alert("닉네임을 입력해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mem_email']").val()){
+				alert("이메일을 등록해주세요!");
+				return false;
+			}
+			if(!regForm.find("input[name='mem_contact']").val()){
+				alert("연락처를 입력해주세요!");
+				return false;
+			}
+			regForm.submit();
+		});
+
+	});
+</script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
