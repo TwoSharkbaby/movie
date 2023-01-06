@@ -21,8 +21,8 @@
 	<insert id="insert" keyProperty="mov_rev_num"
 		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
-		VALUES (#{mov_rev_title}, #{mov_rev_content}, now(), 0, 0, #{mov_num}, #{mem_num})
+		INSERT INTO movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mem_nickname, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+		VALUES (#{mov_rev_title}, #{mov_rev_content}, now(), #{mem_nickname}, 0, 0, #{mov_num}, #{mem_num})
 		]]>
 	</insert>
 	

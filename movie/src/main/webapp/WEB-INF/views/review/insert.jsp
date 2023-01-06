@@ -12,6 +12,7 @@
 	<input type="text" name="mov_rev_content" placeholder="내용"/>
 	<input type="text" name="mov_sco_point" placeholder="점수"/>
 	<input type="text" name="mem_num" value="<c:out value="${principal.member.mem_num}"/>"  readonly/>
+	<input type="text" name="mem_nickname" value="<c:out value="${principal.member.mem_nickname}"/>"  readonly/>
 	<input type="hidden" name="mov_num" value="<c:out value="${mov_num}" />"/>
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<button value="submit">등록하기</button>

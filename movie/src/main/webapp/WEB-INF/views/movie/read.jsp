@@ -18,6 +18,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -33,6 +36,9 @@
 			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${movie.mov_release}" /></td>
 			<td><fmt:formatDate pattern="HH:mm:ss" value="${movie.mov_runtime}" /></td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${movie.mov_regdate}" /></td>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<td><c:out value="${movie.mem_nickname}" /></td>
+			</sec:authorize>
 			<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 			<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 			<td><c:out value="${movie.mov_sco_point}" /></td>
@@ -66,6 +72,7 @@
 			<th>배우이름</th>
 			<th>섬네일사진</th>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
 				<th>수정</th>
 				<th>삭제</th>
 			</sec:authorize>
@@ -88,6 +95,7 @@
 						<c:out value="${actor.act_name}" /></button></td>
 						<td><img src='/imgs/<c:out value="${actor.act_thumb}" />'></td>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${actor.mem_nickname}" /></td>
 							<td><a href="/actor/modify/<c:out value="${actor.act_num}" />">
 								<button>수정하기</button></a></td>
 							<td><form action="/actor/delete" method="post">
@@ -121,6 +129,11 @@
 			<div class="modal-body-act_info">
 				<p>modal-body-act_info</p>
 			</div>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<div class="modal-body-mem_nickname">
+				<p>modal-body-mem_nickname</p>
+			</div>
+			</sec:authorize>
 			<div class="modal-body-act_img">
 				<p>modal-body-act_img</p>
 			</div>
@@ -149,6 +162,7 @@
 			<th>좋아요싫어요</th>
 			<th>영화번호</th>
 			<th>작성자</th>
+			<th>작성자 닉네임</th>
 			<th>평점</th>
 			<th>수정</th>
 			<th>삭제</th>
@@ -175,6 +189,7 @@
 						<c:out value="${review.mov_rev_bad}" /></button></td>
 					<td><c:out value="${review.mov_num}" /></td>
 					<td><c:out value="${review.mem_num}" /></td>
+					<td><c:out value="${review.mem_nickname}" /></td>
 					<td><c:out value="${review.mov_sco_point}" /></td>
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${principal.member.mem_num eq review.mem_num}">
@@ -194,7 +209,7 @@
 								<input type="hidden" name="mov_num" value="<c:out value="${review.mov_num}" />"> 
 								<input type="hidden" name="mem_num" value="<c:out value="${review.mem_num}" />">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<button type="submit">삭제하기</button>
+								<button type="submit">관리자삭제하기</button>
 							</form></td>
 					</sec:authorize>		
 				</tr>
@@ -261,6 +276,9 @@ $(document).ready(function() {
 		$(".modal-body-act_birth").html(displayTime(response.act_birth));
 		$(".modal-body-act_sex").html(response.act_sex);
 		$(".modal-body-act_info").html(response.act_info);
+		<sec:authorize access="hasRole('ROLE_ADMIN')">	
+		$(".modal-body-mem_nickname").html(response.mem_nickname);
+		</sec:authorize>	
 		$(".modal-body-act_img").html("<td><img src='/imgs/" + response.act_img + "'></td>");
 		$(".modal").modal("show");
 	};

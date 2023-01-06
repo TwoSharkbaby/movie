@@ -49,6 +49,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -77,6 +80,9 @@
 								value="${movie.mov_runtime}" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${movie.mov_regdate}" /></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${movie.mem_nickname}" /></td>
+						</sec:authorize>
 						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 						<td><c:out value="${movie.mov_sco_point}" /></td>
@@ -101,6 +107,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -129,6 +138,9 @@
 								value="${movie.mov_runtime}" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${movie.mov_regdate}" /></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${movie.mem_nickname}" /></td>
+						</sec:authorize>
 						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 						<td><c:out value="${movie.mov_sco_point}" /></td>
@@ -153,6 +165,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -181,6 +196,9 @@
 								value="${movie.mov_runtime}" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${movie.mov_regdate}" /></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${movie.mem_nickname}" /></td>
+						</sec:authorize>
 						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 						<td><c:out value="${movie.mov_sco_point}" /></td>
@@ -205,6 +223,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -233,6 +254,9 @@
 								value="${movie.mov_runtime}" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${movie.mov_regdate}" /></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${movie.mem_nickname}" /></td>
+						</sec:authorize>
 						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 						<td><c:out value="${movie.mov_sco_point}" /></td>
@@ -257,6 +281,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -285,6 +312,9 @@
 								value="${movie.mov_runtime}" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${movie.mov_regdate}" /></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${movie.mem_nickname}" /></td>
+						</sec:authorize>
 						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 						<td><c:out value="${movie.mov_sco_point}" /></td>
@@ -309,6 +339,9 @@
 			<th>개봉일</th>
 			<th>상영시간</th>
 			<th>등록일</th>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<th>작성자 닉네임</th>
+			</sec:authorize>
 			<th>포스터사진</th>
 			<th>섬네일사진</th>
 			<th>평점</th>
@@ -337,6 +370,9 @@
 								value="${movie.mov_runtime}" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 								value="${movie.mov_regdate}" /></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:out value="${movie.mem_nickname}" /></td>
+						</sec:authorize>
 						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
 						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
 						<td><c:out value="${movie.mov_sco_point}" /></td>

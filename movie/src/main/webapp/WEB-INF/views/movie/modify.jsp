@@ -14,6 +14,7 @@
 	<input type="text" name="mov_synopsis" value="<c:out value="${movie.mov_synopsis}"/>" placeholder="줄거리"/>
 	<input type="date" name="mov_release" value="<c:out value="${movie.mov_release}"/>" />
 	<input type="time" name="mov_runtime" value="<c:out value="${movie.mov_runtime}"/>"/>
+	<input type="text" name="mem_nickname" value="<c:out value="${principal.member.mem_nickname}"/>" readonly/> 
 	<input type="text" name="mov_img" value="<c:out value="${movie.mov_img}"/>"/>
 	<input type="text" name="mov_thumb" value="<c:out value="${movie.mov_thumb}"/>"/>
 	<input type="hidden" name="mov_num" value="<c:out value="${movie.mov_num}"/>">

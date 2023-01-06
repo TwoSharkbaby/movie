@@ -23,7 +23,10 @@ public class CommonController {
 
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/customLogin")
-	public void loginInput() {
+	public void loginInput(Authentication auth, RedirectAttributes rtts) {
+		if(auth == null) {
+			rtts.addFlashAttribute("result", "아이디 또는 비밀번호가 틀렸습니다");
+		} 
 	}
 
 	@PreAuthorize("isAuthenticated()")

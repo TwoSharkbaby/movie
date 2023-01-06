@@ -12,6 +12,7 @@
 	<input type="date" name="act_birth" placeholder="생일" value="<c:out value="${actor.act_birth}" />" /> 
 	<input type="text" name="act_sex" placeholder="성별" value="<c:out value="${actor.act_sex}" />" /> 
 	<input type="text" name=act_info placeholder="정보" value="<c:out value="${actor.act_info}" />" /> 
+	<input type="text" name="mem_nickname" value="<c:out value="${principal.member.mem_nickname}"/>" readonly/> 
 	<input type="text" name=act_img placeholder="이미지" value="<c:out value="${actor.act_img}" />" /> 
 	<input type="text" name=act_thumb placeholder="섬네일" value="<c:out value="${actor.act_thumb}" />" />
 	<input type="hidden" name="act_num" value="<c:out value="${actor.act_num}" />" /> 

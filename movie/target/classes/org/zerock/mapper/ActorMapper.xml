@@ -20,15 +20,15 @@
 	<insert id="insert" keyProperty="act_num"
 		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO actor(act_name, act_birth, act_sex, act_info, act_regdate, act_img, act_thumb, mov_num) 
-		VALUES (#{act_name},#{act_birth},#{act_sex},#{act_info},now(),#{act_img},#{act_thumb},#{mov_num})
+		INSERT INTO actor(act_name, act_birth, act_sex, act_info, act_regdate, mem_nickname, act_img, act_thumb, mov_num) 
+		VALUES (#{act_name},#{act_birth},#{act_sex},#{act_info},now(),#{mem_nickname},#{act_img},#{act_thumb},#{mov_num})
 		]]>
 	</insert>
 	
 	<update id="update"> 
 		<![CDATA[ 
 		update actor set act_name=#{act_name}, act_birth=#{act_birth}, act_sex=#{act_sex},
-		act_info=#{act_info}, act_img=#{act_img}, act_thumb=#{act_thumb} where act_num=#{act_num} 
+		act_info=#{act_info}, mem_nickname=#{mem_nickname}, act_img=#{act_img}, act_thumb=#{act_thumb} where act_num=#{act_num} 
 		]]>
 	</update>
 

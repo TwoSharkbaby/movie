@@ -37,19 +37,19 @@ img {
 						<form method="post" action="/customModify">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="Password"
+									비밀번호<input class="form-control" placeholder="Password"
 										name="mem_pw" type="password" value="">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Nickname" 
-									name="mem_nickname" value="<c:out value="${member.mem_nickname}"/>">
+									닉네임<input class="form-control" type="text" name="mem_nickname" 
+									value="<c:out value="${member.mem_nickname}"/>"/> 
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Email" 
+									이메일<input class="form-control" placeholder="Email" 
 									name="mem_email" value="<c:out value="${member.mem_email}"/>">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Phone" 
+									연락처<input class="form-control" placeholder="Phone" 
 									name="mem_contact" value="<c:out value="${member.mem_contact}"/>">
 								</div>
 								<button type="submit" class="btn btn-lg btn-success btn-block">회원수정</button>

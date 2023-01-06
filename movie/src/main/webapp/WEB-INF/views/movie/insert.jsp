@@ -13,6 +13,7 @@
 	<input type="text" name="mov_genre" placeholder="장르" /> 
 	<input type="text" name="mov_synopsis" placeholder="줄거리" /> 
 	<input type="date" name="mov_release" /> 
+	<input type="text" name="mem_nickname" value="<c:out value="${principal.member.mem_nickname}"/>" readonly/> 
 	<input type="time" name="mov_runtime" /> 
 	<input type="text" name="mov_img" /> 
 	<input type="text" name="mov_thumb" />

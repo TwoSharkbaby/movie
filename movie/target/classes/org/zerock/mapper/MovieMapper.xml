@@ -62,15 +62,15 @@
 	<insert id="insert" keyProperty="mov_num"
 		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb) 
-		VALUES (#{mov_title},#{mov_director},#{mov_genre},#{mov_synopsis},#{mov_release},#{mov_runtime},now(),#{mov_img},#{mov_thumb})
+		INSERT INTO movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mem_nickname, mov_img, mov_thumb) 
+		VALUES (#{mov_title},#{mov_director},#{mov_genre},#{mov_synopsis},#{mov_release},#{mov_runtime},now(),#{mem_nickname},#{mov_img},#{mov_thumb})
 		]]>
 	</insert>
 
 	<update id="update"> 
 		<![CDATA[ 
 		update movie set mov_title =#{mov_title},mov_director=#{mov_director},mov_genre=#{mov_genre},mov_synopsis=#{mov_synopsis},
-		mov_release=#{mov_release},mov_runtime=#{mov_runtime},mov_img=#{mov_img},mov_thumb=#{mov_thumb}
+		mov_release=#{mov_release},mov_runtime=#{mov_runtime},mem_nickname=#{mem_nickname},mov_img=#{mov_img},mov_thumb=#{mov_thumb}
 		where mov_num=#{mov_num} 
 		]]>
 	</update>
