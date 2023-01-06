@@ -21,6 +21,7 @@
 		<input type="time" name="mov_runtime"/>
 		<input type="text" name="mov_img"/>
 		<input type="text" name="mov_thumb"/>
+		<input type="text" name="mov_nickname"  placeholder="닉네임"/>
 		<button value="submit">등록하기</button>
 	</form>
 </body>

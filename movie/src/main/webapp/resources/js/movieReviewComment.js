@@ -1,4 +1,4 @@
-console.log("Reply Module......");
+console.log("Comment Module......");
 var movieReviewCommentService = (function() {
 
    function add(comment, callback, error){
@@ -40,7 +40,7 @@ var movieReviewCommentService = (function() {
    function remove(mov_rev_com_num, callback, error){
       $.ajax({
         type: 'delete',
-        url: '/mov_rev_comment/' + mov_rev_com_num,
+        url: '/comment/mov_rev_com_num/' + mov_rev_com_num,
         success : function(result, status, xhr){
           if(callback){
             callback(result);
@@ -57,8 +57,8 @@ var movieReviewCommentService = (function() {
    function update(comment, callback, error){
     $.ajax({
       type: 'put',
-      url: '/mov_rev_comment/' + comment.mov_rev_com_num, 
-      data: JSON.stringify(reply),
+      url: '/comment/mov_rev_com_num/' + comment.mov_rev_com_num, 
+      data: JSON.stringify(comment),
       contentType : "application/json; charset=utf-8", 
       success : function(result, status, xhr){
         if(callback){
@@ -75,8 +75,8 @@ var movieReviewCommentService = (function() {
 
    function get(mov_rev_com_num, callback, error){
       $.ajax({
-        type: 'read',
-        url: '/mov_rev_comment/' + mov_rev_com_num,
+        type: 'get',
+        url: '/comment/mov_rev_com_num/' + mov_rev_com_num,
         success : function(result, status, xhr){
           if(callback){
             callback(result);
