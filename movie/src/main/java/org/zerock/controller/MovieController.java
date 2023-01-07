@@ -27,10 +27,8 @@ import org.zerock.service.MovieReviewService;
 import org.zerock.service.MovieService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
 @RequestMapping("/movie/*")
 @RequiredArgsConstructor
 public class MovieController {
@@ -39,6 +37,7 @@ public class MovieController {
 	private final MovieReviewService movieReviewService;
 	private final ActorService actorService;
 
+	// 영화 상세보기
 	@GetMapping("/read/{mov_num}")
 	public String read(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("movie", movieService.read(mov_num));
@@ -47,6 +46,7 @@ public class MovieController {
 		return "movie/read";
 	}
 
+	// 영화 검색
 	@GetMapping("/search")
 	public String search(Criteria cri, Model model) {
 		model.addAttribute("list", movieService.getListWithPaging(cri));
@@ -54,11 +54,13 @@ public class MovieController {
 		return "movie/search";
 	}
 
+	// 영화 등록
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/insert")
 	public void insert() {
 	}
 
+	// 영화 수정
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modify/{mov_num}")
 	public String modify(@PathVariable Long mov_num, Model model) {
@@ -66,6 +68,7 @@ public class MovieController {
 		return "movie/modify";
 	}
 
+	// 영화 등록
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/insert")
 	public String insert(MovieVO vo, RedirectAttributes rtts) {
@@ -77,6 +80,7 @@ public class MovieController {
 		return "redirect:/";
 	}
 
+	// 영화 수정
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
 	public String modify(MovieVO vo, RedirectAttributes rtts) {
@@ -88,6 +92,7 @@ public class MovieController {
 		return "redirect:/movie/read/" + vo.getMov_num() ;
 	}
 
+	// 영화 삭제
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
 	public String delete(Long mov_num, RedirectAttributes rtts) {
@@ -105,6 +110,7 @@ public class MovieController {
 		return "redirect:/";
 	}
 
+	// 영화 수정창의 현제 사진불러오기
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -112,6 +118,7 @@ public class MovieController {
 		return new ResponseEntity<>(movieService.readAttachFileDTO(mov_num), HttpStatus.OK);
 	}
 
+	// 서버 영화사진 삭제
 	private void deleteFile(ImgVO vo) {
 		try {
 			Path img = Paths.get(vo.getImg());

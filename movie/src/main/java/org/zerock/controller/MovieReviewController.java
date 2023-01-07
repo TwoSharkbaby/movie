@@ -23,17 +23,18 @@ import lombok.extern.log4j.Log4j;
 @Controller 
 @RequestMapping("/review/*")
 @RequiredArgsConstructor
-@Log4j
 public class MovieReviewController {
 
 	private final MovieReviewService movieReviewService;
 
+	// ¸®ºä µî·Ï
 	@GetMapping("/insert/{mov_num}")
 	public String insert(@PathVariable Long mov_num, Model model) {
 		model.addAttribute("mov_num", mov_num);
 		return "review/insert";
 	}
 
+	// ¸®ºä ¼öÁ¤
 	@PreAuthorize("principal.member.mem_num == #mem_num")
 	@GetMapping("/modify/{mov_num}/{mov_rev_num}/{mem_num}")
 	public String modify(@PathVariable Long mov_num, @PathVariable Long mov_rev_num, @PathVariable Long mem_num, Model model) {
@@ -41,9 +42,9 @@ public class MovieReviewController {
 		return "review/modify";
 	}
 
+	// ¸®ºä µî·Ï
 	@PostMapping("/insert")
 	public String insert(MovieReviewVO vo, RedirectAttributes rtts) {
-		log.info("ÀÎ¼­Æ®");
 		if (movieReviewService.insert(vo) == 1) {
 			rtts.addFlashAttribute("result", "success");
 		} else {
@@ -52,6 +53,7 @@ public class MovieReviewController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	// ¸®ºä ¼öÁ¤
 	@PreAuthorize("principal.member.mem_num == #vo.mem_num")
 	@PostMapping("/modify")
 	public String modify(MovieReviewVO vo, RedirectAttributes rtts) {
@@ -63,6 +65,7 @@ public class MovieReviewController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	// ¸®ºä »èÁ¦
 	@PreAuthorize("principal.member.mem_num == #mem_num or hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
 	public String delete(Long mov_rev_num, Long mov_num, Long mem_num, RedirectAttributes rtts) {
@@ -74,6 +77,7 @@ public class MovieReviewController {
 		return "redirect:/movie/read/" + mov_num;
 	}
 	
+	// ¸®ºä ÁÁ¾Æ¿ä
 	@PostMapping(value = "/good", consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<ChoiceVO> goodUpdate(@RequestBody MovieReviewChoiceVO movieReviewChoiceVO) {
@@ -81,6 +85,7 @@ public class MovieReviewController {
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 	
+	// ¸®ºä ½È¾î¿ä
 	@PostMapping(value = "/bad", consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<ChoiceVO> badUpdate(@RequestBody MovieReviewChoiceVO movieReviewChoiceVO) {

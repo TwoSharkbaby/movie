@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.ActorVO;
 import org.zerock.mapper.ActorMapper;
 
 import lombok.Setter;
@@ -19,60 +18,6 @@ public class ActorMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ActorMapper actorMapper;
-
-//	@Test
-//	public void testGetList() {
-//		log.info("----------------------------------------------");
-//		actorMapper.getList().forEach(b -> log.info(b));
-//		log.info("----------------------------------------------");
-//
-//	}
-//
-//	@Test
-//	public void testRead() {
-//		log.info("----------------------------------------------");
-//		actorMapper.read(1L);
-//		log.info("----------------------------------------------");
-//	}
-//
-//	@Test
-//	public void testInsert() {
-//		log.info("----------------------------------------------");
-//		ActorVO actorVO = ActorVO.builder().act_name("kkk11").mov_num(3L).build();
-//		actorMapper.insert(actorVO);
-//		log.info("----------------------------------------------");
-//	}
-//
-//	@Test
-//	public void testDelete() {
-//		log.info("----------------------------------------------");
-//		actorMapper.delete(6L);
-//		log.info("----------------------------------------------");
-//	}
-	
-//	@Test
-//	public void testTotal() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
-//		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
-//	}
-//	
-//	@Test
-//	public void testGetListWithPaging() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
-//		boardMapper.getListWithPaging(cri);
-//	}
-//	@Test
-//	public void testUpdate() {
-//		BoardVO vo = BoardVO.builder().bno(3L).title("?‚œ?‚˜?‚œ").content("ë¬´ë‚˜?‚œ").writer("ë£¨ë¼?ž„").build();
-//		int result = boardMapper.update(vo);
-//		log.info("===========================================================");
-//		log.info("count.............." + result);
-//		log.info("===========================================================");
-//	}
 	
 	@Test
 	public void testMovieActorList() {
@@ -86,7 +31,6 @@ public class ActorMapperTests {
 		log.info("----------------------------------------------");
 		actorMapper.readActorImgs(3L).forEach(b -> log.info(b));
 		log.info("----------------------------------------------");
-
 	}
 
 }

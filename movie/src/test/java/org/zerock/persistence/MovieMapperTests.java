@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.StringUtils;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieVO;
 import org.zerock.mapper.MovieMapper;
@@ -21,13 +20,6 @@ public class MovieMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MovieMapper movieMapper ;
-
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieMapper.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
 	
 	@Test
 	public void testGenreList() {

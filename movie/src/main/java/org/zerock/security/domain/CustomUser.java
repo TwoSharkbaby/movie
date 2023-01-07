@@ -7,14 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.zerock.domain.MemberVO;
-import org.zerock.security.CustomUserDetailsService;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Getter
-public class CustomUser extends User { // id pw 비교
+public class CustomUser extends User { 
 	
 	private MemberVO member;
 	
@@ -22,6 +19,7 @@ public class CustomUser extends User { // id pw 비교
 		super(username, password, authorities);
 	}
 	
+	// AuthenticationPrincipal에 member 담기
 	public CustomUser(MemberVO vo) {
 		super(
 			vo.getMem_id(), 
@@ -31,7 +29,6 @@ public class CustomUser extends User { // id pw 비교
 			.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
 			.collect(Collectors.toList())
 		);
-		log.info("CustomUser" + vo);
 		this.member = vo;
 	}
 	

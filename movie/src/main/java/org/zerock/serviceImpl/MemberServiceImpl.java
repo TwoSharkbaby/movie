@@ -9,27 +9,15 @@ import org.zerock.mapper.MemberMapper;
 import org.zerock.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberMapper memberMapper;
 	private final PasswordEncoder passwordEncoder;
 
-//	@Override
-//	public List<MemberVO> getList() {
-//		return memberMapper.getList();
-//	}
-
-	@Transactional
-	@Override
-	public MemberVO read(String mem_id) {
-		return memberMapper.read(mem_id);
-	}
-
+	// 맴버 등록 / 아이디 체크 후 비밀번호 암호화 처리 및 권한 부여
 	@Transactional
 	@Override
 	public int insert(MemberVO memberVO) {
@@ -52,12 +40,7 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	@Transactional
-	@Override
-	public int update(MemberVO memberVO) {
-		return memberMapper.update(memberVO);
-	}
-
+	// 맴버 삭제
 	@Transactional
 	@Override
 	public int delete(String mem_num) {
@@ -65,11 +48,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.deleteAuth(mem_num);
 	}
 
+	// 맴버 수정시 정보불러오기
 	@Override
 	public MemberVO memberInfo(Long mem_num) {
 		return memberMapper.memberInfo(mem_num);
 	}
 
+	// 맴버 수정 / 비밀번호 암호화
 	@Override
 	public int memberModify(MemberVO memberVO) {
 		try {

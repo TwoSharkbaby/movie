@@ -9,16 +9,16 @@ import org.zerock.mapper.MovieReviewCommentMapper;
 import org.zerock.service.MovieReviewCommentService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
 public class MovieReviewCommentServiceImpl implements MovieReviewCommentService {
 	
 	private final MovieReviewCommentMapper movieReviewCommentMapper;
 	private final MovieReviewCommentChoiceMapper movieReviewCommentChoiceMapper;
 	
+	// 댓글 좋아요 / 싫어요 기록이 있으면 싫어요 취소 후 좋아요 등록
+	// 좋아요 기록이 있으면 좋아요 취소 / 기록이 없으면 좋아요 등록 / 좋아요 1
 	@Transactional
 	@Override
 	public ChoiceVO goodUpdate(Long mov_rev_com_num, Long mem_num) {
@@ -45,6 +45,8 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 		}
 	}
 	
+	// 댓글 싫어요 / 좋아요 기록이 있으면 좋아요 취소 후 싫어요 등록
+	// 싫어요 기록이 있으면 싫어요 취소 / 기록이 없으면 싫어요 등록 / 싫어요 2
 	@Transactional
 	@Override
 	public ChoiceVO badUpdate(Long mov_rev_com_num, Long mem_num) {
@@ -70,31 +72,5 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 			}
 		}
 	}
-
-//	@Override
-//	public List<MovieReviewCommentVO> getList() {
-//		return movieReviewCommentMapper.getList();
-//	}
-//
-//	@Override
-//	public MovieReviewCommentVO read(Long mov_rev_com_num) {
-//		return movieReviewCommentMapper.read(mov_rev_com_num);
-//	}
-//
-//	@Override
-//	public void insert(MovieReviewCommentVO movieReviewCommentVO) {
-//		movieReviewCommentMapper.insert(movieReviewCommentVO);
-//		
-//	}
-//
-//	@Override
-//	public int delete(Long mov_rev_com_num) {
-//		return movieReviewCommentMapper.delete(mov_rev_com_num);
-//	}
-//
-//	@Override
-//	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
-//		return movieReviewCommentMapper.getCommentList(mov_rev_num);
-//	}
 
 }

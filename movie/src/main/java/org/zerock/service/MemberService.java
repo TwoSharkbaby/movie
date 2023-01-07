@@ -4,18 +4,16 @@ import org.zerock.domain.MemberVO;
 
 public interface MemberService {
 
-//	public List<MemberVO> getList();
-	
-	public MemberVO read(String mem_id);
-
+	// 맴버 등록
 	public int insert(MemberVO memberVO);
-	
-	public int update(MemberVO memberVO);
 
+	// 맴버 삭제
 	public int delete(String mem_num);
 	
+	// 맴버 수정시 정보불러오기
 	public MemberVO memberInfo(Long mem_num);
 	
+	// 맴버 수정
 	public int memberModify(MemberVO memberVO);
 
 }

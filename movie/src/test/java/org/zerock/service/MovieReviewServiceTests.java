@@ -19,21 +19,6 @@ public class MovieReviewServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewService movieReviewService;
 
-//	@Test
-//	public void testGetList() {
-//		log.info("----------------------------------------------");
-//		movieReviewService.getList().forEach(b -> log.info(b));
-//		log.info("----------------------------------------------");
-//
-//	}
-//
-//	@Test
-//	public void testRead() {
-//		log.info("----------------------------------------------");
-//		movieReviewService.read(1L);
-//		log.info("----------------------------------------------");
-//	}
-
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
@@ -42,13 +27,6 @@ public class MovieReviewServiceTests {
 		movieReviewService.insert(movieReviewVO);
 		log.info("----------------------------------------------");
 	}
-
-//	@Test
-//	public void testDelete() {
-//		log.info("----------------------------------------------");
-//		movieReviewService.delete(5L);
-//		log.info("----------------------------------------------");
-//	}
 	
 	@Test
 	public void testMovieReviewRead() {
@@ -70,21 +48,5 @@ public class MovieReviewServiceTests {
 		movieReviewService.badUpdate(1L, 1L);
 		log.info("----------------------------------------------");
 	}
-	
-//	@Test
-//	public void testGetListWithPaging() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?Öå?ä§?ä∏");
-//		boardMapper.getListWithPaging(cri);
-//	}
-//	@Test
-//	public void testUpdate() {
-//		BoardVO vo = BoardVO.builder().bno(3L).title("?Çú?Çò?Çú").content("Î¨¥ÎÇò?Çú").writer("Î£®Îùº?ûÑ").build();
-//		int result = boardMapper.update(vo);
-//		log.info("===========================================================");
-//		log.info("count.............." + result);
-//		log.info("===========================================================");
-//	}
 
 }

@@ -11,28 +11,22 @@ import org.zerock.domain.MovieReviewCommentChoiceVO;
 import org.zerock.service.MovieReviewCommentService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @RestController
-@Log4j
 @RequestMapping("/comment/*")
 @RequiredArgsConstructor
 public class MovieReviewCommentController {
 
 	private final MovieReviewCommentService movieReviewCommentService;
 
-//		@GetMapping(value = "/{mov_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
-//		MediaType.APPLICATION_XML_VALUE })
-//public ResponseEntity<List<MovieReviewVO>> getList(@PathVariable Long mov_num) {
-//	return new ResponseEntity<>(movieReviewService.movieReviewRead(mov_num), HttpStatus.OK);
-//}
-
+	// ¸®ºä ´ñ±Û ÁÁ¾Æ¿ä
 	@PostMapping(value = "/good", consumes = "application/json")
 	public ResponseEntity<ChoiceVO> goodUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
 		ChoiceVO vo = movieReviewCommentService.goodUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(), movieReviewCommentChoiceVO.getMem_num());
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 
+	// ¸®ºä ´ñ±Û ½È¾î¿ä
 	@PostMapping(value = "/bad", consumes = "application/json")
 	public ResponseEntity<ChoiceVO> badUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
 		ChoiceVO vo = movieReviewCommentService.badUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(), movieReviewCommentChoiceVO.getMem_num());

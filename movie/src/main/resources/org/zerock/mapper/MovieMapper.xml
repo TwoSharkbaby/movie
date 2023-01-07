@@ -5,12 +5,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MovieMapper">
 
-	<select id="getList" resultType="org.zerock.domain.MovieVO">
-		<![CDATA[
-		SELECT * FROM movie WHERE mov_num > 0
-		]]>
-	</select>
-
 	<select id="getActionList"
 		resultType="org.zerock.domain.MovieVO">
 		<![CDATA[
@@ -149,13 +143,5 @@
 		SELECT mov_img AS img, mov_thumb AS thumb FROM movie WHERE mov_num = #{mov_num}
 		]]>
 	</select>
-
-	<!-- <insert id="insertSelectKey"> <selectKey order="BEFORE" keyProperty="bno" 
-		resultType="Long"> <![CDATA[ select MAX(bno)+1 from tbl_board ]]> </selectKey> 
-		<![CDATA[ insert into tbl_board(bno, title, content, writer) values (#{bno},#{title},#{content},#{writer}) 
-		]]> </insert> -->
-
-	<!-- <update id="updateReplyCnt"> UPDATE tbl_board SET replycnt=replycnt+#{amount} 
-		WHERE bno=#{bno} </update> -->
 
 </mapper>

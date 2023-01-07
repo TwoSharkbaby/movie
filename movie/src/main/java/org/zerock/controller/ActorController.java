@@ -22,16 +22,15 @@ import org.zerock.domain.ImgVO;
 import org.zerock.service.ActorService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
 @RequestMapping("/actor/*")
 @RequiredArgsConstructor
 public class ActorController {
-
+	
 	private final ActorService actorService;
 	
+	// 배우 등록
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/insert/{mov_num}")
 	public String insert(@PathVariable Long mov_num, Model model) {
@@ -39,6 +38,7 @@ public class ActorController {
 		return "actor/insert";
 	}
 
+	// 배우 수정
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modify/{act_num}")
 	public String modify(@PathVariable Long act_num, Model model) {
@@ -46,6 +46,7 @@ public class ActorController {
 		return "actor/modify";
 	}
 
+	// 배우 등록
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/insert") 
 	public String insert(ActorVO vo, RedirectAttributes rtts) {
@@ -57,6 +58,7 @@ public class ActorController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	// 배우 수정
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
 	public String modify(ActorVO vo, RedirectAttributes rtts) {
@@ -68,6 +70,7 @@ public class ActorController {
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
 
+	// 배우 삭제
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
 	public String delete(Long act_num, Long mov_num, RedirectAttributes rtts) {
@@ -81,12 +84,14 @@ public class ActorController {
 		return "redirect:/movie/read/" + mov_num;
 	}
 	
+	// 영화 상세보기의 출연배우
 	@GetMapping(value = "/{act_num}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	@ResponseBody
 	public ResponseEntity<ActorVO> read(@PathVariable("act_num") Long act_num) {
 		return new ResponseEntity<>(actorService.read(act_num), HttpStatus.OK);
 	}
 	
+	// 배우 수정창의 현제 사진불러오기
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -94,6 +99,7 @@ public class ActorController {
 		return new ResponseEntity<>(actorService.readAttachFileDTO(act_num), HttpStatus.OK);
 	}
 
+	// 서버 배우사진 삭제
 	private void deleteFile(ImgVO vo) {
 		try {
 			Path img = Paths.get(vo.getImg());

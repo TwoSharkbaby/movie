@@ -32,14 +32,13 @@ import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
-@Log4j
 public class UploadController {
-	
+
+	// 서버 사진 삭제
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
-
 		File file;
 		try {
 			file = new File("C:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
@@ -50,46 +49,33 @@ public class UploadController {
 				file.delete();
 			}
 		} catch (Exception e) {
-
 		}
-		
 		return new ResponseEntity<>("delete", HttpStatus.OK);
 	}
 
+	// 서버 사진 저장
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<AttachFileDTO> uploadAjaxAction(MultipartFile[] uploadFile) {
-	
-		String uploadFolder = "c:\\upload";
 		String uploadFolderPath = getFolder();
 		File uploadPath = new File("c:\\upload", uploadFolderPath);
-		
 		if (uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-		
 		AttachFileDTO attachFileDTO = new AttachFileDTO();
-		
 		for (MultipartFile multipartFile : uploadFile) {
-
 			String uploadFileName = multipartFile.getOriginalFilename();
-			
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-
 			attachFileDTO.setFileName(uploadFileName);
-
 			UUID uuid = UUID.randomUUID();
 			uploadFileName = uuid.toString() + "_" + uploadFileName;
-
 			try {
 				attachFileDTO.setUuid(uuid.toString());
 				attachFileDTO.setUploadPath(uploadFolderPath);
-
 				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 				attachFileDTO.setImg_path(uploadFileName);
-
 				if (checkImageType(saveFile)) {
 					attachFileDTO.setImage(true);
 					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
@@ -97,39 +83,18 @@ public class UploadController {
 					thumbnail.close();
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 		return new ResponseEntity<>(attachFileDTO, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/uploadFormAction")
-	public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
-
-		String uploadFolder = "c:\\upload";
-
-		for (MultipartFile multipartFile : uploadFile) {
-
-			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
-			try {
-				multipartFile.transferTo(saveFile);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-
-		}
-	}
-
+	// 사진 등록 및 수정 썸네일사진
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
-
 		File file = new File("c:\\upload\\" + fileName);
-
 		ResponseEntity<byte[]> result = null;
-
 		try {
 			HttpHeaders header = new HttpHeaders();
 			header.add("Content-Type", Files.probeContentType(file.toPath()));
@@ -137,10 +102,10 @@ public class UploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return result;
 	}
 
+	// 폴더 생성
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -148,6 +113,7 @@ public class UploadController {
 		return str.replace("-", File.separator);
 	}
 
+	// 타입 체크
 	private boolean checkImageType(File file) {
 		try {
 			String contentType = Files.probeContentType(file.toPath());

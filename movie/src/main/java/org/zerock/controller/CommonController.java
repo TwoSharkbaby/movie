@@ -12,15 +12,14 @@ import org.zerock.domain.MemberVO;
 import org.zerock.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
 @RequiredArgsConstructor
 public class CommonController {
 
 	private final MemberService memberService;
 
+	// 커스텀한 로그인
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
@@ -32,21 +31,25 @@ public class CommonController {
 		}
 	}
 
+	// 로그아웃
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/customLogout")
 	public void logoutGET() {
 	}
 
+	// 접근권한
 	@GetMapping("/accessError")
 	public void accessDenied(Authentication auth, Model model) {
 		model.addAttribute("msg", "Access Denied");
 	}
 
+	// 회원가입
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/customSingup")
 	public void singup() {
 	}
 
+	// 회원가입
 	@PreAuthorize("isAnonymous()")
 	@PostMapping("/customSingup")
 	public String singup(MemberVO vo, RedirectAttributes rtts) {
@@ -59,6 +62,7 @@ public class CommonController {
 		}
 	}
 
+	// 회원 수정
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/customModify/{mem_num}")
 	public String customModify(@PathVariable Long mem_num, Model model) {
@@ -66,6 +70,7 @@ public class CommonController {
 		return "customModify";
 	}
 
+	// 회원 수정
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/customModify")
 	public String customModify(MemberVO memberVO, Model model, RedirectAttributes rtts) {

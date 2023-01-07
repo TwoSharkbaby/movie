@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.zerock.service.MovieService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
 @RequiredArgsConstructor
 public class HomeController {
 	
 	private final MovieService movieService;
 	
+	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		model.addAttribute("latest", movieService.getLatestList());
@@ -28,6 +27,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	// 404 에러페이지
 	@GetMapping("/error_page")
 	public String noMapping() {
 		return "error_page";
