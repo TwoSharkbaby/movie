@@ -41,5 +41,13 @@ public class MemberMapperTests {
 		log.info(vo);
 		log.info("----------------------------------------------");
 	}
+	
+	@Test
+	public void testCheckId2() {
+		log.info("----------------------------------------------");
+		String vo = memberMapper.checkId("1234");
+		log.info(vo == null);
+		log.info("----------------------------------------------");
+	}
 
 }

@@ -30,5 +30,8 @@ public interface MemberMapper {
 	
 	// 맴버 수정
 	public int memberModify(MemberVO memberVO);
+	
+	// 회원가입 닉네임 체크
+	public String nicknameCheck(String mem_nickname);
 
 }

@@ -24,5 +24,12 @@ public class MemberServiceTests {
 		log.info(memberService.memberInfo(2L));
 		log.info("----------------------------------------------");
 	}
+	
+	@Test
+	public void testNicknameCheck() {
+		log.info("----------------------------------------------");
+		log.info(memberService.nicknameCheck("Á¤´Ù¿î"));
+		log.info("----------------------------------------------");
+	}
 
 }

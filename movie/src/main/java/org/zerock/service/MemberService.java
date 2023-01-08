@@ -15,5 +15,11 @@ public interface MemberService {
 	
 	// 맴버 수정
 	public int memberModify(MemberVO memberVO);
+	
+	// 맴버 아이디 중복 체크
+	public boolean idCheck(String mem_id);
+	
+	// 회원가입 닉네임 체크
+	public boolean nicknameCheck(String mem_nickname);
 
 }

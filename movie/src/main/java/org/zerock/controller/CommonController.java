@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -7,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
 import org.zerock.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -81,6 +85,22 @@ public class CommonController {
 			rtts.addFlashAttribute("result", "회원수정 실패");
 			return "redirect:/customModify/" + memberVO.getMem_num();
 		}
+	}
+	
+	// 아이디 체크
+	@PreAuthorize("isAnonymous()")
+	@GetMapping("/idCheck/{mem_id}")
+	@ResponseBody
+	public ResponseEntity<Boolean> idCheck(@PathVariable String mem_id) {
+		return new ResponseEntity<>(memberService.idCheck(mem_id), HttpStatus.OK);
+	}
+	
+	// 닉네임 체크
+	@PreAuthorize("isAnonymous()")
+	@GetMapping("/nicknameCheck/{mem_nickname}")
+	@ResponseBody
+	public ResponseEntity<Boolean> nicknameCheck(@PathVariable String mem_nickname) {
+		return new ResponseEntity<>(memberService.nicknameCheck(mem_nickname), HttpStatus.OK);
 	}
 
 }

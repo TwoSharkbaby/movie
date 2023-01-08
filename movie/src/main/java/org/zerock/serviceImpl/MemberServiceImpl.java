@@ -49,12 +49,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 맴버 수정시 정보불러오기
+	@Transactional
 	@Override
 	public MemberVO memberInfo(Long mem_num) {
 		return memberMapper.memberInfo(mem_num);
 	}
 
 	// 맴버 수정 / 비밀번호 암호화
+	@Transactional
 	@Override
 	public int memberModify(MemberVO memberVO) {
 		try {
@@ -65,6 +67,28 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	// 맴버 아이디 중복 체크
+	@Transactional
+	@Override
+	public boolean idCheck(String mem_id) {
+		if(memberMapper.checkId(mem_id) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// 회원가입 닉네임 체크
+	@Transactional
+	@Override
+	public boolean nicknameCheck(String mem_nickname) {
+		if(memberMapper.nicknameCheck(mem_nickname) == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

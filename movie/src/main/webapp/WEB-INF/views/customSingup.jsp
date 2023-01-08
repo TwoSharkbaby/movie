@@ -37,24 +37,37 @@ img {
 						<form id="regForm" method="post" action="/customSingup">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="ID" name="mem_id"
-										type="text" autofocus>
+									<input class="form-control" placeholder="ID" id="user_id" name="mem_id" type="text">
+									<div>4~12자리<button type="button" id="idCheck">아이디 중복 확인</button></div>
+									<div id="id_check"></div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Password"
-										name="mem_pw" type="password" value="">
+									<input class="form-control" placeholder="Password" id="user_pw" name="mem_pw" type="password">
+									<div>4~12자리</div>
+									<div id="pw_check"></div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Username" type="text" name="mem_name">
+									<input class="form-control" placeholder="Password2" id="user_pw2" name="mem_pw2" type="password">
+									<div id="pw2_check"></div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Nickname" type="text" name="mem_nickname">
+									<input class="form-control" placeholder="Username" id="user_name" type="text" name="mem_name">
+									<div>2~6자리</div>
+									<div id="name_check"></div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Email" type="text" name="mem_email">
+									<input class="form-control" placeholder="Nickname" id="user_nickname" type="text" name="mem_nickname">
+									<div>2~16자리</div><button type="button" id="nicknameCheck">닉네임 중복 확인</button></div>
+									<div id="nickname_check"></div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Phone" type="text" name="mem_contact">
+									<input class="form-control" placeholder="Email" id="user_email" type="text" name="mem_email">
+									<div id="email_check"></div>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Phone" id="user_phone" type="text" name="mem_contact">
+									<div>10~11자리(-를 생략하고)</div>
+									<div id="phone_check"></div>
 								</div>
 								<button type="submit" class="btn btn-lg btn-success btn-block">회원가입</button>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -67,38 +80,225 @@ img {
 	</div>
 	
 <script type="text/javascript">
-	$(document).ready(function() {
-		var regForm = $('#regForm');
-		$("#regForm .btn-success").on("click", function(e) {
-			e.preventDefault();
-			if (!regForm.find("input[name='mem_id']").val()) {
-				alert("아이디를 입력해주세요!");
-				return false;
+$(document).ready(function() {
+	
+	//모든 공백 체크 정규식
+	var empJ = /\s/g;
+	//아이디 정규식
+	var idJ = /^[a-z0-9]{4,12}$/;
+	// 비밀번호 정규식
+	var pwJ = /^[A-Za-z0-9]{4,12}$/; 
+	// 이름 정규식
+	var nameJ = /^[가-힣]{2,6}$/;
+	// 닉네임 정규식
+	var nicknameJ = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
+	// 이메일 검사 정규식
+	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	// 휴대폰 번호 정규식
+	var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+	
+	var inval_Arr = new Array(8).fill(false);
+	var regForm = $('#regForm');
+	var idCheck = false;
+	var nicknameCheck = false;
+	
+	$(".btn-success").on("click", function(e) {
+		e.preventDefault();
+		
+		// 아이디 정규식
+		if (idJ.test($('#user_id').val())) {
+			inval_Arr[0] = true;	
+		} else {
+			inval_Arr[0] = false;
+		}
+		// 비밀번호가 같은 경우 && 비밀번호 정규식
+		if (($('#user_pw').val() == ($('#user_pw2').val()))
+				&& pwJ.test($('#user_pw').val())) {
+			inval_Arr[1] = true;
+		} else {
+			inval_Arr[1] = false;
+		}
+		// 이름 정규식
+		if (nameJ.test($('#user_name').val())) {
+			inval_Arr[2] = true;	
+		} else {
+			inval_Arr[2] = false;
+		}
+		// 닉네임 정규식
+		if (nicknameJ.test($('#user_nickname').val())) {
+			inval_Arr[3] = true;	
+		} else {
+			inval_Arr[3] = false;
+		}
+		// 이메일 정규식
+		if (mailJ.test($('#user_email').val())){
+			inval_Arr[4] = true;
+		} else {
+			inval_Arr[4] = false;
+		}
+		// 휴대폰번호 정규식
+		if (phoneJ.test($('#user_phone').val())) {
+			inval_Arr[5] = true;
+		} else {
+			inval_Arr[5] = false;
+		}
+		// 아이디 중복 체크
+		if (idCheck) {
+			inval_Arr[6] = true;
+		} else {
+			inval_Arr[6] = false;
+			alert("아이디 중복 확인을 눌러주세요");
+		}
+		// 닉네임 중복 체크
+		if (nicknameCheck) {
+			inval_Arr[7] = true;
+		} else {
+			inval_Arr[7] = false;
+			alert("닉네임 중복 확인을 눌러주세요");
+		}
+
+		var validAll = true;
+		for(var i = 0; i < inval_Arr.length; i++){
+			
+			if(inval_Arr[i] == false){
+				validAll = false;
 			}
-			if (!regForm.find("input[name='mem_pw']").val()) {
-				alert("비밀번호를 입력해주세요!");
-				return false;
-			}
-			if (!regForm.find("input[name='mem_name']").val()) {
-				alert("이름을 입력해주세요!");
-				return false;
-			}
-			if (!regForm.find("input[name='mem_nickname']").val()) {
-				alert("닉네임을 입력해주세요!");
-				return false;
-			}
-			if(!regForm.find("input[name='mem_email']").val()){
-				alert("이메일을 등록해주세요!");
-				return false;
-			}
-			if(!regForm.find("input[name='mem_contact']").val()){
-				alert("연락처를 입력해주세요!");
-				return false;
-			}
+		}
+		
+		if(validAll){ // 유효성 모두 통과
 			regForm.submit();
-		});
+		} else{
+			alert('입력한 정보들을 다시 한번 확인해주세요 :)')
+		}	 
+		
+	});
+
+	$('#idCheck').on("click", function(e) {
+		e.preventDefault();
+		
+		var mem_id = $('#user_id').val();
+		
+		$.ajax({
+			type : "GET",
+			url : "/idCheck/" + mem_id,
+			contentType : "application/json; charset=utf-8", 
+			dataType : "json" 
+			}).done(function(response) { 
+				if(response == false){
+					idCheck = true;
+					alert("사용 가능한 아이디 입니다");
+				} else {
+					alert("이미 사용중인 아이디 입니다");
+				}
+			}).fail(function(error) {
+				alert("올바른 경로가 아닙니다");
+			});
 
 	});
+	
+	$('#nicknameCheck').on("click", function(e) {
+		e.preventDefault();
+		
+		var mem_nickname = $('#user_nickname').val();
+		
+		$.ajax({
+			type : "GET",
+			url : "/nicknameCheck/" + mem_nickname,
+			contentType : "application/json; charset=utf-8", 
+			dataType : "json"
+			}).done(function(response) { 
+				if(response == false){
+					nicknameCheck = true;
+					alert("사용 가능한 닉네임 입니다");
+				} else {
+					alert("이미 사용중인 닉네임 입니다");
+				}
+			}).fail(function(error) {
+				alert("올바른 경로가 아닙니다");
+			});
+
+	});
+	
+	$('#user_id').change(function(){
+		idCheck = false;
+	});
+	
+	$('#user_nickname').change(function(){
+		nicknameCheck = false;
+	});
+
+	$('#user_id').blur(function(){
+		if(idJ.test($(this).val())){
+			console.log(idJ.test($(this).val()));
+			$("#id_check").text('');
+		} else {
+			$('#id_check').text('아이디를 확인해주세요 :)');
+			$('#id_check').css('color', 'red');
+		}
+	});
+	
+	$("#user_pw").blur(function(){
+		if(pwJ.test($("#user_pw").val())){
+			console.log("true");
+			$("#pw_check").text("");
+		} else {
+			console.log("false");
+			$("#pw_check").text("숫자 or 문자로만 4~12자리 입력");
+			$("#pw_check").css("color", "red");
+		}
+	});
+	
+	$("#user_pw2").blur(function(){
+		if($("#user_pw").val() != $(this).val()){
+			$("#pw2_check").text("비밀번호가 일치하지 않습니다");
+			$("#pw2_check").css("color", "red");
+		} else {
+			$("#pw2_check").text("");
+		}
+	});
+	
+	$("#user_name").blur(function() {
+		if (nameJ.test($(this).val())) {
+				console.log(nameJ.test($(this).val()));
+				$("#name_check").text('');
+		} else {
+			$('#name_check').text('이름을 확인해주세요');
+			$('#name_check').css('color', 'red');
+		}
+	});
+	
+	$("#user_nickname").blur(function() {
+		if (nicknameJ.test($(this).val())) {
+				console.log(nicknameJ.test($(this).val()));
+				$("#nickname_check").text('');
+		} else {
+			$('#nickname_check').text('닉네임을 확인해주세요');
+			$('#nickname_check').css('color', 'red');
+		}
+	});
+	
+	$('#user_email').blur(function(){
+		if(mailJ.test($(this).val())){
+			console.log(mailJ.test($(this).val()));
+			$("#email_check").text('');
+		} else {
+			$('#email_check').text('이메일을 확인해주세요 :)');
+			$('#email_check').css('color', 'red');
+		}
+	});
+
+	$('#user_phone').blur(function(){
+		if(phoneJ.test($(this).val())){
+			console.log(phoneJ.test($(this).val()));
+			$("#phone_check").text('');
+		} else {
+			$('#phone_check').text('휴대폰번호를 확인해주세요 :)');
+			$('#phone_check').css('color', 'red');
+		}
+	});
+
+
+});
 </script>
 
 	<script

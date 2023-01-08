@@ -84,5 +84,11 @@
 		mem_email=#{mem_email}, mem_contact=#{mem_contact} where mem_num=#{mem_num} 
 		]]>
 	</update>
+	
+	<select id="nicknameCheck" resultType="String">
+		<![CDATA[
+		SELECT mem_nickname FROM member where mem_nickname = #{mem_nickname}
+		]]>
+	</select>
 
 </mapper>
