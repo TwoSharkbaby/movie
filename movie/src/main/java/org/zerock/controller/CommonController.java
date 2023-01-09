@@ -95,8 +95,7 @@ public class CommonController {
 		return new ResponseEntity<>(memberService.idCheck(mem_id), HttpStatus.OK);
 	}
 	
-	// 닉네임 체크
-	@PreAuthorize("isAnonymous()")
+	// 닉네임 체크(비회원/회원 둘다 필요)
 	@GetMapping("/nicknameCheck/{mem_nickname}")
 	@ResponseBody
 	public ResponseEntity<Boolean> nicknameCheck(@PathVariable String mem_nickname) {

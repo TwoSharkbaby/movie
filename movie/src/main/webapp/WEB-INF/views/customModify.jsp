@@ -43,8 +43,8 @@ img {
 										<div id="pw_check"></div>
 								</div>
 								<div class="form-group">
-									비밀번호<input class="form-control" placeholder="Password"
-										id="user_pw2" name="mem_pw" type="password" >
+									비밀번호<input class="form-control" placeholder="Password2"
+										id="user_pw2" name="mem_pw2" type="password" >
 										<div id="pw2_check"></div>
 								</div>
 								<div class="form-group">
