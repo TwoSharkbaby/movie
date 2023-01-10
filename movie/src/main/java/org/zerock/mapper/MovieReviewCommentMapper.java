@@ -2,7 +2,9 @@ package org.zerock.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.ChoiceVO;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieReviewCommentVO;
 
 public interface MovieReviewCommentMapper {
@@ -17,7 +19,7 @@ public interface MovieReviewCommentMapper {
 	
 	public int update(MovieReviewCommentVO movieReviewCommentVO);
 //	
-	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num);
+	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num);
 	
 	public void goodUpdate(Long mov_rev_com_num);
 	
@@ -33,6 +35,9 @@ public interface MovieReviewCommentMapper {
 	
 	public void deleteReviewComments(Long mov_rev_num);
 	
+	public List<MovieReviewCommentVO> getListWithPaging(
+			@Param("cri") Criteria cri,
+			@Param("mov_rev_num") Long mov_rev_num);
 	
 	
 }

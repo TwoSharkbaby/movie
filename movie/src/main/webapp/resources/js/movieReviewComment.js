@@ -23,11 +23,12 @@ var movieReviewCommentService = (function() {
 
   function getList(param, callback, error){
       var mov_rev_num = param.mov_rev_num;
+      var page = param.page || 1;
       $.getJSON( 
-          "/comment/"+mov_rev_num+".json",
-          function(data){ 
+          "/comment/pages/"+mov_rev_num+"/"+ page + ".json",
+          function(data1){ 
             if(callback){
-              callback(data);
+              callback(data1);
             }
           }
         ).fail(function(xhr, status, err){
@@ -40,10 +41,10 @@ var movieReviewCommentService = (function() {
    function remove(mov_rev_com_num, callback, error){
       $.ajax({
         type: 'delete',
-        url: '/comment/mov_rev_com_num/' + mov_rev_com_num,
-        success : function(result, status, xhr){
+        url: '/comment/' + mov_rev_com_num,
+        success : function(deleteResult, status, xhr){
           if(callback){
-            callback(result);
+            callback(deleteResult);
           }
         },
         error : function(xhr, status, er){
@@ -57,7 +58,7 @@ var movieReviewCommentService = (function() {
    function update(comment, callback, error){
     $.ajax({
       type: 'put',
-      url: '/comment/mov_rev_com_num/' + comment.mov_rev_com_num, 
+      url: '/comment/' + comment.mov_rev_com_num, 
       data: JSON.stringify(comment),
       contentType : "application/json; charset=utf-8", 
       success : function(result, status, xhr){
@@ -76,7 +77,7 @@ var movieReviewCommentService = (function() {
    function get(mov_rev_com_num, callback, error){
       $.ajax({
         type: 'get',
-        url: '/comment/mov_rev_com_num/' + mov_rev_com_num,
+        url: '/comment/' + mov_rev_com_num,
         success : function(result, status, xhr){
           if(callback){
             callback(result);

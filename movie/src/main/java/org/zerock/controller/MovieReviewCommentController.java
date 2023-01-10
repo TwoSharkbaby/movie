@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.ChoiceVO;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieReviewCommentChoiceVO;
 import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.service.MovieReviewCommentService;
@@ -29,11 +30,14 @@ public class MovieReviewCommentController {
 
 	private final MovieReviewCommentService movieReviewCommentService;
 
-	@GetMapping(value = "/{mov_rev_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
+	@GetMapping(value = "/pages/{mov_rev_num}/{page}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<List<MovieReviewCommentVO>> getList(@PathVariable("mov_rev_num") Long mov_rev_num) {
+	public ResponseEntity<List<MovieReviewCommentVO>> getCommentList(
+			@PathVariable("page") int page,
+			@PathVariable("mov_rev_num") Long mov_rev_num) {
 		log.info(".................." + mov_rev_num);
-		return new ResponseEntity<>(movieReviewCommentService.getCommentList(mov_rev_num), HttpStatus.OK);
+		Criteria cri = new Criteria(page, 10);
+		return new ResponseEntity<>(movieReviewCommentService.getList(cri, mov_rev_num), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/good", consumes = "application/json")
@@ -61,14 +65,14 @@ public class MovieReviewCommentController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@GetMapping(value = "*/{mov_rev_com_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
+	@GetMapping(value = "/{mov_rev_com_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<MovieReviewCommentVO> get(@PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
 		return new ResponseEntity<>(movieReviewCommentService.read(mov_rev_com_num), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH},
-			value = "*/{mov_rev_com_num}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE })
+			value = "/{mov_rev_com_num}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> modify(@RequestBody MovieReviewCommentVO vo, @PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
 		vo.setMov_rev_com_num(mov_rev_com_num);
 		log.info("mov_rev_com_num : " +mov_rev_com_num);
@@ -80,7 +84,7 @@ public class MovieReviewCommentController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@DeleteMapping(value = "*/{mov_rev_com_num}", produces = { MediaType.TEXT_PLAIN_VALUE })
+	@DeleteMapping(value = "/{mov_rev_com_num}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> remove(@PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
 		log.info("remove" + mov_rev_com_num);
 		return movieReviewCommentService.delete(mov_rev_com_num) == 1 

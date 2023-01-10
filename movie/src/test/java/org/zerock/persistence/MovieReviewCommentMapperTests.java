@@ -1,10 +1,13 @@
 package org.zerock.persistence;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.mapper.MovieReviewCommentMapper;
 
@@ -18,6 +21,17 @@ public class MovieReviewCommentMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewCommentMapper movieReviewCommentMapper;
+	
+	private Long[] mov_rev_numArr = { 1L, 2L, 3L, 4L, 5L, 6L };
+	
+	@Test
+	public void testList() {
+		Criteria cri = new Criteria();
+		
+		List<MovieReviewCommentVO> comments = movieReviewCommentMapper.getListWithPaging(cri, mov_rev_numArr[0]);
+		
+		comments.forEach(comment -> log.info(comment));
+	}
 	
 	@Test
 	public void testCheckChoice() {
@@ -57,12 +71,6 @@ public class MovieReviewCommentMapperTests {
 		log.info("----------------------------------------------");
 	}
 //	
-	@Test
-	public void testGetCommentList() {
-		log.info("----------------------------------------------");
-		movieReviewCommentMapper.getCommentList(3L).forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
 	
 	@Test
 	public void testUpdate() {

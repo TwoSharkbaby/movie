@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.ChoiceVO;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieReviewCommentChoiceVO;
 import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.mapper.MovieReviewCommentChoiceMapper;
@@ -75,8 +76,8 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 	}
 	
 	@Override
-	public List<MovieReviewCommentVO> getCommentList(Long mov_rev_num) {
-		return movieReviewCommentMapper.getCommentList(mov_rev_num);
+	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num) {
+		return movieReviewCommentMapper.getListWithPaging(cri, mov_rev_num);
 	}
 	
 
