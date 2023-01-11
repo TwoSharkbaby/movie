@@ -427,7 +427,7 @@
            var modalRegisterBtn = $("#modalRegisterBtn");
             
              
-           $(".chat2").on("click", "li", function(e){
+           $("#chat"+ idx).on("click", "li", function(e){
            
               var mov_rev_com_num = $(this).data("mov_rev_com_num");
               
