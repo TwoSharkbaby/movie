@@ -515,7 +515,7 @@
       });
 
     $(".chat2").on("click", "li", function(e){
-       var mov_rev_com_num = $(this).data('idx');
+       var mov_rev_com_num = $(this).data('mov_rev_com_num');
         console.log(mov_rev_com_num);
         movieReviewCommentService.get(mov_rev_com_num, function(comment) {
            modalInputContent.val(comment.mov_rev_com_content);
