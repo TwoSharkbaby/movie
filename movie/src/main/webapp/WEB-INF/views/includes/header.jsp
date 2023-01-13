@@ -14,12 +14,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/css/main_carousel.css" rel="stylesheet">
-<link href="resources/css/movie_style.css" rel="stylesheet">
-<link href="resources/css/web.css" rel="stylesheet">
-<link href="resources/css/header.css" rel="stylesheet">
-<link href="resources/css/footer.css" rel="stylesheet">
+<link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/css/main_carousel.css" rel="stylesheet">
+<link href="/resources/css/movie_style.css" rel="stylesheet">
+<link href="/resources/css/web.css" rel="stylesheet">
+<link href="/resources/css/header.css" rel="stylesheet">
+<link href="/resources/css/footer.css" rel="stylesheet">
 <style>
 .row>* {
 	padding-right: calc(var(- -bs-gutter-x)* 0.9) !important;
@@ -37,7 +37,7 @@ body {
       <div class="css-1gkas1x-Grid e1689zdh0">
         <div class="css-1djzg97">
           <ul class="css-6v7b8v-VisualUl">
-            <li class="css-t686xv"><a href=""><img src="resources/imgs/img_logo.png" alt="LOGO 이미지"></a></li>
+            <li class="css-t686xv"><a href=""><img src="/resources/imgs/img_logo.png" alt="LOGO 이미지"></a></li>
             <li class="css-1c3wwgb">
               <div class="css-1xm32e0">
                 <div class="css-1okeg7p">

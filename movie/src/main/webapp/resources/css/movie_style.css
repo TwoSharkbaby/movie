@@ -259,7 +259,7 @@ em {
     display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
-    width: 20%;
+    width: 19.8%;
     padding: 0 5px;
     margin: 0 0 24px;
 }
@@ -512,8 +512,12 @@ em {
     margin: 8px 0;
   }
   
+  .write_review1 {
+  	float: right;
+  }
+  
   .more_view1 {
-    float: right;
+    text-align: center;
   }
   
   .more_view2 {
@@ -610,7 +614,7 @@ em {
   
   .mov_info_part4-StyledText {
     margin-top: 10px;
-    white-space: pre-wrap;
+    white-space: normal;
     color: #fff;
     font-size: 16px;
     font-weight: 400;
@@ -618,7 +622,7 @@ em {
     -moz-letter-spacing: -0.2px;
     -ms-letter-spacing: -0.2px;
     letter-spacing: -0.2px;
-    line-height: 24px;
+    line-height: 22px;
   }
   
   .section_main1 {
