@@ -7,33 +7,11 @@
 
 <%@include file="./includes/header.jsp"%>
 
-<div>
-	<form id="searchForm" action="/movie/search" method="get">
-		<div>
-			<select name="type">
-				<option value="">--</option>
-				<option value="T">제목</option>
-				<option value="G">장르</option>
-				<option value="D">감독</option>
-				<option value="A">배우</option>
-				<option value="TD">제목 OR 감독</option>
-				<option value="GD">장르 OR 감독</option>
-			</select>
-		</div>
-		<div style="padding: 0px;">
-			<input type="text" name="keyword" />
-		</div>
-		<div>
-			<button>Search</button>
-		</div>
-	</form>
-</div>
-
 <hr />
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div>
-		<a href="/movie/insert"><button>등록하기</button></a>
+		<a href="/movie/insert"><button class="btn btn-danger">등록하기</button></a>
 	</div>
 </sec:authorize>
 
@@ -382,41 +360,5 @@
 		</c:choose>
 	</tbody>
 </table>
-
-<script type="text/javascript">
-		$(document).ready(function() {
-
-			var result = '<c:out value="${result}"/>';
-
-			checkModal(result);
-
-			history.replaceState({}, null, null);
-
-			function checkModal(result) {
-
-				if (result === '' || history.state) {
-					return;
-				} else {
-					alert(result);
-				}
-
-			}
-
-			var searchForm = $('#searchForm');
-			$('#searchForm button').on("click", function(e) {
-				if (!searchForm.find("option:selected").val()) {
-					alert("검색종류를 선택하세요.");
-					return false;
-				}
-				if (!searchForm.find("input[name='keyword']").val()) {
-					alert("키워드를 입력하세요.");
-					return false;
-				}
-				e.preventDefault();
-				searchForm.submit();
-			});
-
-		});
-</script>
 
 <%@include file="./includes/footer.jsp"%>

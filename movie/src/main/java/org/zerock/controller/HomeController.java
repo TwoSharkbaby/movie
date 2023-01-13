@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.MovieService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class HomeController {
 	
 	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Criteria cri, Model model) {
 		model.addAttribute("latest", movieService.getLatestList());
 		model.addAttribute("action", movieService.getActionList());
 		model.addAttribute("fantasy", movieService.getFantasyList());

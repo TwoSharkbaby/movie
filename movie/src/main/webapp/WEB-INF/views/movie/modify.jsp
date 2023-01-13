@@ -6,47 +6,75 @@
 	prefix="sec"%>
 
 <%@include file="../includes/header.jsp"%>
-	
-<form id="regForm" action="/movie/modify" method="post">
-	<input type="text" name="mov_title" value="<c:out value="${movie.mov_title}"/>" placeholder="제목"/>
-	<input type="text" name="mov_director" value="<c:out value="${movie.mov_director}"/>" placeholder="감독"/>
-	<input type="text" name="mov_genre" value="<c:out value="${movie.mov_genre}"/>" placeholder="장르"/>
-	<input type="text" name="mov_synopsis" value="<c:out value="${movie.mov_synopsis}"/>" placeholder="줄거리"/>
-	<input type="date" name="mov_release" value="<c:out value="${movie.mov_release}"/>" />
-	<input type="time" name="mov_runtime" value="<c:out value="${movie.mov_runtime}"/>"/>
-	<input type="text" name="mem_nickname" value="<c:out value="${principal.member.mem_nickname}"/>" readonly/> 
-	<input type="text" name="mov_img" value="<c:out value="${movie.mov_img}"/>"/>
-	<input type="text" name="mov_thumb" value="<c:out value="${movie.mov_thumb}"/>"/>
-	<input type="hidden" name="mov_num" value="<c:out value="${movie.mov_num}"/>">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	<button value="submit">수정완료</button>
-</form>
 
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading"></div>
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-
-				<div class="form-group uploadDiv">
-					<input type="file" name='uploadFile'>
-				</div>
-
-				<div class='uploadResult'>
-					<ul>
-
-					</ul>
-				</div>
-
+<main class="form-signin mt-5 mb-5 w-100 m-auto">
+	<form id="regForm" action="/movie/modify" method="post" style="width:50em;" class="m-auto">
+		<fieldset>
+			<h1 class="h3 mb-3 fw-bold">영화등록</h1>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control rounded-3" id="floatingInput" name="mov_title" placeholder="영화 제목" value="<c:out value="${movie.mov_title}"/>" /> 
+				<label for="floatingInput" class="fw-bold">영화 제목</label>
 			</div>
-			<!--  end panel-body -->
-
-		</div>
-		<!--  end panel-body -->
-	</div>
-	<!-- end panel -->
-</div>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control rounded-3" id="floatingInput" name="mov_director" placeholder="영화 감독" value="<c:out value="${movie.mov_director}"/>" /> 
+				<label for="floatingInput" class="fw-bold">영화 감독</label>
+			</div>
+			<div class="col-md-4 text-white mb-3">
+				<label for="inputGenre" class="form-label">영화 장르</label>
+                <select id="inputGenre" class="form-select" name="mov_genre" >
+                  <option selected>액션</option>
+                  <option>판타지</option>
+                  <option>공포</option>
+                  <option>로멘스</option>
+                  <option>코미디</option>
+                </select>
+              </div>
+			<div class="form-floating mb-3">
+				<textarea class="form-control rounded-3" name="mov_synopsis" placeholder="영화 줄거리" style="height:200px;" ><c:out value="${movie.mov_synopsis}"/></textarea>
+				<label for="floatingInput" class="fw-bold">영화 줄거리</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input type="date" class="form-control rounded-3" id="floatingInput" name="mov_release" placeholder="영화 개봉일" value="<c:out value="${movie.mov_release}"/>" /> 
+				<label for="floatingInput" class="fw-bold">영화 개봉일</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control rounded-3" id="floatingInput" name="mem_nickname" value="<c:out value="${principal.member.mem_nickname}"/>" readonly />
+				<label for="floatingInput" class="fw-bold">닉네임</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input type="time" class="form-control rounded-3" id="floatingInput" name="mov_runtime" value="<c:out value="${movie.mov_runtime}"/>"/>
+				<label for="floatingInput" class="fw-bold">런타임</label>
+			</div>	
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control rounded-3" id="floatingInput" name="mov_img" value="<c:out value="${movie.mov_img}"/>"/> 
+				<label for="floatingInput" class="fw-bold">이미지</label>
+			</div>	
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control rounded-3" id="floatingInput" name="mov_thumb" value="<c:out value="${movie.mov_thumb}"/>" />
+				<label for="floatingInput" class="fw-bold">섬네일</label>
+			</div>	
+			<input type="hidden" name="mov_num" value="<c:out value="${movie.mov_num}"/>">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading"></div>
+						<div class="panel-body">
+							<div class="form-group uploadDiv">
+								<input type="file" name='uploadFile' class="btn btn-danger">
+							</div>
+							<div class='uploadResult'>
+								<ul>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button value="submit" class="btn btn-danger mt-3" >등록하기</button>
+		</fieldset>
+	</form>
+</main>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -61,11 +89,11 @@
 				alert("영화 감독을 입력해주세요!");
 				return false;
 			}
-			if (!regForm.find("input[name='mov_genre']").val()) {
+			if (!regForm.find("select[name='mov_genre']").val()) {
 				alert("영화 장르를 입력해주세요!");
 				return false;
 			}
-			if (!regForm.find("input[name='mov_synopsis']").val()) {
+			if (!regForm.find("textarea[name='mov_synopsis']").val()) {
 				alert("영화 줄거리를 입력해주세요!");
 				return false;
 			}
@@ -107,7 +135,7 @@
 						var fileCallPath = encodeURIComponent(attach.uploadPath + "/s_"	+ attach.uuid + "_" + attach.fileName);
 						str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
 						str += "<span> " + attach.fileName + "</span>";
-						str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+						str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-danger btn-circle'><i class='fa fa-times'></i></button><br>";
 						str += "<img src='/display?fileName=" + fileCallPath + "'>";
 						str += "</div>";
 						str += "</li>";

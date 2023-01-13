@@ -7,73 +7,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Bootstrap demo</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.104.2">
+<title>회원정보 수정</title>
+<script src="/resources/jquery-3.6.3.min.js"></script>
+<link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/examples/sign-in/" rel="canonical" >
+<link href="/resources/dist/css/signin.css" rel="stylesheet">
 <style>
-img {
-	width: 100px;
-	height: 100px;
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+.bi {
+	vertical-align: -.125em;
+	fill: currentColor;
+}
+
+.nav-scroller {
+	position: relative;
+	z-index: 2;
+	height: 2.75rem;
+	overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+	display: flex;
+	flex-wrap: nowrap;
+	padding-bottom: 1rem;
+	margin-top: -1px;
+	overflow-x: auto;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+
+header {
+	position: fixed;
+	width: 100%;
+	top: 0px;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	color: #fff;
+}
+
+h1 {
+	color: #fff;
+	text-align: left;
+}
+
+h2 {
+	color: #fff;
+	text-align: left;
+	margin-left: 200px;
+}
+
+.textone11 {
+	font-size: 25px;
+	color: #f00;
+}
+
+.textone {
+	color: #f00;
+}
+
+.texttwo {
+	color: #fff;
+}
+
+header {
+	position: fixed;
+	top: 0px;
+}
+
+.right-margin {
+	margin-right: 50px;
+}
+
+.line1 {
+	border: solid 1px #fff;
+	position: relative;
+	left: -130px;
+	padding: 30%;
+	border-width: 100%;
+	width: 160%;
+	margin: 10px;
+	border-top: none;
 }
 </style>
 </head>
 
-<body>
+<body style="background-color: #000;" class="text-center">
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="login-panel panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">회원수정하기</h3>
-					</div>
-					<div class="panel-body">
-						<form id="regForm" method="post" action="/customModify">
-							<fieldset>
-								<div class="form-group">
-									비밀번호<input class="form-control" placeholder="Password"
-										id="user_pw" name="mem_pw" type="password" >
-										<div>4~12자리</div>
-										<div id="pw_check"></div>
-								</div>
-								<div class="form-group">
-									비밀번호<input class="form-control" placeholder="Password2"
-										id="user_pw2" name="mem_pw2" type="password" >
-										<div id="pw2_check"></div>
-								</div>
-								<div class="form-group">
-									닉네임<input class="form-control" type="text" name="mem_nickname" 
-									id="user_nickname" type="text" value="<c:out value="${member.mem_nickname}"/>"/> 
-									<div>2~16자리</div><button type="button" id="nicknameCheck">닉네임 중복 확인</button></div>
-									<div id="nickname_check"></div>
-								</div>
-								<div class="form-group">
-									이메일<input class="form-control" placeholder="Email" id="user_email"
-									type="text" name="mem_email" value="<c:out value="${member.mem_email}"/>">
-									<div id="email_check"></div>
-								</div>
-								<div class="form-group">
-									연락처<input class="form-control" placeholder="Phone" id="user_phone"
-									type="text" name="mem_contact" value="<c:out value="${member.mem_contact}"/>">
-									<div>10~11자리(-를 생략하고)</div>
-									<div id="phone_check"></div>
-								</div>
-								<button type="submit" class="btn btn-lg btn-success btn-block">회원수정</button>
-								<input type="hidden" name="mem_num" value="<c:out value="${member.mem_num}"/>" />
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							</fieldset>
-						</form>
-					</div>
+	<header>
+		<div class="container">
+			<div style="position: absolute; right: 100px; padding: 10px;">
+				<div class="text-end">
+					<a href="/">&nbsp;&nbsp;</a> <a href="/">&nbsp;&nbsp;</a>
 				</div>
 			</div>
+			<div class="text-end" style="position: absolute; left: 90px; padding: 25px;">
+				<a href="/" class="d-flex align-items-center mb-lg-0 text-decoration-none textone11"><img src="/resources/img/img_logo.png" alt="LOGO 이미지"></a>
+			</div>
 		</div>
-	</div>
+	</header>
+    
+    <main class="form-signin w-100 m-auto">
+
+		<form id="regForm" method="post" action="/customModify">
+			<fieldset>
+				<h1 class="h3 mb-3 fw-bold">회원정보 수정</h1>
+				<div class="form-floating mb-3">
+					<input type="password" class="form-control rounded-3 mem_pw" id="floatingInput" placeholder="비밀번호" name="mem_pw"> 
+					<label for="floatingInput" class="fw-bold">비밀번호(4~12자리)</label>
+					<div id="pw_check"></div>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="password" class="form-control rounded-3 mem_pw2" id="floatingInput" placeholder="비밀번호 확인" name="mem_pw2"> 
+					<label for="floatingInput" class="fw-bold">비밀번호 확인</label>
+					<div id="pw2_check"></div>
+				</div>
+				<div class="row g-0 text-center">
+					<div class="col-9">
+						<div class="form-floating mb-3">
+						<input type="text" class="form-control rounded-3 mem_nickname" id="floatingInput" placeholder="닉네임" name="mem_nickname" value="<c:out value="${member.mem_nickname}"/>">
+						<label for="floatingInput" class="fw-bold">닉네임(2~16자리)</label>
+					<div id="nickname_check"></div>
+						</div>
+					</div>
+					<div class="col-3">
+						<button type="button" id="nicknameCheck" class="btn btn-secondary" style="height:3.6em;">중복 확인</button>
+					</div>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="email" class="form-control rounded-3 mem_email" id="floatingPassword" placeholder="이메일" name="mem_email" value="<c:out value="${member.mem_email}"/>">
+					<label for="floatingInput" class="fw-bold">이메일</label>
+					<div id="email_check"></div>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control rounded-3 mem_contact" id="floatingPassword" placeholder="연락처" name="mem_contact" value="<c:out value="${member.mem_contact}"/>"> 
+					<label for="floatingInput" class="fw-bold">연락처(-는 생략)</label>
+					<div id="phone_check"></div>
+				</div>
+				<button class="w-100 fw-bold btn btn-lg btn-danger mb-3" type="submit">수정 완료</button>
+				<input type="hidden" name="mem_num" value="<c:out value="${member.mem_num}"/>" />
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</fieldset>
+		</form>
+	</main>
 	
 <script type="text/javascript">
 $(document).ready(function() {
@@ -93,30 +197,30 @@ $(document).ready(function() {
 	var regForm = $('#regForm');
 	var nicknameCheck = true;
 	
-	$(".btn-success").on("click", function(e) {
+	$(".btn-danger").on("click", function(e) {
 		e.preventDefault();
 		
 		// 비밀번호가 같은 경우 && 비밀번호 정규식
-		if (($('#user_pw').val() == ($('#user_pw2').val()))
-				&& pwJ.test($('#user_pw').val())) {
+		if (($('.mem_pw').val() == ($('.mem_pw2').val()))
+				&& pwJ.test($('.mem_pw').val())) {
 			inval_Arr[0] = true;
 		} else {
 			inval_Arr[0] = false;
 		}
 		// 닉네임 정규식
-		if (nicknameJ.test($('#user_nickname').val())) {
+		if (nicknameJ.test($('.mem_nickname').val())) {
 			inval_Arr[1] = true;	
 		} else {
 			inval_Arr[1] = false;
 		}
 		// 이메일 정규식
-		if (mailJ.test($('#user_email').val())){
+		if (mailJ.test($('.mem_email').val())){
 			inval_Arr[2] = true;
 		} else {
 			inval_Arr[2] = false;
 		}
 		// 휴대폰번호 정규식
-		if (phoneJ.test($('#user_phone').val())) {
+		if (phoneJ.test($('.mem_contact').val())) {
 			inval_Arr[3] = true;
 		} else {
 			inval_Arr[3] = false;
@@ -148,8 +252,7 @@ $(document).ready(function() {
 	$('#nicknameCheck').on("click", function(e) {
 		e.preventDefault();
 		
-		var mem_nickname = $('#user_nickname').val();
-		console.log(mem_nickname);
+		var mem_nickname = $('.mem_nickname').val();
 		
 		$.ajax({
 			type : "GET",
@@ -169,23 +272,21 @@ $(document).ready(function() {
 
 	});
 	
-	$('#user_nickname').change(function(){
+	$('.mem_nickname').change(function(){
 		nicknameCheck = false;
 	});
 	
-	$("#user_pw").blur(function(){
-		if(pwJ.test($("#user_pw").val())){
-			console.log("true");
+	$(".mem_pw").blur(function(){
+		if(pwJ.test($(".mem_pw").val())){
 			$("#pw_check").text("");
 		} else {
-			console.log("false");
 			$("#pw_check").text("숫자 or 문자로만 4~12자리 입력");
 			$("#pw_check").css("color", "red");
 		}
 	});
 	
-	$("#user_pw2").blur(function(){
-		if($("#user_pw").val() != $(this).val()){
+	$(".mem_pw2").blur(function(){
+		if($(".mem_pw").val() != $(this).val()){
 			$("#pw2_check").text("비밀번호가 일치하지 않습니다");
 			$("#pw2_check").css("color", "red");
 		} else {
@@ -193,19 +294,17 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#user_nickname").blur(function() {
+	$(".mem_nickname").blur(function() {
 		if (nicknameJ.test($(this).val())) {
-				console.log(nicknameJ.test($(this).val()));
-				$("#nickname_check").text('');
+			$("#nickname_check").text('');
 		} else {
 			$('#nickname_check').text('닉네임을 확인해주세요');
 			$('#nickname_check').css('color', 'red');
 		}
 	});
 	
-	$('#user_email').blur(function(){
+	$('.mem_email').blur(function(){
 		if(mailJ.test($(this).val())){
-			console.log(mailJ.test($(this).val()));
 			$("#email_check").text('');
 		} else {
 			$('#email_check').text('이메일을 확인해주세요 :)');
@@ -213,9 +312,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#user_phone').blur(function(){
+	$('.mem_contact').blur(function(){
 		if(phoneJ.test($(this).val())){
-			console.log(phoneJ.test($(this).val()));
 			$("#phone_check").text('');
 		} else {
 			$('#phone_check').text('휴대폰번호를 확인해주세요 :)');
@@ -226,19 +324,6 @@ $(document).ready(function() {
 
 });
 </script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-		crossorigin="anonymous"></script>
 
 </body>
 

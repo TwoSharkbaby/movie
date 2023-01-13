@@ -7,96 +7,57 @@
 
 <%@include file="../includes/header.jsp"%>
 
-<div>
-	<form id="searchForm" action="/movie/search" method="get">
-		<div>
-			<select name="type">
-				<option value="" <c:out value="${pageMaker.cri.type == null ?'selected':''}"/>>--</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected':''}"/>>제목</option>
-				<option value="G" <c:out value="${pageMaker.cri.type eq 'G' ?'selected':''}"/>>장르</option>
-				<option value="D" <c:out value="${pageMaker.cri.type eq 'D' ?'selected':''}"/>>감독</option>
-				<option value="A" <c:out value="${pageMaker.cri.type eq 'A' ?'selected':''}"/>>배우</option>
-				<option value="TD" <c:out value="${pageMaker.cri.type eq 'TD' ?'selected':''}"/>>제목 OR 감독</option>
-				<option value="GD" <c:out value="${pageMaker.cri.type eq 'GD' ?'selected':''}"/>>장르 OR 감독</option>
-			</select>
-		</div>
-		<div style="padding: 0px;">
-			<input type="text" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>" />
-		</div>
-		<div>
-			<button>Search</button>
-		</div>
-		<input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum}" />" /> 
-		<input type="hidden" name="amount" value="<c:out value="${pageMaker.cri.amount}" />" />
-	</form>
-</div>
+<h1 class="mt-5 ms-4">검색결과 : <c:out value="${pageMaker.cri.keyword}" /> 와 관련된 영화</h1>
 
-<h1>
-	검색명 :
-	<c:out value="${pageMaker.cri.keyword}" />
-	와 관련된 영화
-</h1>
-<table width="100%">
-	<thead>
-		<tr>
-			<th>영화번호</th>
-			<th>영화제목</th>
-			<th>감독</th>
-			<th>장르</th>
-			<th>줄거리</th>
-			<th>개봉일</th>
-			<th>상영시간</th>
-			<th>등록일</th>
-			<th>포스터사진</th>
-			<th>섬네일사진</th>
-			<th>평점</th>
-		</tr>
-	</thead>
-	<tbody>
+<div class="mt-3 ms-5">
 		<c:choose>
 			<c:when test="${empty list}">
-				<tr>
-					<td colspan="5">[없음]
-				</tr>
+				<li>
+					<ul>[없음]</ul>
+				</li>
 			</c:when>
-
 			<c:when test="${!empty list}">
 				<c:forEach items="${list}" var="movie">
-					<tr>
-						<td><a href='/movie/read/<c:out value="${movie.mov_num}" />'><c:out value="${movie.mov_num}" /></a></td>
-						<td><c:out value="${movie.mov_title}" /></td>
-						<td><c:out value="${movie.mov_director}" /></td>
-						<td><c:out value="${movie.mov_genre}" /></td>
-						<td><c:out value="${movie.mov_synopsis}" /></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${movie.mov_release}" /></td>
-						<td><fmt:formatDate pattern="HH:mm:ss" value="${movie.mov_runtime}" /></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${movie.mov_regdate}" /></td>
-						<td><img src='/imgs/<c:out value="${movie.mov_img}" />'></td>
-						<td><img src='/imgs/<c:out value="${movie.mov_thumb}" />'></td>
-						<td><c:out value="${movie.mov_sco_point}" /></td>
-					</tr>
+					<li class="main-movie m-3"><a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'>
+						<div class="main-movie-image">
+							<div class=" movie-image-src num1">
+								<img src='/imgs/<c:out value="${movie.mov_thumb}" />' class="movie-image-url num2"> 
+							</div>
+						</div>
+							<div class="movie-info">
+								<div class="movie-title">제목: <c:out value="${movie.mov_title}" /></div>
+								<div class="movie-detail-info">개봉일: <fmt:formatDate pattern="yyyy-MM-dd" value="${movie.mov_release}" /></div>
+								<div class="movie-detail-info">장르: <c:out value="${movie.mov_genre}" /></div>
+								<div class="movie-detail-info">감독: <c:out value="${movie.mov_director}" /></div>
+							</div>
+						
+					</a></li>
 				</c:forEach>
 			</c:when>
 		</c:choose>
-	</tbody>
-</table>
+</div>
 
-<div>
-	<ul>
+<div class="mt-5">
+	<nav aria-label="Page navigation example">
+ 		<ul class="pagination justify-content-center">
 		<c:if test="${pageMaker.prev}">
-			<li class="paginate_button previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
+			<li id="paginate_button" class="page-item"><a class="page-link"
+				href="${pageMaker.startPage - 1}">Previous</a></li>
 		</c:if>
 
-		<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-			<li class="paginate_button ${pageMaker.cri.pageNum == num?"active":""}">
-				<a href="${num}">${num}</a>
+		<c:forEach var="num" begin="${pageMaker.startPage}"
+			end="${pageMaker.endPage}">
+			<li id="paginate_button" class="page-item ${pageMaker.cri.pageNum == num?"active":""}">
+				<a class="page-link" href="${num}">${num}</a>
 			</li>
 		</c:forEach>
 
 		<c:if test="${pageMaker.next}">
-			<li class="paginate_button next"><a href="${pageMaker.endPage + 1}">Next</a></li>
+			<li id="paginate_button" class="page-item"><a class="page-link"
+				href="${pageMaker.endPage + 1}">Next</a></li>
 		</c:if>
-	</ul>
+	    </ul>
+	</nav>
 </div>
 
 <form id="actionForm" action="/movie/search" method="get">
@@ -107,32 +68,16 @@
 </form>
 
 <script type="text/javascript">
-	
-	$(document).ready(function() {
-
-		var searchForm = $('#searchForm');
-		$('#searchForm button').on("click", function(e) {
-			if (!searchForm.find("option:selected").val()) {
-				alert("검색종류를 선택하세요.");
-				return false;
-			}
-			if (!searchForm.find("input[name='keyword']").val()) {
-				alert("키워드를 입력하세요.");
-				return false;
-			}
-			e.preventDefault();
-			searchForm.submit();
-		});
 			
 		var actionForm = $("#actionForm");
-		$(".paginate_button a").on("click", function(e) {
+		$("#paginate_button a").on("click", function(e) {
 			e.preventDefault();
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			actionForm.submit();
 		});
-
-	});
+		
 		
 </script>
-	
+
+
 <%@include file="../includes/footer.jsp"%>

@@ -46,9 +46,9 @@ public class MovieReviewController {
 	@PostMapping("/insert")
 	public String insert(MovieReviewVO vo, RedirectAttributes rtts) {
 		if (movieReviewService.insert(vo) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "리뷰 등록 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "리뷰 등록 실패(리뷰는 영화당 하나씩만 가능합니다)");
 		}
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
@@ -58,9 +58,9 @@ public class MovieReviewController {
 	@PostMapping("/modify")
 	public String modify(MovieReviewVO vo, RedirectAttributes rtts) {
 		if (movieReviewService.modify(vo) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "리뷰 수정 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "리뷰 수정 실패");
 		}
 		return "redirect:/movie/read/" + vo.getMov_num();
 	}
@@ -70,9 +70,9 @@ public class MovieReviewController {
 	@PostMapping("/delete")
 	public String delete(Long mov_rev_num, Long mov_num, Long mem_num, RedirectAttributes rtts) {
 		if (movieReviewService.delete(mov_rev_num) == 1) {
-			rtts.addFlashAttribute("result", "success");
+			rtts.addFlashAttribute("result", "리뷰 삭제 성공");
 		} else {
-			rtts.addFlashAttribute("result", "failure");
+			rtts.addFlashAttribute("result", "리뷰 삭제 실패");
 		}
 		return "redirect:/movie/read/" + mov_num;
 	}

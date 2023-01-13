@@ -19,7 +19,7 @@ public class Criteria {
 	
 	// 기본 페이지 설정
 	public Criteria() {
-		this(1, 10);
+		this(1, 12);
 	}
 
 	public Criteria(int pageNum, int amount) {

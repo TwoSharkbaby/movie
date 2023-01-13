@@ -1,0 +1,50 @@
+       footer {
+        position: relative;
+        width: 100%;
+        height: 190px;
+        background: #111;
+       }
+     
+       .at1:hover{
+        background-color: #cf9;
+        border: 1px solid green;
+    }
+    
+    li {
+        color: #ccc;
+        list-style: none;
+        font-size: small;
+        padding: 1px;
+    }
+
+    section {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background: #000;
+        text-align: center;
+        border-style: none;
+    }
+    .text11 {
+        color: #ccc;
+        font-size: larger;
+    }
+
+    .text22 {
+        color: #f00;
+        font-size: larger;
+    }
+
+    .text33 {
+        color: #888;
+    }
+    ul {
+        padding: 0%;
+        margin: 0%;
+        border-style: none;
+
+    }
+    a {
+        text-decoration: none;
+        color: #ccc;
+    }

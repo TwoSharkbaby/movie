@@ -1,17 +1,144 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AccessError</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.104.2">
+<title>접근권한 없음</title>
+<script src="/resources/jquery-3.6.3.min.js"></script>
+<link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/examples/sign-in/" rel="canonical" >
+<link href="/resources/dist/css/signin.css" rel="stylesheet">
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+.bi {
+	vertical-align: -.125em;
+	fill: currentColor;
+}
+
+.nav-scroller {
+	position: relative;
+	z-index: 2;
+	height: 2.75rem;
+	overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+	display: flex;
+	flex-wrap: nowrap;
+	padding-bottom: 1rem;
+	margin-top: -1px;
+	overflow-x: auto;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+
+header {
+	position: fixed;
+	width: 100%;
+	top: 0px;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	color: #fff;
+}
+
+h1 {
+	color: #fff;
+	text-align: center;
+}
+
+h2 {
+	color: #fff;
+	text-align: left;
+	margin-left: 200px;
+}
+
+.textone11 {
+	font-size: 25px;
+	color: #f00;
+}
+
+.textone {
+	color: #f00;
+}
+
+.texttwo {
+	color: #fff;
+}
+
+header {
+	position: fixed;
+	top: 0px;
+}
+
+.right-margin {
+	margin-right: 50px;
+}
+
+.line1 {
+	border: solid 1px #fff;
+	position: relative;
+	left: -130px;
+	padding: 30%;
+	border-width: 100%;
+	width: 160%;
+	margin: 10px;
+	border-top: none;
+}
+</style>
 </head>
-<body>
-<img src="data:image/png;base64,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">
-<h1><c:out value="${ msg }"/></h1>
-<h1>접근 권한 없음</h1>
+
+<body style="background-color: #000;" class="text-center">
+
+	<header>
+		<div class="container">
+			<div style="position: absolute; right: 100px; padding: 10px;">
+				<div class="text-end">
+					<a href="/">&nbsp;&nbsp;</a> <a href="/">&nbsp;&nbsp;</a>
+				</div>
+			</div>
+			<div class="text-end" style="position: absolute; left: 90px; padding: 25px;">
+				<a href="/" class="d-flex align-items-center mb-lg-0 text-decoration-none textone11"><img src="/resources/img/img_logo.png" alt="LOGO 이미지"></a>
+			</div>
+		</div>
+	</header>
+	
+	<main class="m-auto">
+	<h1 class="mb-5">접근권한이 없습니다</h1>
+	<h1>관리자에게 문의하세요</h1>
+	</main>
+
 </body>
 </html>

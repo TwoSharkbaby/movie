@@ -7,85 +7,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Bootstrap demo</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-img {
-	width: 100px;
-	height: 100px;
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.104.2">
+<title>로그인 페이지</title>
+<script src="/resources/jquery-3.6.3.min.js"></script>
+<link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/examples/sign-in/" rel="canonical" >
+<link href="/resources/dist/css/signin.css" rel="stylesheet">
 </head>
-<body>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="login-panel panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Please Sign In</h3>
-					</div>
-					<div class="panel-body">
-						<form id="regForm" role="form" method="post" action="/login">
-							<fieldset>
-								<div class="form-group">
-									<input class="form-control" placeholder="ID" name="username"
-										type="text" autofocus>
-								</div>
-								<div class="form-group">
-									<input class="form-control" placeholder="Password"
-										name="password" type="password" value="">
-								</div>
-								<div class="checkbox">
-									<label> <input name="remember-me" type="checkbox">Remember
-										Me
-									</label>
-								</div>
-								<!-- Change this to a button or input when using this as a form -->
-								<button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-								<a href="/customSingup" class="btn btn-lg btn-primary btn-block">회원가입</a>
-							</fieldset>
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<body style="background-color: #000;" class="text-center">
+
+  <header>
+    <div class="container">
+      <div style="position: absolute; right: 100px; padding: 0px;">>
+        <div class="text-end">
+          <a href="/">&nbsp;&nbsp;</a>
+          <a href="/">&nbsp;&nbsp;</a>
+        </div>
+      </div>
+        <div class="text-end" style="position: absolute; left: 90px; padding: 25px;">
+            <a href="/"><img src="/resources/img/img_logo.png" alt="LOGO 이미지"></a>
+        </div>
+    </div>
+  </header>
+  
+  <main class="form-signin w-100 m-auto">
+  
+    <form id="regForm" role="form" method="post" action="/login">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control rounded-3" id="floatingInput" placeholder="아이디" name="username">
+        <label for="floatingInput" class="fw-bold">아이디</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="비밀번호" name="password">
+        <label for="floatingPassword" class="fw-bold">비밀번호</label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <p class="mt-1 mb-1 text-muted text-start">
+          <input name="remember-me" type="checkbox">&nbsp;자동로그인
+          </p>
+        </label>
+      </div>
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <button class="w-100 fw-bold btn btn-lg btn-danger" type="submit">로그인</button>
+      <table>
+        <ul>
+         <p class="mt-5 mb-3 text-muted"><p><li class="fw-bold">처음 방문하셨나요?<a href="/customSingup" class="text1 ">&nbsp;&nbsp;회원가입 하러가기</a></li></p>
+      </ul>
+    </table>
+    </form>
+    
+  </main>
 	
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			var result = '<c:out value="${result}"/>';
-
-			checkModal(result);
-
-			history.replaceState({}, null, null);
-
-			function checkModal(result) {
-
-				if (result === '' || history.state) {
-					return;
-				} else {
-					alert(result);
-				}
-
-			}
-
-		});
-</script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var regForm = $('#regForm');
-		$("#regForm .btn-success").on("click", function(e) {
+		$("#regForm .btn-danger").on("click", function(e) {
 			e.preventDefault();
 			if (!regForm.find("input[name='username']").val()) {
 				alert("아이디를 입력해주세요!");
@@ -97,23 +80,26 @@ img {
 			}
 			regForm.submit();
 		});
+		
+		var result = '<c:out value="${result}"/>';
+
+		checkModal(result);
+
+		history.replaceState({}, null, null);
+
+		function checkModal(result) {
+
+			if (result === '' || history.state) {
+				return;
+			} else {
+				alert(result);
+			}
+
+		}
 
 	});
 </script>
 
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-		crossorigin="anonymous"></script>
 </body>
 
 </html>
