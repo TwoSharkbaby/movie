@@ -163,7 +163,8 @@
                <c:forEach items="${review}" var="review">
                   <tr>
                      <td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_num}" />
-                     <button id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글작성" />
+                     <%-- <button class="commentAdd<c:out value="${review.mov_rev_num}" />" id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글작성" /> --%>
+                     <button class="commentAdd" id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글작성" />
                      </td>
                      <td><c:out value="${review.mov_rev_title}" /></td>
                      <td><c:out value="${review.mov_rev_content}" /></td>
@@ -197,7 +198,7 @@
                      <td>
                         <ul id="chat<c:out value="${review.mov_rev_num}" />"
                            class="chat2" name="com">
-                           <li name="mov_rev_com_num" data-mov_rev_com_num="2">
+                           <li name="mov_rev_com_num" data-mov_rev_com_num="2" />
                            </ul>
                      </td>
                   </tr>
@@ -212,7 +213,7 @@
    
 <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true">
+   aria-labelledby="myModalLabel" aria-hidden="true" data-rev_num="-1" >
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
@@ -373,6 +374,7 @@
 
 
    <script type="text/javascript" src="\resources\js\movieReviewComment.js?v=4"></script>
+   
   <script type="text/javascript">
 
   
@@ -380,19 +382,17 @@
     
    
          var idx = $(this).data('idx');
-          
-          var mov_rev_com_num = $(this).data("mov_rev_com_num");
+         console.log(idx);
           
           var data1 = {
-                mov_rev_num: idx // ## 로그인 처리하면 고정값 수정필요 ##
-               , 
-                mem_num : 1
-             };
+                mov_rev_num: idx 
+                , 
+                mem_num : 1// ## 로그인 처리하면 고정값 수정필요 ## 
+                };
          console.log(data1);
           
           
           var commentUL = $("#chat" + idx);
-         
            showList(1);
         
            function showList(page){   
@@ -420,17 +420,15 @@
            var modalInputContent = modal.find("input[name='mov_rev_com_content']");
            var modalInputMemNum = modal.find("input[name='mem_num']");
            var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-
-           
+           var modalRemoveBtn = $("#modalRemoveBtn");    
            var modalModBtn = $("#modalModBtn");
-           var modalRemoveBtn = $("#modalRemoveBtn");
            var modalRegisterBtn = $("#modalRegisterBtn");
             
              
            $("#chat"+ idx).on("click", "li", function(e){
            
               var mov_rev_com_num = $(this).data("mov_rev_com_num");
-              
+              console.log("chat + idx : " +  mov_rev_com_num);
                movieReviewCommentService.get(mov_rev_com_num, function(comment) {
                    modalInputContent.val(comment.mov_rev_com_content);
                    modalInputMemNum.val(comment.mem_num);
@@ -442,13 +440,16 @@
                    modalModBtn.show();
                    modalRemoveBtn.show();
                    
+                   $("#commentModal").data("rev_num", idx);
                    $("#commentModal").modal("show");
-
               });
+               
+               
+               
            });
            
            modalModBtn.on("click", function(e){
-        	   var mov_rev_com_num = modal.data("mov_rev_com_num");
+              var mov_rev_com_num = modal.data("mov_rev_com_num");
                console.log(mov_rev_com_num);
                 var comment = 
                 {mov_rev_com_num : modal.data("mov_rev_com_num"), 
@@ -461,148 +462,169 @@
                    showList(1);
               });
            });
-           
-           modalRemoveBtn.on("click", function(e){
-              var mov_rev_com_num = modal.data("mov_rev_com_num");
-              console.log(mov_rev_com_num);
-               movieReviewCommentService.remove(mov_rev_com_num, function(result){
-              		alert(result);
-            	   modal.modal("hide");
-                  showList(1);
-               });
-           });
-           
-         
-                     
-                     
-                     
-                  
-      });
-      
-      
-      
-      
-      
-      
+          
+      });       // td end   
+                      
 
 </script>
- <script type="text/javascript"
-      src="\resources\js\movieReviewComment.js?v=13"></script>
-   <script type="text/javascript">
-   $(document).ready(function(){
-      var idx = $(this).data('idx');
 
+
+	<script type="text/javascript">
+    var modal = $("#commentModal");
+    
+    var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+    var modalInputMemNum = modal.find("input[name='mem_num']");
+    var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+ 
+    var modalModBtn = $("#modalModBtn");
+    var modalRemoveBtn = $("#modalRemoveBtn");
+    var modalRegisterBtn = $("#modalRegisterBtn");
+    var modalCloseBtn = $("#modalCloseBtn");
+    
+    
+    var mov_rev_num = $("#commentModal").data("rev_num");
+    
+    console.log(mov_rev_num);
+    
+    
+    function showRevList(mov_rev_num) {
+        console.log("showRevList!!!!");
+        var commentUL = $("#chat" + mov_rev_num); 
+        var params = {mov_rev_num:mov_rev_num, page : 1};
+        movieReviewCommentService.getList(params, function(list) {
+                       var str = "";
+                       console.log(list);
+                       if (list == null || list.length == 0) {
+                          commentUL.html("");
+                          return;
+                       }
+                       
+                       for (var i = 0, len = list.length || 0; i < len; i++) {
+                          str += "<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                          str += "<div><div class='header'><strong class='primary-font'>"
+                                + "작성회원 :  "
+                                + list[i].mem_num
+                                + "   " + "</strong>";
+                          str += "<small class='pull-right text-muted'>"
+                                + movieReviewCommentService
+                                      .displayTime(list[i].mov_rev_com_regdate)
+                                + "</small></div>";
+                          str += "<p>" + list[i].mov_rev_com_content
+                                + "</p></div></li>";
+                       }
+                       commentUL.html(str);
+        });
+     }
+    
+    modalRemoveBtn.on("click", function(e){
+        var mov_rev_com_num = modal.data("mov_rev_com_num");
+        console.log(mov_rev_com_num);
+        console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
+        var mov_rev_num = $("#commentModal").data("rev_num");
+
+        console.log("movieReviewDeleteService : " + mov_rev_com_num);
+         movieReviewCommentService.remove(mov_rev_com_num, function(result){
+              alert(result);
+            modal.modal("hide");
+            showRevList(mov_rev_num);
+         });
+     });
+	
+	
+	</script>
+
+
+
+   <script type="text/javascript">
       var modal = $("#commentModal");
    
-   var modalInputContent = modal.find("input[name='mov_rev_com_content']");
-   var modalInputMemNum = modal.find("input[name='mem_num']");
-   var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-
+      var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+      var modalInputMemNum = modal.find("input[name='mem_num']");
+      var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
    
-   var modalModBtn = $("#modalModBtn");
-   var modalRemoveBtn = $("#modalRemoveBtn");
-   var modalRegisterBtn = $("#modalRegisterBtn");
-    var commentUL = $("#chat");
-   
-    
-    var comment = {
-            mov_rev_com_content : modalInputContent.val(),
-               mem_num : modalInputMemNum.val(),
-            };
-     $('#modalCloseBtn').on("click", function(e){
-         modal.find("input").val("");
-         modal.modal("hide");
-      });
-
-    $(".chat2").on("click", "li", function(e){
-       var mov_rev_com_num = $(this).data('mov_rev_com_num');
-        console.log(mov_rev_com_num);
-        movieReviewCommentService.get(mov_rev_com_num, function(comment) {
-           modalInputContent.val(comment.mov_rev_com_content);
-           modalInputMemNum.val(comment.mem_num);
-           modalInputMovRevComRegdate.val(movieReviewCommentService.displayTime(comment.mov_rev_con_regdate))
-           .attr("readonly", "readonly");
-           modal.data("mov_rev_com_num", comment.mov_rev_com_num);
-           
-           modal.find("button[id != 'modalCloseBtn']").hide();
-           modalModBtn.show();
-           modalRemoveBtn.show();
-           
-           $("#commentModal").modal("show");
-        });
-
-       
-    });
-    
-    
-    
-   
-     
-   
-   $("button[name='comment']").on("click", function(e){
-      var idx = $(this).data('idx');
+      var modalModBtn = $("#modalModBtn");
+      var modalRemoveBtn = $("#modalRemoveBtn");
+      var modalRegisterBtn = $("#modalRegisterBtn");
+      var modalCloseBtn = $("#modalCloseBtn");
       
-       var data = {
-                  mov_rev_num: idx,
-                  mem_num: 1  // ## 로그인 처리하면 고정값 수정필요 ##
-               };
-            console.log(data);
-
-       modal.find("input").val("");
-       modalInputMovRevComRegdate.closest("div").hide();
-       modal.find("button[id != 'modalCloseBtn']").hide();
-       
-       modalRegisterBtn.show();
-       $("#commentModal").modal("show");
       
-       modalRegisterBtn.on("click", function(e){
-          
-          var comment = {
-            mov_rev_com_content : modalInputContent.val(),
-               mem_num : modalInputMemNum.val(),
-               mov_rev_num: idx
-            };
-          var commentUL = $("#chat" + idx);      
-            movieReviewCommentService.add(comment, function(result){
+      $("button[name='comment']").on("click", function(e) {
+               console.log($(this).data('idx'));
+               var idx = $(this).data('idx');
+               
+               
+               
                modal.find("input").val("");
-               modal.modal("hide");
-               movieReviewCommentService.getList(data, function(list){
+                modalInputMovRevComRegdate.closest("div").hide();
+                modal.find("button[id != 'modalCloseBtn']").hide();
+                   
+                modalRegisterBtn.show();
+                $("#commentModal").data("rev_num", idx);
+                  $("#commentModal").modal("show");
                   
-                  
-                  var str ="";
-                  if(list == null || list.length ==0){
-                     commentUL.html("");
-                     return;
-                  }
-                  
-                  for(var i =0, len = list.length || 0; i < len; i++){
-                           str +="<li class='left clearfix' data-idx='"+list[i].mov_rev_com_num+"'>";
-                           str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
-                           str +="<small class='pull-right text-muted'>"
-                                     + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
-                           str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
-                  }
-                  commentUL.html(str);            
             });
-            });
-         });
+      
+      modalRegisterBtn.on("click", function(e){
+             
+         console.log("댓글 등록 버튼 클릭!");
+         console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
+         var mov_rev_num = $("#commentModal").data("rev_num");
          
-         $('#modalCloseBtn').on("click", function(e){
-            modal.find("input").val("");
-            modal.modal("hide");
-         });
-        
-         
-       
-       
-   });
-   
 
-   
-   });
-   
+         
+         var comment = {
+            mov_rev_com_content : modalInputContent.val(),
+            mem_num : modalInputMemNum.val(),
+            mov_rev_num: mov_rev_num
+         };
+         
+         movieReviewCommentService.add(comment, function(result){
+            console.log("movieReviewCommentService : " + mov_rev_num);
+            if(result == "success")
+               showRevList(mov_rev_num);
+            $("#commentModal").modal("hide");
+         });
+              
+      });
+      
+      modalCloseBtn.on("click", function(e){ 
+         console.log("댓글 닫기 버튼 클릭!");
+         $("#commentModal").modal("hide");
+              
+      });
+      
+      
+      function showRevList(mov_rev_num) {
+         console.log("showRevList!!!!");
+         var commentUL = $("#chat" + mov_rev_num); 
+         var params = {mov_rev_num:mov_rev_num, page : 1};
+         movieReviewCommentService.getList(params, function(list) {
+                        var str = "";
+                        console.log(list);
+                        if (list == null || list.length == 0) {
+                           commentUL.html("");
+                           return;
+                        }
+                        
+                        for (var i = 0, len = list.length || 0; i < len; i++) {
+                           str += "<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                           str += "<div><div class='header'><strong class='primary-font'>"
+                                 + "작성회원 :  "
+                                 + list[i].mem_num
+                                 + "   " + "</strong>";
+                           str += "<small class='pull-right text-muted'>"
+                                 + movieReviewCommentService
+                                       .displayTime(list[i].mov_rev_com_regdate)
+                                 + "</small></div>";
+                           str += "<p>" + list[i].mov_rev_com_content
+                                 + "</p></div></li>";
+                        }
+                        commentUL.html(str);
+         });
+      }
    </script>
-   
+
+
 </body>
 </html>
 </body>
