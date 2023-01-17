@@ -408,7 +408,9 @@
                      str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
                      str +="<small class='pull-right text-muted'>"
                                + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
-                     str +="<p>"+list[i].mov_rev_com_content+"</p></div></li>";             
+                     str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                     str +="<button data-mov_rev_com_num='"+list[i].mov_rev_com_num+"' id='mov_rev_com_good'>좋아요" + list[i].mov_rev_com_good +"</button>";
+                     str +="<button data-mov_rev_com_num='"+list[i].mov_rev_com_num+"' id='mov_rev_com_bad'>나빠요" + list[i].mov_rev_com_bad +"</button>";             
             }
             commentUL.html(str); 
             }); // end function
@@ -511,6 +513,8 @@
                                 + "</small></div>";
                           str += "<p>" + list[i].mov_rev_com_content
                                 + "</p></div></li>";
+                          str +="<button data-mov_rev_com_num='"+list[i].mov_rev_com_num+"' id='mov_rev_com_good'>좋아요" + list[i].mov_rev_com_good +"</button>";
+                          str +="<button data-mov_rev_com_num='"+list[i].mov_rev_com_num+"' id='mov_rev_com_bad'>나빠요" + list[i].mov_rev_com_bad +"</button>";
                        }
                        commentUL.html(str);
         });
@@ -618,6 +622,8 @@
                                  + "</small></div>";
                            str += "<p>" + list[i].mov_rev_com_content
                                  + "</p></div></li>";
+                           str +="<button data-mov_rev_com_num='"+list[i].mov_rev_com_num+"' id='mov_rev_com_good'>좋아요" + list[i].mov_rev_com_good +"</button>";
+                           str +="<button data-mov_rev_com_num='"+list[i].mov_rev_com_num+"' id='mov_rev_com_bad'>나빠요" + list[i].mov_rev_com_bad +"</button>";
                         }
                         commentUL.html(str);
          });
