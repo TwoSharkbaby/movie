@@ -14,8 +14,7 @@
    rel="stylesheet"
    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
    crossorigin="anonymous">
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/resources/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 
@@ -199,6 +198,8 @@
                         <ul id="chat<c:out value="${review.mov_rev_num}" />"
                            class="chat2" name="com">
                            <li name="mov_rev_com_num" data-mov_rev_com_num="1" />
+                           <button name="com_good" data-mov_rev_com_num="1"></button>
+                           <button name="com_bad" data-mov_rev_com_num="1"></button>
                            </ul>
                      </td>
                   </tr>
@@ -362,11 +363,11 @@
                
 
                $("button[name='com_good']").on("click", function(e) {
-            	   
+   
                	   var mov_rev_com_num = $(this).data("mov_rev_com_num");
                       var good = $(this);
                       var bad = $(this).next('button');
-                    
+             		  console.log(mov_rev_com_num +"좋아요");                 
                       var data = {
                    	  mov_rev_com_num : mov_rev_com_num,
                          mem_num : 1
@@ -389,10 +390,11 @@
                    });
                   
                   $("button[name='com_bad']").on("click", function(e) {
+                	
                  	   var mov_rev_com_num = $(this).data("mov_rev_com_num");
                        var good = $(this).prev('button');
                        var bad = $(this);
-                     
+              		  console.log(mov_rev_com_num +"싫어요");   
                        var data = {
                     	  mov_rev_com_num : mov_rev_com_num,
                           mem_num : 1
@@ -591,10 +593,7 @@
             showRevList(mov_rev_num);
          });
      });
- 
-    
 
-	
 	</script>
 
 
@@ -683,7 +682,6 @@
                            str += "<p>" + list[i].mov_rev_com_content
                                  + "</p></div></li>";
                                  str +="<button name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-              
                                  str +="<button name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
                         }
                         commentUL.html(str);
