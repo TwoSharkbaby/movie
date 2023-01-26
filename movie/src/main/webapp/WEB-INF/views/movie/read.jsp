@@ -198,7 +198,7 @@
                      <td>
                         <ul id="chat<c:out value="${review.mov_rev_num}" />"
                            class="chat2" name="com">
-                           <li name="mov_rev_com_num" data-mov_rev_com_num="2" />
+                           <li name="mov_rev_com_num" data-mov_rev_com_num="1" />
                            </ul>
                      </td>
                   </tr>
@@ -306,65 +306,69 @@
 
                $("button[name='review_good']").on("click", function(e) {
 
-                  var mov_rev_num = $(this).data("idx");
-                  var good = $(this);
-                  var bad = $(this).next('button');
-
-                  var data = {
-                     mov_rev_num : mov_rev_num,
-                     mem_num : 1
-                  // ## 로그인 처리하면 고정값 수정필요 ##
-                  };
-                  $.ajax({
-                     type : "POST",
-                     url : "/review/good",
-                     data : JSON.stringify(data), // http body 데이터
-                     contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
-                     dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-                  }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-                     good.html(response.good);
-                     bad.html(response.bad);
-                  }).fail(function(error) {
-                     alert("올바른 경로가 아닙니다");
-                  });
-
-               });
-
-               $("button[name='review_bad']").on("click", function(e) {
-            	   var mov_rev_num = $(this).data("idx");
-               	   var mov_rev_com_num = $(this).data("mov_rev_com_num");
+                   var mov_rev_num = $(this).data("idx");
                    var good = $(this);
                    var bad = $(this).next('button');
 
                    var data = {
-                	  mov_rev_com_num : mov_rev_com_num,
-
+                      mov_rev_num : mov_rev_num,
                       mem_num : 1
                    // ## 로그인 처리하면 고정값 수정필요 ##
                    };
-                  $.ajax({
-                     type : "POST",
-                     url : "/review/bad",
-                     data : JSON.stringify(data), // http body 데이터
-                     contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
-                     dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
-                  }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
-                     good.html(response.good);
-                     bad.html(response.bad);
-                  }).fail(function(error) {
-                     alert("올바른 경로가 아닙니다");
-                  });
-               });
+                   $.ajax({
+                      type : "POST",
+                      url : "/review/good",
+                      data : JSON.stringify(data), // http body 데이터
+                      contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+                      dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+                   }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+                      good.html(response.good);
+                      bad.html(response.bad);
+                   }).fail(function(error) {
+                      alert("올바른 경로가 아닙니다");
+                   });
+
+                });
+
+                $("button[name='review_bad']").on("click", function(e) {
+
+                   var mov_rev_num = $(this).data("idx");
+                   var bad = $(this);
+                   var good = $(this).prev('button');
+                   ;
+
+                   var data = {
+                      mov_rev_num : mov_rev_num,
+                      mem_num : 1
+                   // ## 로그인 처리하면 고정값 수정필요 ##
+                   };
+                   $.ajax({
+                      type : "POST",
+                      url : "/review/bad",
+                      data : JSON.stringify(data), // http body 데이터
+                      contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+                      dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+                   }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+                      good.html(response.good);
+                      bad.html(response.bad);
+                   }).fail(function(error) {
+                      alert("올바른 경로가 아닙니다");
+                   });
+                });
+
+
+               
+               
+               
 
                $("button[name='com_good']").on("click", function(e) {
             	   
                	   var mov_rev_com_num = $(this).data("mov_rev_com_num");
                       var good = $(this);
                       var bad = $(this).next('button');
-                      var mov_rev_num = $(this).data("idx");
+                    
                       var data = {
                    	  mov_rev_com_num : mov_rev_com_num,
-                   	  mov_rev_num : mov_rev_num,
                          mem_num : 1
                       // ## 로그인 처리하면 고정값 수정필요 ##
                       };
@@ -386,12 +390,11 @@
                   
                   $("button[name='com_bad']").on("click", function(e) {
                  	   var mov_rev_com_num = $(this).data("mov_rev_com_num");
-                       var good = $(this);
-                       var bad = $(this).next('button');
-                       var mov_rev_num = $(this).data("idx");
+                       var good = $(this).prev('button');
+                       var bad = $(this);
+                     
                        var data = {
                     	  mov_rev_com_num : mov_rev_com_num,
-                    	  mov_rev_num : mov_rev_num,
                           mem_num : 1
                        // ## 로그인 처리하면 고정값 수정필요 ##
                        };
@@ -462,8 +465,8 @@
                      str +="<small class='pull-right text-muted'>"
                                + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
                      str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
-                     str +="<button id='com_good" + list[i].mov_rev_com_num +"' name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                     str +="<button id='com_bad" + list[i].mov_rev_com_num +"' name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";             
+                     str +="<button name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                     str +="<button name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";         
             }
             commentUL.html(str); 
             }); // end function
@@ -567,8 +570,9 @@
                                 + "</small></div>";
                           str += "<p>" + list[i].mov_rev_com_content
                                 + "</p></div></li>";
-                          str +="<button id='com_good" + list[i].mov_rev_com_num +"' name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                          str +="<button id='com_bad" + list[i].mov_rev_com_num +"' name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
+                          str +="<button name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+             
+                          str +="<button name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
                        }
                        commentUL.html(str);
         });
@@ -678,8 +682,9 @@
                                  + "</small></div>";
                            str += "<p>" + list[i].mov_rev_com_content
                                  + "</p></div></li>";
-                           str +="<button id='com_good" + list[i].mov_rev_com_num +"' name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                           str +="<button id='com_bad" + list[i].mov_rev_com_num +"' name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
+                                 str +="<button name='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+              
+                                 str +="<button name='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
                         }
                         commentUL.html(str);
          });

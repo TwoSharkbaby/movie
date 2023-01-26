@@ -44,6 +44,7 @@ public class MovieReviewCommentController {
 	public ResponseEntity<ChoiceVO> goodUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
 		ChoiceVO vo = movieReviewCommentService.goodUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(),
 				movieReviewCommentChoiceVO.getMem_num());
+		log.info("좋아요");
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 
@@ -51,6 +52,7 @@ public class MovieReviewCommentController {
 	public ResponseEntity<ChoiceVO> badUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
 		ChoiceVO vo = movieReviewCommentService.badUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(),
 				movieReviewCommentChoiceVO.getMem_num());
+		log.info("싫어요");
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 
