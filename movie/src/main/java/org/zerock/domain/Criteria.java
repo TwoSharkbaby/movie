@@ -17,8 +17,9 @@ public class Criteria {
 	private String type; 
 	private String keyword;
 	
+	// 기본 페이지 설정
 	public Criteria() {
-		this(1, 10);
+		this(1, 12);
 	}
 
 	public Criteria(int pageNum, int amount) {
@@ -38,7 +39,6 @@ public class Criteria {
 	}
 	
 	public String getListLink() {
-		// ?name1=value1&name2=value2
 		UriComponentsBuilder builder;
 		builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pageNum", pageNum)

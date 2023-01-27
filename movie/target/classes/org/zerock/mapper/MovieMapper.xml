@@ -5,12 +5,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MovieMapper">
 
-	<select id="getList" resultType="org.zerock.domain.MovieVO">
-		<![CDATA[
-		SELECT * FROM movie WHERE mov_num > 0
-		]]>
-	</select>
-
 	<select id="getActionList"
 		resultType="org.zerock.domain.MovieVO">
 		<![CDATA[
@@ -62,15 +56,15 @@
 	<insert id="insert" keyProperty="mov_num"
 		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mov_img, mov_thumb, mem_nickname) 
-		VALUES (#{mov_title},#{mov_director},#{mov_genre},#{mov_synopsis},#{mov_release},#{mov_runtime},now(),#{mov_img},#{mov_thumb}, #{mem_nickname})
+		INSERT INTO movie(mov_title, mov_director, mov_genre, mov_synopsis, mov_release, mov_runtime, mov_regdate, mem_nickname, mov_img, mov_thumb) 
+		VALUES (#{mov_title},#{mov_director},#{mov_genre},#{mov_synopsis},#{mov_release},#{mov_runtime},now(),#{mem_nickname},#{mov_img},#{mov_thumb})
 		]]>
 	</insert>
 
 	<update id="update"> 
 		<![CDATA[ 
 		update movie set mov_title =#{mov_title},mov_director=#{mov_director},mov_genre=#{mov_genre},mov_synopsis=#{mov_synopsis},
-		mov_release=#{mov_release},mov_runtime=#{mov_runtime},mov_img=#{mov_img},mov_thumb=#{mov_thumb}
+		mov_release=#{mov_release},mov_runtime=#{mov_runtime},mem_nickname=#{mem_nickname},mov_img=#{mov_img},mov_thumb=#{mov_thumb}
 		where mov_num=#{mov_num} 
 		]]>
 	</update>
@@ -135,13 +129,19 @@
 		LIMIT #{pageStart}, #{amount}
 		]]>
 	</select>
-
-	<!-- <insert id="insertSelectKey"> <selectKey order="BEFORE" keyProperty="bno" 
-		resultType="Long"> <![CDATA[ select MAX(bno)+1 from tbl_board ]]> </selectKey> 
-		<![CDATA[ insert into tbl_board(bno, title, content, writer) values (#{bno},#{title},#{content},#{writer}) 
-		]]> </insert> -->
-
-	<!-- <update id="updateReplyCnt"> UPDATE tbl_board SET replycnt=replycnt+#{amount} 
-		WHERE bno=#{bno} </update> -->
+	
+	<select id="readAttachFileDTO"
+		resultType="String">
+		<![CDATA[
+		SELECT mov_thumb FROM movie WHERE mov_num = #{mov_num}
+		]]>
+	</select>
+	
+	<select id="readImgThumb"
+		resultType="org.zerock.domain.ImgVO">
+		<![CDATA[
+		SELECT mov_img AS img, mov_thumb AS thumb FROM movie WHERE mov_num = #{mov_num}
+		]]>
+	</select>
 
 </mapper>

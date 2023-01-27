@@ -29,6 +29,8 @@ public class ActorVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date act_regdate;
 	
+	private String mem_nickname;
+	
 	private String act_img;
 	
 	private String act_thumb;

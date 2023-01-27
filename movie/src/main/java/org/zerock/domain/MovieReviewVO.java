@@ -25,6 +25,8 @@ public class MovieReviewVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date mov_rev_regdate;
 	
+	private String mem_nickname;
+	
 	private Long mov_rev_good;
 	
 	private Long mov_rev_bad;

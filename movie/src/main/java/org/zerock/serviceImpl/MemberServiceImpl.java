@@ -1,40 +1,94 @@
 package org.zerock.serviceImpl;
 
-import java.util.List;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 import org.zerock.mapper.MemberMapper;
 import org.zerock.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
 public class MemberServiceImpl implements MemberService {
-	
+
 	private final MemberMapper memberMapper;
+	private final PasswordEncoder passwordEncoder;
+
+	// 맴버 등록 / 아이디 체크 후 비밀번호 암호화 처리 및 권한 부여
+	@Transactional
+	@Override
+	public int insert(MemberVO memberVO) {
+		if (memberVO.getMem_id() != null && memberVO.getMem_id() != "") {
+			if (memberVO.getMem_id().equals(memberMapper.checkId(memberVO.getMem_id()))) {
+				return 0;
+			} else {
+				try {
+					String pass = passwordEncoder.encode(memberVO.getMem_pw());
+					memberVO.setMem_pw(pass);
+					memberMapper.insert(memberVO);
+					AuthVO auth = AuthVO.builder().mem_num(memberVO.getMem_num()).auth("ROLE_USER").build();
+					memberMapper.insertAuth(auth);
+					return 1;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return 0;
+	}
+
+	// 맴버 삭제
+	@Transactional
+	@Override
+	public int delete(String mem_num) {
+		memberMapper.delete(mem_num);
+		return memberMapper.deleteAuth(mem_num);
+	}
+
+	// 맴버 수정시 정보불러오기
+	@Transactional
+	@Override
+	public MemberVO memberInfo(Long mem_num) {
+		return memberMapper.memberInfo(mem_num);
+	}
+
+	// 맴버 수정 / 비밀번호 암호화
+	@Transactional
+	@Override
+	public int memberModify(MemberVO memberVO) {
+		try {
+			String pass = passwordEncoder.encode(memberVO.getMem_pw());
+			memberVO.setMem_pw(pass);
+			return memberMapper.memberModify(memberVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	
-//	@Override
-//	public List<MemberVO> getList() {
-//		return memberMapper.getList();
-//	}
-//
-//	@Override
-//	public MemberVO read(Long mem_num) {
-//		return memberMapper.read(mem_num);
-//	}
-//
-//	@Override
-//	public void insert(MemberVO memberVO) {
-//		memberMapper.insert(memberVO);
-//	}
-//
-//	@Override
-//	public int delete(Long mem_num) {
-//		return memberMapper.delete(mem_num);
-//	}
-	
+	// 맴버 아이디 중복 체크
+	@Transactional
+	@Override
+	public boolean idCheck(String mem_id) {
+		if(memberMapper.checkId(mem_id) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// 회원가입 닉네임 체크
+	@Transactional
+	@Override
+	public boolean nicknameCheck(String mem_nickname) {
+		if(memberMapper.nicknameCheck(mem_nickname) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }

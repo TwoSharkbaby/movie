@@ -1,21 +1,25 @@
 package org.zerock.service;
 
-import java.util.List;
-
 import org.zerock.domain.MemberVO;
 
 public interface MemberService {
 
-//	public List<MemberVO> getList();
-//
-//	public MemberVO read(Long mem_num);
-//
-//	public void insert(MemberVO memberVO);
-//
-//	public int delete(Long mem_num);
+	// 맴버 등록
+	public int insert(MemberVO memberVO);
 
-//	public boolean modify(MemberVO vo);
-//
-//	public int getTotal(Criteria cri);
+	// 맴버 삭제
+	public int delete(String mem_num);
+	
+	// 맴버 수정시 정보불러오기
+	public MemberVO memberInfo(Long mem_num);
+	
+	// 맴버 수정
+	public int memberModify(MemberVO memberVO);
+	
+	// 맴버 아이디 중복 체크
+	public boolean idCheck(String mem_id);
+	
+	// 회원가입 닉네임 체크
+	public boolean nicknameCheck(String mem_nickname);
 
 }

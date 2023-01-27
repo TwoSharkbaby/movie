@@ -15,11 +15,9 @@ import org.zerock.mapper.MovieScoreMapper;
 import org.zerock.service.MovieReviewService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
 public class MovieReviewServiceImpl implements MovieReviewService {
 
 	private final MovieReviewMapper movieReviewMapper;
@@ -28,11 +26,8 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 	private final MovieReviewCommentMapper movieReviewCommentMapper;
 	private final MovieReviewCommentChoiceMapper movieReviewCommentChoiceMapper;
 
-//	@Override
-//	public List<MovieReviewVO> getList() {
-//		return movieReviewMapper.getList();
-//	}
 
+	// 리뷰 수정시 기존 데이터 불러오기
 	@Transactional
 	@Override
 	public MovieReviewVO read(Long mov_rev_num) {
@@ -41,14 +36,20 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		return vo;
 	}
 	
+	// 리뷰 등록
 	@Transactional
 	@Override
 	public int insert(MovieReviewVO movieReviewVO) {
-		movieReviewMapper.insert(movieReviewVO);
-		movieReviewVO.setMov_rev_num(movieReviewVO.getMov_rev_num());
-		return movieScoreMapper.insert(movieReviewVO);
+		if(movieReviewMapper.repetitionCheck(movieReviewVO) == null) {
+			movieReviewMapper.insert(movieReviewVO);
+			movieReviewVO.setMov_rev_num(movieReviewVO.getMov_rev_num());
+			return movieScoreMapper.insert(movieReviewVO);
+		} else {
+			return 0;
+		}
 	}
 
+	// 리뷰 수정
 	@Transactional
 	@Override
 	public int modify(MovieReviewVO movieReviewVO) {
@@ -56,6 +57,7 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		return movieScoreMapper.update(movieReviewVO);
 	}
 
+	// 리뷰 삭제 및 관련된 댓글/좋싫/평점 삭제
 	@Transactional
 	@Override
 	public int delete(Long mov_rev_num) {
@@ -68,12 +70,15 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		return movieReviewMapper.delete(mov_rev_num);
 	}
 
+	// 영화 상세 리뷰 불러오기
 	@Transactional
 	@Override
 	public List<MovieReviewVO> movieReviewRead(Long mov_num) {
 		return movieReviewMapper.movieReviewRead(mov_num);
 	}
 
+	// 리뷰 좋아요 / 싫어요 기록이 있으면 싫어요 취소 후 좋아요 등록
+	// 좋아요 기록이 있으면 좋아요 취소 / 기록이 없으면 좋아요 등록 / 좋아요 1
 	@Transactional  
 	@Override      
 	public ChoiceVO goodUpdate(Long mov_rev_num, Long mem_num) {
@@ -100,6 +105,8 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 		}
 	}
 
+	// 리뷰 싫어요 / 좋아요 기록이 있으면 좋아요 취소 후 싫어요 등록
+	// 싫어요 기록이 있으면 싫어요 취소 / 기록이 없으면 싫어요 등록 / 싫어요 2
 	@Transactional
 	@Override
 	public ChoiceVO badUpdate(Long mov_rev_num, Long mem_num) {

@@ -18,12 +18,12 @@ public class MovieServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private MovieService movieService;
 
-	@Test
-	public void testGetList() {
-		log.info("----------------------------------------------");
-		movieService.getList().forEach(b -> log.info(b));
-		log.info("----------------------------------------------");
-	}
+//	@Test
+//	public void testGetList() {
+//		log.info("----------------------------------------------");
+//		movieService.getList().forEach(b -> log.info(b));
+//		log.info("----------------------------------------------");
+//	}
 	
 //	@Test
 //	public void testGenreList() {
@@ -42,7 +42,7 @@ public class MovieServiceTests {
 //	@Test
 //	public void testInsert() {
 //		log.info("----------------------------------------------");
-//		MovieVO movieVO = MovieVO.builder().mov_title("°í¶ó").mov_director("kim").build();
+//		MovieVO movieVO = MovieVO.builder().mov_title("ï¿½ï¿½ï¿½").mov_director("kim").build();
 //		movieService.insert(movieVO);
 //		log.info("----------------------------------------------");
 //	}
@@ -58,7 +58,7 @@ public class MovieServiceTests {
 //	public void testTotal() {
 //		Criteria cri = new Criteria();
 //		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
+//		cri.setKeyword("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½");
 //		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
 //	}
 //	
@@ -66,12 +66,12 @@ public class MovieServiceTests {
 //	public void testGetListWithPaging() {
 //		Criteria cri = new Criteria();
 //		cri.setType("TC");
-//		cri.setKeyword("?…Œ?Š¤?Š¸");
+//		cri.setKeyword("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½");
 //		boardMapper.getListWithPaging(cri);
 //	}
 //	@Test
 //	public void testUpdate() {
-//		BoardVO vo = BoardVO.builder().bno(3L).title("?‚œ?‚˜?‚œ").content("ë¬´ë‚˜?‚œ").writer("ë£¨ë¼?„").build();
+//		BoardVO vo = BoardVO.builder().bno(3L).title("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½").content("ë¬´ë‚˜?ï¿½ï¿½").writer("ë£¨ë¼?ï¿½ï¿½").build();
 //		int result = boardMapper.update(vo);
 //		log.info("===========================================================");
 //		log.info("count.............." + result);

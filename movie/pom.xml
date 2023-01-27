@@ -15,7 +15,7 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
-		<!-- Spring -->
+<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -51,14 +51,26 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-web</artifactId> 
-			<version>5.0.6.RELEASE</version> </dependency> <dependency> <groupId>org.springframework.security</groupId> 
-			<artifactId>spring-security-config</artifactId> <version>5.0.6.RELEASE</version> 
-			</dependency> <dependency> <groupId>org.springframework.security</groupId> 
-			<artifactId>spring-security-core</artifactId> <version>5.0.6.RELEASE</version> 
-			</dependency> https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs 
-			<dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-taglibs</artifactId> 
-			<version>5.0.6.RELEASE</version> </dependency> -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -152,7 +164,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.28</version>
 		</dependency>
-		<!-- 히카리cp jdbc 커넥팅 매니저 풀 -->
+		<!-- ?덉뭅由촣p jdbc 而ㅻ꽖??留ㅻ땲? ? -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -195,6 +207,8 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.8</version>
 		</dependency>
+
+
 
 	</dependencies>
 	<build>

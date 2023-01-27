@@ -33,12 +33,12 @@ public class MovieVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date mov_regdate;
 	
+	private String mem_nickname;
+	
 	private String mov_img;
 	
 	private String mov_thumb;
 	
 	private Double mov_sco_point;
-	
-	private String mem_nickname;
 	 
 }

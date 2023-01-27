@@ -5,13 +5,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MovieReviewMapper">
 
-	<select id="getList"
-		resultType="org.zerock.domain.MovieReviewVO">
-		<![CDATA[
-		SELECT * FROM movie_review WHERE mov_rev_num > 0
-		]]>
-	</select>
-
 	<select id="read" resultType="org.zerock.domain.MovieReviewVO">
 		<![CDATA[
 		SELECT * FROM movie_review WHERE mov_rev_num = #{mov_rev_num}
@@ -21,8 +14,8 @@
 	<insert id="insert" keyProperty="mov_rev_num"
 		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
-		VALUES (#{mov_rev_title}, #{mov_rev_content}, now(), 0, 0, #{mov_num}, #{mem_num})
+		INSERT INTO movie_review(mov_rev_title, mov_rev_content, mov_rev_regdate, mem_nickname, mov_rev_good, mov_rev_bad, mov_num, mem_num) 
+		VALUES (#{mov_rev_title}, #{mov_rev_content}, now(), #{mem_nickname}, 0, 0, #{mov_num}, #{mem_num})
 		]]>
 	</insert>
 	
@@ -89,30 +82,10 @@
 		]]>
 	</delete>
 	
-	
-
-	<!-- <sql id="criteria"> <trim prefix="AND (" suffix=")" prefixOverrides="OR"> 
-		<foreach item="type" collection="typeArr"> <trim prefix="OR"> <choose> <when 
-		test="type == 'T'.toString()"> title like CONCAT('%', #{keyword}, '%') </when> 
-		<when test="type == 'C'.toString()"> content like CONCAT('%', #{keyword}, 
-		'%') </when> <when test="type == 'W'.toString()"> writer like CONCAT('%', 
-		#{keyword}, '%') </when> </choose> </trim> </foreach> </trim> </sql> -->
-
-	<!-- <select id="getTotalCount" resultType="int"> <![CDATA[ SELECT count(*) 
-		FROM tbl_board WHERE bno > 0 ]]> <include refid="criteria" /> </select> -->
-
-	<!-- <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO"> 
-		<![CDATA[ SELECT * FROM tbl_board WHERE bno > 0 ]]> <include refid="criteria" 
-		/> ORDER BY bno DESC LIMIT #{pageStart}, #{amount} </select> -->
-
-	<!-- <insert id="insertSelectKey"> <selectKey order="BEFORE" keyProperty="bno" 
-		resultType="Long"> <![CDATA[ select MAX(bno)+1 from tbl_board ]]> </selectKey> 
-		<![CDATA[ insert into tbl_board(bno, title, content, writer) values (#{bno},#{title},#{content},#{writer}) 
-		]]> </insert> -->
-
-
-
-	<!-- <update id="updateReplyCnt"> UPDATE tbl_board SET replycnt=replycnt+#{amount} 
-		WHERE bno=#{bno} </update> -->
+	<select id="repetitionCheck" resultType="Long">
+		<![CDATA[
+		SELECT mov_rev_num FROM movie_review WHERE mov_num = #{mov_num} and mem_num = #{mem_num}
+		]]>
+	</select>
 
 </mapper>

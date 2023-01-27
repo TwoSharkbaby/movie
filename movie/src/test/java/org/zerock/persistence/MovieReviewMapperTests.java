@@ -12,42 +12,22 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+"file:src/main/webapp/WEB-INF/spring/security-context.xml" })
 @Log4j
 public class MovieReviewMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MovieReviewMapper movieReviewMapper;
 
-//	@Test
-//	public void testGetList() {
-//		log.info("----------------------------------------------");
-//		movieReviewMapper.getList().forEach(b -> log.info(b));
-//		log.info("----------------------------------------------");
-//
-//	}
-//
-//	@Test
-//	public void testRead() {
-//		log.info("----------------------------------------------");
-//		movieReviewMapper.read(1L);
-//		log.info("----------------------------------------------");
-//	}
-
 	@Test
 	public void testInsert() {
 		log.info("----------------------------------------------");
-		MovieReviewVO movieReviewVO = MovieReviewVO.builder().mov_rev_title("123").mov_num(1L).mem_num(1L).build();
-		movieReviewMapper.insert(movieReviewVO);
+		MovieReviewVO movieReviewVO = MovieReviewVO.builder()
+				.mov_rev_title("123").mov_num(1L).mem_num(1L).mov_sco_point(1.0).build();
+		log.info(movieReviewMapper.insert(movieReviewVO));
 		log.info("----------------------------------------------");
 	}
-
-//	@Test
-//	public void testDelete() {
-//		log.info("----------------------------------------------");
-//		movieReviewMapper.delete(6L);
-//		log.info("----------------------------------------------");
-//	}
 	
 	@Test
 	public void testMovieReviewVO() {
@@ -86,28 +66,17 @@ public class MovieReviewMapperTests {
 		log.info("----------------------------------------------");
 	}
 	
-//	@Test
-//	public void testTotal() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?뀒?뒪?듃");
-//		log.info(".........................Total:" + boardMapper.getTotalCount(cri));
-//	}
-//	
-//	@Test
-//	public void testGetListWithPaging() {
-//		Criteria cri = new Criteria();
-//		cri.setType("TC");
-//		cri.setKeyword("?뀒?뒪?듃");
-//		boardMapper.getListWithPaging(cri);
-//	}
-//	@Test
-//	public void testUpdate() {
-//		BoardVO vo = BoardVO.builder().bno(3L).title("?궃?굹?궃").content("臾대굹?궃").writer("猷⑤씪?엫").build();
-//		int result = boardMapper.update(vo);
-//		log.info("===========================================================");
-//		log.info("count.............." + result);
-//		log.info("===========================================================");
-//	}
+	@Test
+	public void testRepetitionCheck() {
+		log.info("----------------------------------------------");
+		MovieReviewVO vo = MovieReviewVO.builder().mov_num(1L).mem_num(2L).build();
+		log.info(movieReviewMapper.repetitionCheck(vo));
+		if(movieReviewMapper.repetitionCheck(vo) == null) {
+			log.info("널입니다");
+		} else {
+			log.info("아이디가 존재합니다");
+		}
+		log.info("----------------------------------------------");
+	}
 
 }

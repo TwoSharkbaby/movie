@@ -6,24 +6,26 @@ import org.zerock.domain.ChoiceVO;
 import org.zerock.domain.MovieReviewVO;
 
 public interface MovieReviewService {
-
-//	public List<MovieReviewVO> getList();
 	
+	// ¸®ºä ¼öÁ¤½Ã ±âÁ¸ µ¥ÀÌÅÍ ºÒ·¯¿À±â
 	public MovieReviewVO read(Long mov_rev_num);
 
+	// ¸®ºä µî·Ï
 	public int insert(MovieReviewVO movieReviewVO);
 	
+	// ¸®ºä ¼öÁ¤
 	public int modify(MovieReviewVO movieReviewVO);
 
+	// ¸®ºä »èÁ¦
 	public int delete(Long mov_rev_num);
 	
+	// ¿µÈ­ »ó¼¼ ¸®ºä ºÒ·¯¿À±â
 	public List<MovieReviewVO> movieReviewRead(Long mov_num);
 	
-	// mem_numï¿½ï¿½ ï¿½ï¿½ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï°ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½È¾ï¿½ï¿½ï¿½ï¿½ ï¿½É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ¸®ºä ÁÁ¾Æ¿ä
 	public ChoiceVO goodUpdate(Long mov_rev_num, Long mem_num);
 	
-	// mem_numï¿½ï¿½ ï¿½ï¿½ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï°ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½È¾ï¿½ï¿½ï¿½ï¿½ ï¿½É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ¸®ºä ½È¾î¿ä
 	public ChoiceVO badUpdate(Long mov_rev_num, Long mem_num);
-	
-//	public int getTotal(Criteria cri);
+
 }
