@@ -179,7 +179,12 @@
 		<c:when test="${!empty review}">
 			<c:forEach items="${review}" var="review">
 				<tr>
-					<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>
+				     <td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_num}" />
+                     
+                     <button class="commentAdd" id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글작성" />
+                     </td>
+				
+<!-- 				<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>-->	
 					<td><c:out value="${review.mov_rev_title}" /></td>
 					<td><c:out value="${review.mov_rev_content}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.mov_rev_regdate}" /></td>
@@ -221,8 +226,8 @@
                         <ul id="chat<c:out value="${review.mov_rev_num}" />"
                            class="chat2" name="com">
                            <li name="mov_rev_com_num" data-mov_rev_com_num="1" />
-                           <button id="com_good" data-mov_rev_com_num="1"></button>
-                           <button id="com_bad" data-mov_rev_com_num="1"></button>
+                           <button id="com_good" data-mov_rev_com_num="1">좋아요</button>
+                           <button id="com_bad" data-mov_rev_com_num="1">싫어요</button>
                            </ul>
                      </td>
                   </tr>
@@ -409,7 +414,7 @@ $(document).ready(function() {
 			});
 	});
 
-	  $("button[id='com_good']").on("click", function(e) {
+	  $("#com_good").on("click", function(e) {
 		   
           var mov_rev_com_num = $(this).data("mov_rev_com_num");
            var good = $(this);
@@ -436,7 +441,7 @@ $(document).ready(function() {
 
         });
        
-       $("button[id='com_bad']").on("click", function(e) {
+       $("#com_bad").on("click", function(e) {
         
             var mov_rev_com_num = $(this).data("mov_rev_com_num");
             var good = $(this).prev('button');
@@ -732,7 +737,24 @@ $(document).ready(function() {
                            str += "<p>" + list[i].mov_rev_com_content
                                  + "</p></div></li>";
                                  str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+              
                                  str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
                         }
-                        commentUL.html(str);	
+                        commentUL.html(str);
+         });
+         
+         
+         
+      }
+      
+
+      
+
+   </script>
+
+
+</body>
+</html>
+</body>
+</html>
 <%@include file="../includes/footer.jsp"%>>
