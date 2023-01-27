@@ -47,4 +47,49 @@
 		]]>
 	</delete>
 
+<select id="getList"
+		resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
+		<![CDATA[
+		SELECT * FROM movie_review_comment_choice WHERE mov_rev_com_cho_num > 0
+		]]>
+	</select>
+
+
+
+
+	<select id="read"
+		resultType="org.zerock.domain.MovieReviewCommentChoiceVO">
+		<![CDATA[
+		SELECT * FROM movie_review_comment_choice WHERE mov_rev_com_cho_num = #{mov_rev_com_cho_num}
+		]]>
+	</select>
+
+	<insert id="insert" keyProperty="mov_rev_com_cho_num"
+		useGeneratedKeys="true">
+		<![CDATA[
+		INSERT INTO movie_review_comment_choice(mov_rev_com_num, mem_num, mov_rev_com_cho_which) 
+		VALUES (#{mov_rev_com_num},#{mem_num},#{mov_rev_com_cho_which})
+		]]>
+	</insert>
+
+
+
+
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM movie_review_comment_choice 
+		WHERE mov_rev_com_num = #{mov_rev_com_num} AND mem_num = #{mem_num}
+		]]>
+	</delete>
+
+	<update id="update">
+		<![CDATA[
+		update movie_review_comment_choice set mov_rev_com_cho_which =#{mov_rev_com_cho_which} where mov_rev_com_cho_num=#{mov_rev_com_cho_num}
+		]]>
+	</update>
+
+
+
+
+
 </mapper>

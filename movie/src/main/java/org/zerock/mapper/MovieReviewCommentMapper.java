@@ -9,40 +9,36 @@ import org.zerock.domain.MovieReviewCommentVO;
 
 public interface MovieReviewCommentMapper {
 	
-	public MovieReviewCommentVO read(Long mov_rev_com_num);
-	
-	public int delete(Long mov_rev_com_num);
-	
-	public int insert(MovieReviewCommentVO movieReviewCommentVO);
-	
-	public int update(MovieReviewCommentVO movieReviewCommentVO);
-	
-	public List<MovieReviewCommentVO> getCommentList(Criteria cri, Long mov_rev_num);
-	
-	// ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½
+	// ÁÁ¾Æ¿ä µî·Ï
 	public void goodUpdate(Long mov_rev_com_num);
 	
-	// ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½
+	// ÁÁ¾Æ¿ä Ãë¼Ò
 	public void goodDowndate(Long mov_rev_com_num);
 	
-	// ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½
+	// ½È¾î¿ä µî·Ï
 	public void badUpdate(Long mov_rev_com_num);
 	
-	// ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½
+	// ½È¾î¿ä Ãë¼Ò
 	public void badDowndate(Long mov_rev_com_num);
 	
-	// ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
+	// ÁÁ½È ÆÇº°
 	public ChoiceVO checkChoice(Long mov_rev_com_num);
 	
-	// ï¿½ï¿½ï¿½ä¿¡ ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ¸®ºä¿¡ ´Þ¸° ´ñ±Û ºÒ·¯¿À±â
 	public List<Long> findByReviewComment(Long mov_rev_num);
 	
-	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ¸®ºä »èÁ¦½Ã ´ñ±Û »èÁ¦
 	public void deleteReviewComments(Long mov_rev_num);
 	
+	public MovieReviewCommentVO read(Long mov_rev_com_num);
 	
+	public int insert(MovieReviewCommentVO movieReviewCommentVO);
+	public int delete(Long mov_rev_com_num);
+	public int update(MovieReviewCommentVO movieReviewCommentVO);
+	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num);
 	
 	public List<MovieReviewCommentVO> getListWithPaging(
 			@Param("cri") Criteria cri,
 			@Param("mov_rev_num") Long mov_rev_num);
+
 }

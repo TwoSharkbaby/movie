@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService {
 	private final MemberMapper memberMapper;
 	private final PasswordEncoder passwordEncoder;
 
-	// ¸É¹ö µî·Ï / ¾ÆÀÌµð Ã¼Å© ÈÄ ºñ¹Ð¹øÈ£ ¾ÏÈ£È­ Ã³¸® ¹× ±ÇÇÑ ºÎ¿©
+	// ï¿½É¹ï¿½ ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½Ìµï¿½ Ã¼Å© ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½È£È­ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½
 	@Transactional
 	@Override
 	public int insert(MemberVO memberVO) {
@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	// ¸É¹ö »èÁ¦
+	// ï¿½É¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@Transactional
 	@Override
 	public int delete(String mem_num) {
@@ -48,14 +48,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.deleteAuth(mem_num);
 	}
 
-	// ¸É¹ö ¼öÁ¤½Ã Á¤º¸ºÒ·¯¿À±â
+	// ï¿½É¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Transactional
 	@Override
 	public MemberVO memberInfo(Long mem_num) {
 		return memberMapper.memberInfo(mem_num);
 	}
 
-	// ¸É¹ö ¼öÁ¤ / ºñ¹Ð¹øÈ£ ¾ÏÈ£È­
+	// ï¿½É¹ï¿½ ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½È£È­
 	@Transactional
 	@Override
 	public int memberModify(MemberVO memberVO) {
@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 	
-	// ¸É¹ö ¾ÆÀÌµð Áßº¹ Ã¼Å©
+	// ï¿½É¹ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ Ã¼Å©
 	@Transactional
 	@Override
 	public boolean idCheck(String mem_id) {
@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	// È¸¿ø°¡ÀÔ ´Ð³×ÀÓ Ã¼Å©
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ Ã¼Å©
 	@Transactional
 	@Override
 	public boolean nicknameCheck(String mem_nickname) {

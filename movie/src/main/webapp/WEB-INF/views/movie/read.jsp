@@ -216,12 +216,55 @@
 				<br />
 
 					<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
+                  <tr>
+                     <td>
+                        <ul id="chat<c:out value="${review.mov_rev_num}" />"
+                           class="chat2" name="com">
+                           <li name="mov_rev_com_num" data-mov_rev_com_num="1" />
+                           <button id="com_good" data-mov_rev_com_num="1"></button>
+                           <button id="com_bad" data-mov_rev_com_num="1"></button>
+                           </ul>
+                     </td>
+                  </tr>
 
 			</c:forEach>
 		</c:when>
 	</c:choose>
 	</tbody>
 </table>
+<!-- Comment Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true" data-rev_num="-1" >
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-hidden="true">&times;</button>
+            <h4 class="modal-title1" id="myModalLabel">COMMENT MODAL</h4>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>content</label> <input class="form-control" name='mov_rev_com_content'
+                  value='New content'>
+            </div>
+            <div class="form-group">
+               <label>mem_num</label> <input class="form-control" name='mem_num'
+                  value='mem_num'>
+            </div>
+
+         </div>
+         <div class="modal-footer">
+            <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+            <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+            <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+            <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+         </div>
+      </div>
+      <!— /.modal-content —>
+   </div>
+   <!— /.modal-dialog —>
+</div>
+<!— /.modal —>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -365,8 +408,331 @@ $(document).ready(function() {
 				alert("올바른 경로가 아닙니다");
 			});
 	});
+
+	  $("button[id='com_good']").on("click", function(e) {
+		   
+          var mov_rev_com_num = $(this).data("mov_rev_com_num");
+           var good = $(this);
+           var bad = $(this).next('button');
+          console.log(mov_rev_com_num +"좋아요");                 
+           var data = {
+             mov_rev_com_num : mov_rev_com_num,
+              mem_num : 1
+           // ## 로그인 처리하면 고정값 수정필요 ##
+           };
+
+           $.ajax({
+              type : "POST",
+              url : "/comment/good",
+              data : JSON.stringify(data), // http body 데이터
+              contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+              dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+           }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+              good.html(response.good);
+              bad.html(response.bad);
+           }).fail(function(error) {
+              alert("올바른 경로가 아닙니다");
+           });
+
+        });
+       
+       $("button[id='com_bad']").on("click", function(e) {
+        
+            var mov_rev_com_num = $(this).data("mov_rev_com_num");
+            var good = $(this).prev('button');
+            var bad = $(this);
+           console.log(mov_rev_com_num +"싫어요");   
+            var data = {
+              mov_rev_com_num : mov_rev_com_num,
+               mem_num : 1
+            // ## 로그인 처리하면 고정값 수정필요 ##
+            };
+      
+           $.ajax({
+              type : "POST",
+              url : "/comment/bad",
+              data : JSON.stringify(data), // http body 데이터
+              contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+              dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+           }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+              good.html(response.good);
+              bad.html(response.bad);
+           }).fail(function(error) {
+              alert("올바른 경로가 아닙니다");
+           });
+        });
+
+	
+
 	</sec:authorize>
 });
 </script>
-	
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"></script>
+   <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"></script>
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"></script>
+
+
+   <script type="text/javascript" src="\resources\js\movieReviewComment.js?v=4"></script>
+   
+  <script type="text/javascript">
+
+  
+      $("td[id='comment']").each(function (index){
+    
+   
+         var idx = $(this).data('idx');
+         console.log(idx);
+          
+          var data1 = {
+                mov_rev_num: idx 
+                , 
+                mem_num : 1// ## 로그인 처리하면 고정값 수정필요 ## 
+                };
+         console.log(data1);
+          
+          
+          var commentUL = $("#chat" + idx);
+           showList(1);
+        
+           function showList(page){   
+          
+            movieReviewCommentService.getList(data1, function(list){
+                 var str = "";
+                 if(list == null || list.length == 0){
+                    commentUL.html("");          
+                    return;
+                 }
+                 for(var i =0, len = list.length || 0; i < len; i++){
+                     str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                     str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_num+ "   " +"</strong>";
+                     str +="<small class='pull-right text-muted'>"
+                               + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                     str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                     str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                     str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";         
+            }
+            commentUL.html(str); 
+            }); // end function
+         } // end showlist 
+         
+
+           var modal = $("#commentModal");
+           
+           var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+           var modalInputMemNum = modal.find("input[name='mem_num']");
+           var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+           var modalRemoveBtn = $("#modalRemoveBtn");    
+           var modalModBtn = $("#modalModBtn");
+           var modalRegisterBtn = $("#modalRegisterBtn");
+            
+             
+           $("#chat"+ idx).on("click", "li", function(e){
+           
+              var mov_rev_com_num = $(this).data("mov_rev_com_num");
+              console.log("chat + idx : " +  mov_rev_com_num);
+               movieReviewCommentService.get(mov_rev_com_num, function(comment) {
+                   modalInputContent.val(comment.mov_rev_com_content);
+                   modalInputMemNum.val(comment.mem_num);
+                   modalInputMovRevComRegdate.val(movieReviewCommentService.displayTime(comment.mov_rev_com_regdate))
+                   .attr("readonly", "readonly");
+                   modal.data("mov_rev_com_num", comment.mov_rev_com_num);
+                   
+                   modal.find("button[id != 'modalCloseBtn']").hide();
+                   modalModBtn.show();
+                   modalRemoveBtn.show();
+                   
+                   $("#commentModal").data("rev_num", idx);
+                   $("#commentModal").modal("show");
+              });
+               
+               
+               
+           });
+           
+           modalModBtn.on("click", function(e){
+              var mov_rev_com_num = modal.data("mov_rev_com_num");
+               console.log(mov_rev_com_num);
+                var comment = 
+                {mov_rev_com_num : modal.data("mov_rev_com_num"), 
+                      mov_rev_com_content : modalInputContent.val(),
+                      mem_num:1};
+                
+                
+              movieReviewCommentService.update(comment, function(result){
+                   modal.modal("hide");
+                   showList(1);
+              });
+           });
+
+      });       // td end   
+                      
+
+
+</script>
+
+
+   <script type="text/javascript">
+    var modal = $("#commentModal");
+    
+    var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+    var modalInputMemNum = modal.find("input[name='mem_num']");
+    var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+ 
+    var modalModBtn = $("#modalModBtn");
+    var modalRemoveBtn = $("#modalRemoveBtn");
+    var modalRegisterBtn = $("#modalRegisterBtn");
+    var modalCloseBtn = $("#modalCloseBtn");
+    
+    
+    var mov_rev_num = $("#commentModal").data("rev_num");
+    
+    console.log(mov_rev_num);
+    
+    
+    function showRevList(mov_rev_num) {
+        console.log("showRevList!!!!");
+        var commentUL = $("#chat" + mov_rev_num); 
+        var params = {mov_rev_num:mov_rev_num, page : 1};
+        movieReviewCommentService.getList(params, function(list) {
+                       var str = "";
+                       console.log(list);
+                       if (list == null || list.length == 0) {
+                          commentUL.html("");
+                          return;
+                       }
+                       
+                       for (var i = 0, len = list.length || 0; i < len; i++) {
+                          str += "<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                          str += "<div><div class='header'><strong class='primary-font'>"
+                                + "작성회원 :  "
+                                + list[i].mem_num
+                                + "   " + "</strong>";
+                          str += "<small class='pull-right text-muted'>"
+                                + movieReviewCommentService
+                                      .displayTime(list[i].mov_rev_com_regdate)
+                                + "</small></div>";
+                          str += "<p>" + list[i].mov_rev_com_content
+                                + "</p></div></li>";
+                          str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+             
+                          str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
+                       }
+                       commentUL.html(str);
+        });
+     }
+    
+    modalRemoveBtn.on("click", function(e){
+        var mov_rev_com_num = modal.data("mov_rev_com_num");
+        console.log(mov_rev_com_num);
+        console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
+        var mov_rev_num = $("#commentModal").data("rev_num");
+
+        console.log("movieReviewDeleteService : " + mov_rev_com_num);
+         movieReviewCommentService.remove(mov_rev_com_num, function(result){
+              alert(result);
+            modal.modal("hide");
+            showRevList(mov_rev_num);
+         });
+     });
+
+   </script>
+
+
+
+   <script type="text/javascript">
+      var modal = $("#commentModal");
+   
+      var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+      var modalInputMemNum = modal.find("input[name='mem_num']");
+      var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+   
+      var modalModBtn = $("#modalModBtn");
+      var modalRemoveBtn = $("#modalRemoveBtn");
+      var modalRegisterBtn = $("#modalRegisterBtn");
+      var modalCloseBtn = $("#modalCloseBtn");
+      
+      
+      $("button[name='comment']").on("click", function(e) {
+               console.log($(this).data('idx'));
+               var idx = $(this).data('idx');
+               
+               
+               
+               modal.find("input").val("");
+                modalInputMovRevComRegdate.closest("div").hide();
+                modal.find("button[id != 'modalCloseBtn']").hide();
+                   
+                modalRegisterBtn.show();
+                $("#commentModal").data("rev_num", idx);
+                  $("#commentModal").modal("show");
+                  
+            });
+      
+      modalRegisterBtn.on("click", function(e){
+             
+         console.log("댓글 등록 버튼 클릭!");
+         console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
+         var mov_rev_num = $("#commentModal").data("rev_num");
+         
+
+         
+         var comment = {
+            mov_rev_com_content : modalInputContent.val(),
+            mem_num : modalInputMemNum.val(),
+            mov_rev_num: mov_rev_num
+         };
+         
+         movieReviewCommentService.add(comment, function(result){
+            console.log("movieReviewCommentService : " + mov_rev_num);
+            if(result == "success")
+               showRevList(mov_rev_num);
+            $("#commentModal").modal("hide");
+         });
+              
+      });
+      
+      modalCloseBtn.on("click", function(e){ 
+         console.log("댓글 닫기 버튼 클릭!");
+         $("#commentModal").modal("hide");
+              
+      });
+      
+      
+      function showRevList(mov_rev_num) {
+         console.log("showRevList!!!!");
+         var commentUL = $("#chat" + mov_rev_num); 
+         var params = {mov_rev_num:mov_rev_num, page : 1};
+         movieReviewCommentService.getList(params, function(list) {
+                        var str = "";
+                        console.log(list);
+                        if (list == null || list.length == 0) {
+                           commentUL.html("");
+                           return;
+                        }
+                        
+                        for (var i = 0, len = list.length || 0; i < len; i++) {
+                           str += "<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                           str += "<div><div class='header'><strong class='primary-font'>"
+                                 + "작성회원 :  "
+                                 + list[i].mem_num
+                                 + "   " + "</strong>";
+                           str += "<small class='pull-right text-muted'>"
+                                 + movieReviewCommentService
+                                       .displayTime(list[i].mov_rev_com_regdate)
+                                 + "</small></div>";
+                           str += "<p>" + list[i].mov_rev_com_content
+                                 + "</p></div></li>";
+                                 str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                                 str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
+                        }
+                        commentUL.html(str);	
 <%@include file="../includes/footer.jsp"%>>
