@@ -2,29 +2,47 @@ package org.zerock.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.ChoiceVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.MovieReviewCommentVO;
 
 public interface MovieReviewCommentMapper {
 	
-	// ÁÁ¾Æ¿ä µî·Ï
+	public MovieReviewCommentVO read(Long mov_rev_com_num);
+	
+	public int delete(Long mov_rev_com_num);
+	
+	public int insert(MovieReviewCommentVO movieReviewCommentVO);
+	
+	public int update(MovieReviewCommentVO movieReviewCommentVO);
+	
+	public List<MovieReviewCommentVO> getCommentList(Criteria cri, Long mov_rev_num);
+	
+	// ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½
 	public void goodUpdate(Long mov_rev_com_num);
 	
-	// ÁÁ¾Æ¿ä Ãë¼Ò
+	// ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½
 	public void goodDowndate(Long mov_rev_com_num);
 	
-	// ½È¾î¿ä µî·Ï
+	// ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public void badUpdate(Long mov_rev_com_num);
 	
-	// ½È¾î¿ä Ãë¼Ò
+	// ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public void badDowndate(Long mov_rev_com_num);
 	
-	// ÁÁ½È ÆÇº°
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
 	public ChoiceVO checkChoice(Long mov_rev_com_num);
 	
-	// ¸®ºä¿¡ ´Þ¸° ´ñ±Û ºÒ·¯¿À±â
+	// ï¿½ï¿½ï¿½ä¿¡ ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 	public List<Long> findByReviewComment(Long mov_rev_num);
 	
-	// ¸®ºä »èÁ¦½Ã ´ñ±Û »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void deleteReviewComments(Long mov_rev_num);
 	
+	
+	
+	public List<MovieReviewCommentVO> getListWithPaging(
+			@Param("cri") Criteria cri,
+			@Param("mov_rev_num") Long mov_rev_num);
 }
