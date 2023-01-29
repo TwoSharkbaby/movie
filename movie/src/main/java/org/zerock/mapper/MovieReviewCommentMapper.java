@@ -33,8 +33,11 @@ public interface MovieReviewCommentMapper {
 	public MovieReviewCommentVO read(Long mov_rev_com_num);
 	
 	public int insert(MovieReviewCommentVO movieReviewCommentVO);
+	
 	public int delete(Long mov_rev_com_num);
+	
 	public int update(MovieReviewCommentVO movieReviewCommentVO);
+	
 	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num);
 	
 	public List<MovieReviewCommentVO> getListWithPaging(

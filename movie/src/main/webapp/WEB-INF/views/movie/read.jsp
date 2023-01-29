@@ -486,7 +486,7 @@ $(document).ready(function() {
       crossorigin="anonymous"></script>
 
 
-   <script type="text/javascript" src="\resources\js\movieReviewComment.js?v=4"></script>
+   <script type="text/javascript" src="\resources\js\movieReviewComment.js?v=5"></script>
    
   <script type="text/javascript">
 
