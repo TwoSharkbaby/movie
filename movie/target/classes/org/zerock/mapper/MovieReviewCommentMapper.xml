@@ -83,8 +83,8 @@
 	<insert id="insert" keyProperty="mov_rev_com_num"
 		useGeneratedKeys="true">
 		<![CDATA[
-		INSERT INTO movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num, mov_rev_num) 
-		VALUES (#{mov_rev_com_content},now(),0,0,#{mem_num},#{mov_rev_num})
+		INSERT INTO movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num,mem_nickname, mov_rev_num) 
+		VALUES (#{mov_rev_com_content},now(),0,0,#{mem_num},#{mem_nickname},#{mov_rev_num})
 		]]>
 	</insert>
 

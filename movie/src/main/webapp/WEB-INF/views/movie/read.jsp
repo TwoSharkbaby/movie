@@ -447,6 +447,11 @@ $(document).ready(function() {
             var good = $(this).prev('button');
             var bad = $(this);
            console.log(mov_rev_com_num +"싫어요");   
+           
+   		<sec:authorize access="isAuthenticated()">
+		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+	</sec:authorize>
+           
             var data = {
               mov_rev_com_num : mov_rev_com_num,
                mem_num : 1
