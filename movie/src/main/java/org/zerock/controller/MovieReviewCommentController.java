@@ -31,6 +31,8 @@ public class MovieReviewCommentController {
 
 	private final MovieReviewCommentService movieReviewCommentService;
 
+
+	
 	// ∏Æ∫‰ ¥Ò±€ ¡¡æ∆ø‰
 	@PostMapping(value = "/good", consumes = "application/json")
 	public ResponseEntity<ChoiceVO> goodUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
@@ -47,7 +49,7 @@ public class MovieReviewCommentController {
 
 	@GetMapping(value = "/pages/{mov_rev_num}/{page}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<List<MovieReviewCommentVO>> gettList(
+	public ResponseEntity<List<MovieReviewCommentVO>> getList(
 			@PathVariable("page") int page,
 			@PathVariable("mov_rev_num") Long mov_rev_num) {
 		log.info(".................." + mov_rev_num);

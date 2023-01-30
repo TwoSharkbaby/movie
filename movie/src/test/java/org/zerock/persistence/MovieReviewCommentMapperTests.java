@@ -46,4 +46,11 @@ public class MovieReviewCommentMapperTests {
 		movieReviewCommentMapper.insert(vo);
 
 	}
+	
+	@Test
+	public void testRead() {
+		MovieReviewCommentVO read = movieReviewCommentMapper.read(5L);
+		log.info(read);
+	}
+	
 }
