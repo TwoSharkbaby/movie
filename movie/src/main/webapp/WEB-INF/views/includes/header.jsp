@@ -11,6 +11,7 @@
 <title>팀프로젝트</title>
 
 <script src="/resources/jquery-3.6.3.min.js"></script>
+<script src="/resources/bootstrap.bundle.min.js"></script>
 <link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/carousel.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/style.css" rel="stylesheet">

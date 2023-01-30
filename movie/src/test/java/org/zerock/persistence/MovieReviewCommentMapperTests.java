@@ -1,10 +1,13 @@
 package org.zerock.persistence;
 
+import java.util.Calendar;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.mapper.MovieReviewCommentMapper;
 
 import lombok.Setter;
@@ -32,4 +35,15 @@ public class MovieReviewCommentMapperTests {
 		log.info("----------------------------------------------");
 	}
 
+	@Test
+	public void testInsert() {
+		MovieReviewCommentVO vo = new MovieReviewCommentVO();
+		vo.setMov_rev_com_num(1L);
+		vo.setMov_rev_com_content("Last");
+		vo.setMem_nickname("lmw6434");
+		vo.setMem_num(2L);
+		vo.setMov_rev_num(2L);
+		movieReviewCommentMapper.insert(vo);
+
+	}
 }

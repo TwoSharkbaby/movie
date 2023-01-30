@@ -179,12 +179,12 @@
 		<c:when test="${!empty review}">
 			<c:forEach items="${review}" var="review">
 				<tr>
-				     <td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_num}" />
-                     
-                     <button class="commentAdd" id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="댓글작성" />
+					<td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_num}" />   
+					
+                    <button class="commentAdd" id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" >
+                    <c:out value="댓글작성" />
+
                      </td>
-				
-<!-- 				<td id="mov_rev_num"><c:out value="${review.mov_rev_num}" /></td>-->	
 					<td><c:out value="${review.mov_rev_title}" /></td>
 					<td><c:out value="${review.mov_rev_content}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.mov_rev_regdate}" /></td>
@@ -220,7 +220,7 @@
 				</tr>
 				<br />
 
-					<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
+								<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
                   <tr>
                      <td>
                         <ul id="chat<c:out value="${review.mov_rev_num}" />"
@@ -237,6 +237,9 @@
 	</c:choose>
 	</tbody>
 </table>
+
+
+
 <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true" data-rev_num="-1" >
@@ -254,7 +257,11 @@
             </div>
             <div class="form-group">
                <label>mem_num</label> <input class="form-control" name='mem_num'
-                  value='mem_num'>
+                  value='mem_num' readonly="readonly">
+            </div>
+            <div class="form-group">
+               <label>mem_nickname</label> <input class="form-control" name='mem_nickname'
+                  value='mem_nickname' readonly="readonly">
             </div>
 
          </div>
@@ -270,6 +277,9 @@
    <!— /.modal-dialog —>
 </div>
 <!— /.modal —>
+
+
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -359,7 +369,7 @@ $(document).ready(function() {
 		var good = $(this);
 		var bad = $(this).next('button');
 		<sec:authorize access="isAuthenticated()">
-			var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
 		</sec:authorize>
 		var data = {
 			mov_rev_num : mov_rev_num,
@@ -413,16 +423,20 @@ $(document).ready(function() {
 				alert("올바른 경로가 아닙니다");
 			});
 	});
-
+	
+	
 	  $("#com_good").on("click", function(e) {
 		   
           var mov_rev_com_num = $(this).data("mov_rev_com_num");
            var good = $(this);
            var bad = $(this).next('button');
-          console.log(mov_rev_com_num +"좋아요");                 
+          console.log(mov_rev_com_num +"좋아요");   
+  		<sec:authorize access="isAuthenticated()">
+		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+	</sec:authorize>
            var data = {
              mov_rev_com_num : mov_rev_com_num,
-              mem_num : 1
+              mem_num : mem_num
            // ## 로그인 처리하면 고정값 수정필요 ##
            };
 
@@ -430,6 +444,9 @@ $(document).ready(function() {
               type : "POST",
               url : "/comment/good",
               data : JSON.stringify(data), // http body 데이터
+  			beforeSend: function(xhr){
+  				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+  				},
               contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
               dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
            }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
@@ -454,7 +471,7 @@ $(document).ready(function() {
            
             var data = {
               mov_rev_com_num : mov_rev_com_num,
-               mem_num : 1
+               mem_num : mem_num
             // ## 로그인 처리하면 고정값 수정필요 ##
             };
       
@@ -462,6 +479,9 @@ $(document).ready(function() {
               type : "POST",
               url : "/comment/bad",
               data : JSON.stringify(data), // http body 데이터
+  			beforeSend: function(xhr){
+  				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+  				},
               contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
               dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
            }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
@@ -471,29 +491,13 @@ $(document).ready(function() {
               alert("올바른 경로가 아닙니다");
            });
         });
-
 	
-
 	</sec:authorize>
 });
 </script>
-   <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"></script>
-   <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-      crossorigin="anonymous"></script>
-   <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-      crossorigin="anonymous"></script>
-
-
-   <script type="text/javascript" src="\resources\js\movieReviewComment.js?v=5"></script>
-   
-  <script type="text/javascript">
+	
+<script type="text/javascript" src="\resources\js\movieReviewComment.js?v=8"></script>
+<script type="text/javascript">
 
   
       $("td[id='comment']").each(function (index){
@@ -501,14 +505,14 @@ $(document).ready(function() {
    
          var idx = $(this).data('idx');
          console.log(idx);
-          
+
+
           var data1 = {
-                mov_rev_num: idx 
-                , 
-                mem_num : 1// ## 로그인 처리하면 고정값 수정필요 ## 
+                mov_rev_num: idx// ## 로그인 처리하면 고정값 수정필요 ## 
                 };
          console.log(data1);
-          
+         console.log(data1 + " 출력");
+         
           
           var commentUL = $("#chat" + idx);
            showList(1);
@@ -534,7 +538,7 @@ $(document).ready(function() {
             }); // end function
          } // end showlist 
          
-
+console.log(commentUL);
            var modal = $("#commentModal");
            
            var modalInputContent = modal.find("input[name='mov_rev_com_content']");
@@ -574,7 +578,7 @@ $(document).ready(function() {
                 var comment = 
                 {mov_rev_com_num : modal.data("mov_rev_com_num"), 
                       mov_rev_com_content : modalInputContent.val(),
-                      mem_num:1};
+                      mem_num:mem_num};
                 
                 
               movieReviewCommentService.update(comment, function(result){
@@ -601,7 +605,13 @@ $(document).ready(function() {
     var modalRemoveBtn = $("#modalRemoveBtn");
     var modalRegisterBtn = $("#modalRegisterBtn");
     var modalCloseBtn = $("#modalCloseBtn");
+	<sec:authorize access="isAuthenticated()">
+	var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+</sec:authorize>
     
+<sec:authorize access="isAuthenticated()">
+var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
+</sec:authorize>
     
     var mov_rev_num = $("#commentModal").data("rev_num");
     
@@ -645,7 +655,10 @@ $(document).ready(function() {
         console.log(mov_rev_com_num);
         console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
         var mov_rev_num = $("#commentModal").data("rev_num");
-
+		<sec:authorize access="isAuthenticated()">
+		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+	</sec:authorize>
+        
         console.log("movieReviewDeleteService : " + mov_rev_com_num);
          movieReviewCommentService.remove(mov_rev_com_num, function(result){
               alert(result);
@@ -664,26 +677,40 @@ $(document).ready(function() {
       var modalInputContent = modal.find("input[name='mov_rev_com_content']");
       var modalInputMemNum = modal.find("input[name='mem_num']");
       var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-   
+   	  var mpodalInputMemNickname = modal.find("input[name='mem_nickname']");
       var modalModBtn = $("#modalModBtn");
       var modalRemoveBtn = $("#modalRemoveBtn");
       var modalRegisterBtn = $("#modalRegisterBtn");
       var modalCloseBtn = $("#modalCloseBtn");
       
+  	  var csrfHeaderName = "${_csrf.headerName}";
+	  var csrfTokenValue = "${_csrf.token}";
+	
+	  var mem_nickname = null;
+	 
+	 <sec:authorize access="isAuthenticated()">
+	 mem_nickname = '<sec:authentication property="principal.username"/>';
+	 </sec:authorize>
+	     
+	 
+      console.log(mem_num);
+
+      $(document).ajaxSend(function(e, xhr, options){
+    	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+      });
       
       $("button[name='comment']").on("click", function(e) {
                console.log($(this).data('idx'));
                var idx = $(this).data('idx');
-               
-               
-               
-               modal.find("input").val("");
+       
+               	modal.find("input").val("");
+               	modal.find("input[name='mem_num']").val(mem_num);
+            	modal.find("input[name='mem_nickname']").val(mem_nickname);
                 modalInputMovRevComRegdate.closest("div").hide();
                 modal.find("button[id != 'modalCloseBtn']").hide();
-                   
                 modalRegisterBtn.show();
                 $("#commentModal").data("rev_num", idx);
-                  $("#commentModal").modal("show");
+                $("#commentModal").modal("show");
                   
             });
       
@@ -698,7 +725,8 @@ $(document).ready(function() {
          var comment = {
             mov_rev_com_content : modalInputContent.val(),
             mem_num : modalInputMemNum.val(),
-            mov_rev_num: mov_rev_num
+            mov_rev_num: mov_rev_num,
+            mem_nickname : mem_nickname
          };
          
          movieReviewCommentService.add(comment, function(result){
@@ -733,7 +761,7 @@ $(document).ready(function() {
                            str += "<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
                            str += "<div><div class='header'><strong class='primary-font'>"
                                  + "작성회원 :  "
-                                 + list[i].mem_num
+                                 + list[i].mem_nickname
                                  + "   " + "</strong>";
                            str += "<small class='pull-right text-muted'>"
                                  + movieReviewCommentService
@@ -742,7 +770,6 @@ $(document).ready(function() {
                            str += "<p>" + list[i].mov_rev_com_content
                                  + "</p></div></li>";
                                  str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-              
                                  str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
                         }
                         commentUL.html(str);
@@ -752,14 +779,9 @@ $(document).ready(function() {
          
       }
       
-
+  	
       
 
-   </script>
-
-
-</body>
-</html>
-</body>
-</html>
+   </script>	
+	
 <%@include file="../includes/footer.jsp"%>>
