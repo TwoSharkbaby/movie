@@ -12,6 +12,7 @@
 
 <script src="/resources/jquery-3.6.3.min.js"></script>
 <link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="/resources/bootstrap.bundle.min.js"></script>
 <link href="/resources/assets/dist/css/main_css/carousel.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/style.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/web.css" rel="stylesheet">
@@ -29,21 +30,6 @@
             <div class="css-1djzg97">
                 <ul class="css-6v7b8v-VisualUl">
                     <li class="css-t686xv"><a href="/"><img src="/resources/img/img_logo.png" alt="LOGO 이미지"></a></li>
-                    <!-- <li class="categories css-bj71cw"><button class="css-x6oby2-StylelessButton">Home</button></li>
-                    <li class="categories css-bj71cw"><button class="css-x6oby2-StylelessButton">Movies</button></li>
-                    <li class="categories css-bj71cw"><button class="css-x6oby2-StylelessButton">Community</button></li>
-                    <li class="categories css-bj71cw"><button class="css-x6oby2-StylelessButton">MyList</button></li>
-                    <li class="categories css-bj71cw"><button class="css-x6oby2-StylelessButton">WatchedList</button></li> -->
-                    
-<!--                     <li class="css-1c3wwgb">
-                        <div class="css-1xm32e0">
-                            <div class="css-1okeg7p">
-                                <form action="#"><label class="css-kyr608"><input type="text" autocomplete="off" placeholder="영화를 검색해보세요." name="searchKeyword" value="" class="css-13i5xe6">
-                                    <div value="false" class="css-ikj5sk"><span aria-label="clear" role="button" class="css-14vwb0g"></span></div>
-                                </label></form>
-                            </div>
-                        </div>
-                    </li> -->
                     <li style="width:50em">
                     </li>
                     <li>

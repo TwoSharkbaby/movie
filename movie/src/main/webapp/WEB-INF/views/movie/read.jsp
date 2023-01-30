@@ -7,7 +7,7 @@
 
 <%@include file="../includes/header.jsp"%>
 
-<table width="100%">
+<table width="100%" class="mt-5">
 	<thead>
 		<tr>
 			<th>영화번호</th>
@@ -281,6 +281,7 @@ $(document).ready(function() {
 		</sec:authorize>	
 		$(".modal-body-act_img").html("<td><img src='/imgs/" + response.act_img + "'></td>");
 		$(".modal").modal("show");
+		
 	};
 
 	function displayTime(timeValue) {

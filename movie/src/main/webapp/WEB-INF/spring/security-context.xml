@@ -24,7 +24,6 @@
           <security:intercept-url pattern="/**" access="permitAll" /> -->
           
         <security:intercept-url pattern="/review/**" access="isAuthenticated()" />
-        <security:intercept-url pattern="/comment/**" access="isAuthenticated()" />
 	
 		<security:form-login login-page="/customLogin"/>
 		
