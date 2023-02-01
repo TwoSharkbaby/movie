@@ -33,9 +33,12 @@
 			<td><c:out value="${movie.mov_director}" /></td>
 			<td><c:out value="${movie.mov_genre}" /></td>
 			<td><c:out value="${movie.mov_synopsis}" /></td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${movie.mov_release}" /></td>
-			<td><fmt:formatDate pattern="HH:mm:ss" value="${movie.mov_runtime}" /></td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${movie.mov_regdate}" /></td>
+			<td><fmt:formatDate pattern="yyyy-MM-dd"
+					value="${movie.mov_release}" /></td>
+			<td><fmt:formatDate pattern="HH:mm:ss"
+					value="${movie.mov_runtime}" /></td>
+			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+					value="${movie.mov_regdate}" /></td>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td><c:out value="${movie.mem_nickname}" /></td>
 			</sec:authorize>
@@ -50,8 +53,9 @@
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<a href="/movie/modify/<c:out value="${movie.mov_num}" />"><button>수정하기</button></a>
 	<form action="/movie/delete" method="post">
-		<input type="hidden" name="mov_num" value="<c:out value="${movie.mov_num}" />">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="mov_num"
+			value="<c:out value="${movie.mov_num}" />"> <input
+			type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<button type="submit">삭제하기</button>
 	</form>
 </sec:authorize>
@@ -61,7 +65,8 @@
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div>
 		<a href="/actor/insert/<c:out value="${movie.mov_num}" />">
-		<button type="submit">배우등록하기</button></a>
+			<button type="submit">배우등록하기</button>
+		</a>
 	</div>
 </sec:authorize>
 
@@ -91,20 +96,26 @@
 					<tr>
 						<td><c:out value="${actor.act_num}" /></td>
 						<td><button name="actor_modal" class="btn btn-primary"
-							data-idx="<c:out value="${actor.act_num}" />">
-						<c:out value="${actor.act_name}" /></button></td>
+								data-idx="<c:out value="${actor.act_num}" />">
+								<c:out value="${actor.act_name}" />
+							</button></td>
 						<td><img src='/imgs/<c:out value="${actor.act_thumb}" />'></td>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
 							<td><c:out value="${actor.mem_nickname}" /></td>
-							<td><a href="/actor/modify/<c:out value="${actor.act_num}" />">
-								<button>수정하기</button></a></td>
+							<td><a
+								href="/actor/modify/<c:out value="${actor.act_num}" />">
+									<button>수정하기</button>
+							</a></td>
 							<td><form action="/actor/delete" method="post">
-									<input type="hidden" name="act_num" value="<c:out value="${actor.act_num}" />"> 
-									<input type="hidden" name="mov_num" value="<c:out value="${actor.mov_num}" />">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									<input type="hidden" name="act_num"
+										value="<c:out value="${actor.act_num}" />"> <input
+										type="hidden" name="mov_num"
+										value="<c:out value="${actor.mov_num}" />"> <input
+										type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
 									<button type="submit">삭제하기</button>
 								</form></td>
-						</sec:authorize>	
+						</sec:authorize>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -130,9 +141,9 @@
 				<p>modal-body-act_info</p>
 			</div>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<div class="modal-body-mem_nickname">
-				<p>modal-body-mem_nickname</p>
-			</div>
+				<div class="modal-body-mem_nickname">
+					<p>modal-body-mem_nickname</p>
+				</div>
 			</sec:authorize>
 			<div class="modal-body-act_img">
 				<p>modal-body-act_img</p>
@@ -149,7 +160,8 @@
 
 <div>
 	<a href="/review/insert/<c:out value="${movie.mov_num}" />">
-	<button type="submit">리뷰등록하기</button></a>
+		<button type="submit">리뷰등록하기</button>
+	</a>
 </div>
 
 <table width="100%">
@@ -176,65 +188,80 @@
 				</tr>
 			</c:when>
 
-		<c:when test="${!empty review}">
-			<c:forEach items="${review}" var="review">
-				<tr>
-					<td id="comment" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" ><c:out value="${review.mov_rev_num}" />   
-					
-                    <button class="commentAdd" id="commentAdd" name="comment" data-idx="<c:out value="${review.mov_rev_num}" />" >
-                    <c:out value="댓글작성" />
+			<c:when test="${!empty review}">
+				<c:forEach items="${review}" var="review">
+					<tr>
+						<td id="comment" name="comment"
+							data-idx="<c:out value="${review.mov_rev_num}" />"><c:out
+								value="${review.mov_rev_num}" />
 
-                     </td>
-					<td><c:out value="${review.mov_rev_title}" /></td>
-					<td><c:out value="${review.mov_rev_content}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.mov_rev_regdate}" /></td>
-					<td><button id="review_good" name="review_good" data-idx="<c:out value="${review.mov_rev_num}" />">
-						<c:out value="${review.mov_rev_good}" /></button>
-						<button id="review_bad" name="review_bad" data-idx="<c:out value="${review.mov_rev_num}" />">
-						<c:out value="${review.mov_rev_bad}" /></button></td>
-					<td><c:out value="${review.mov_num}" /></td>
-					<td><c:out value="${review.mem_num}" /></td>
-					<td><c:out value="${review.mem_nickname}" /></td>
-					<td><c:out value="${review.mov_sco_point}" /></td>
-					<sec:authorize access="isAuthenticated()">
-						<c:if test="${principal.member.mem_num eq review.mem_num}">
-							<td><a href="/review/modify/<c:out value="${review.mov_num}" />/<c:out value="${review.mov_rev_num}" />/<c:out value="${review.mem_num}"/>"><button>수정하기</button></a></td>
+							<button class="commentAdd" id="commentAdd" name="comment"
+								data-idx="<c:out value="${review.mov_rev_num}" />">
+								<c:out value="댓글작성" /></td>
+						<td><c:out value="${review.mov_rev_title}" /></td>
+						<td><c:out value="${review.mov_rev_content}" /></td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+								value="${review.mov_rev_regdate}" /></td>
+						<td><button id="review_good" name="review_good"
+								data-idx="<c:out value="${review.mov_rev_num}" />">
+								<c:out value="${review.mov_rev_good}" />
+							</button>
+							<button id="review_bad" name="review_bad"
+								data-idx="<c:out value="${review.mov_rev_num}" />">
+								<c:out value="${review.mov_rev_bad}" />
+							</button></td>
+						<td><c:out value="${review.mov_num}" /></td>
+						<td><c:out value="${review.mem_num}" /></td>
+						<td><c:out value="${review.mem_nickname}" /></td>
+						<td><c:out value="${review.mov_sco_point}" /></td>
+						<sec:authorize access="isAuthenticated()">
+							<c:if test="${principal.member.mem_num eq review.mem_num}">
+								<td><a
+									href="/review/modify/<c:out value="${review.mov_num}" />/<c:out value="${review.mov_rev_num}" />/<c:out value="${review.mem_num}"/>"><button>수정하기</button></a></td>
+								<td><form action="/review/delete" method="post">
+										<input type="hidden" name="mov_rev_num"
+											value="<c:out value="${review.mov_rev_num}" />"> <input
+											type="hidden" name="mov_num"
+											value="<c:out value="${review.mov_num}" />"> <input
+											type="hidden" name="mem_num"
+											value="<c:out value="${review.mem_num}" />"> <input
+											type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+										<button type="submit">삭제하기</button>
+									</form></td>
+							</c:if>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
 							<td><form action="/review/delete" method="post">
-								<input type="hidden" name="mov_rev_num" value="<c:out value="${review.mov_rev_num}" />"> 
-								<input type="hidden" name="mov_num" value="<c:out value="${review.mov_num}" />"> 
-								<input type="hidden" name="mem_num" value="<c:out value="${review.mem_num}" />">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<button type="submit">삭제하기</button>
-							</form></td>
-						</c:if>
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_ADMIN')">	
-						<td><form action="/review/delete" method="post">
-								<input type="hidden" name="mov_rev_num" value="<c:out value="${review.mov_rev_num}" />"> 
-								<input type="hidden" name="mov_num" value="<c:out value="${review.mov_num}" />"> 
-								<input type="hidden" name="mem_num" value="<c:out value="${review.mem_num}" />">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<button type="submit">관리자삭제하기</button>
-							</form></td>
-					</sec:authorize>		
-				</tr>
-				<br />
+									<input type="hidden" name="mov_rev_num"
+										value="<c:out value="${review.mov_rev_num}" />"> <input
+										type="hidden" name="mov_num"
+										value="<c:out value="${review.mov_num}" />"> <input
+										type="hidden" name="mem_num"
+										value="<c:out value="${review.mem_num}" />"> <input
+										type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+									<button type="submit">관리자삭제하기</button>
+								</form></td>
+						</sec:authorize>
+					</tr>
+					<br />
 
-								<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
-                  <tr>
-                     <td>
-                        <ul id="chat<c:out value="${review.mov_rev_num}" />"
-                           class="chat2" name="com">
-                           <li name="mov_rev_com_num" data-mov_rev_com_num="1" />
-                           <button id="com_good" data-mov_rev_com_num="1">좋아요</button>
-                           <button id="com_bad" data-mov_rev_com_num="1">싫어요</button>
-                           </ul>
-                     </td>
-                  </tr>
+					<!-- 자바스크립트로 리뷰에 달린 덧글 처리 -->
+					<tr>
+						<td>
+							<ul id="chat<c:out value="${review.mov_rev_num}" />"
+								class="chat2" name="com">
+								<li name="mov_rev_com_num" data-mov_rev_com_num="1" />
+								<button name="com_good" id="com_good" data-mov_rev_com_num="1">좋아요</button>
+								<button name="com_bad" id="com_bad" data-mov_rev_com_num="1">싫어요</button>
+							</ul>
+						</td>
+					</tr>
 
-			</c:forEach>
-		</c:when>
-	</c:choose>
+				</c:forEach>
+			</c:when>
+		</c:choose>
 	</tbody>
 </table>
 
@@ -242,39 +269,39 @@
 
 <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true" data-rev_num="-1" >
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"
-               aria-hidden="true">&times;</button>
-            <h4 class="modal-title1" id="myModalLabel">COMMENT MODAL</h4>
-         </div>
-         <div class="modal-body">
-            <div class="form-group">
-               <label>content</label> <input class="form-control" name='mov_rev_com_content'
-                  value='New content'>
-            </div>
-            <div class="form-group">
-               <label>mem_num</label> <input class="form-control" name='mem_num'
-                  value='mem_num' readonly="readonly">
-            </div>
-            <div class="form-group">
-               <label>mem_nickname</label> <input class="form-control" name='mem_nickname'
-                  value='mem_nickname' readonly="readonly">
-            </div>
+	aria-labelledby="myModalLabel" aria-hidden="true" data-rev_num="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title1" id="myModalLabel">COMMENT MODAL</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>content</label> <input class="form-control"
+						name='mov_rev_com_content' value='New content'>
+				</div>
+				<div class="form-group">
+					<label></label> <input class="form-control" name='mem_num'
+						value='mem_num' readonly="readonly">
+				</div>
+				<div class="form-group">
+					<label>mem_nickname</label> <input class="form-control"
+						name='mem_nickname' value='mem_nickname' readonly="readonly">
+				</div>
 
-         </div>
-         <div class="modal-footer">
-            <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-            <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-            <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-            <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
-         </div>
-      </div>
-      <!— /.modal-content —>
-   </div>
-   <!— /.modal-dialog —>
+			</div>
+			<div class="modal-footer">
+				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+				<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+				<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+			</div>
+		</div>
+		<!— /.modal-content —>
+	</div>
+	<!— /.modal-dialog —>
 </div>
 <!— /.modal —>
 
@@ -425,15 +452,16 @@ $(document).ready(function() {
 	});
 	
 	
-	  $("#com_good").on("click", function(e) {
+	  $("button[name='com_good']").on("click", function(e) {
 		   
           var mov_rev_com_num = $(this).data("mov_rev_com_num");
            var good = $(this);
            var bad = $(this).next('button');
           console.log(mov_rev_com_num +"좋아요");   
+          
   		<sec:authorize access="isAuthenticated()">
 		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
-	</sec:authorize>
+		</sec:authorize>
            var data = {
              mov_rev_com_num : mov_rev_com_num,
               mem_num : mem_num
@@ -443,10 +471,10 @@ $(document).ready(function() {
            $.ajax({
               type : "POST",
               url : "/comment/good",
-              data : JSON.stringify(data), // http body 데이터
-  			beforeSend: function(xhr){
-  				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-  				},
+      		beforeSend: function(xhr){
+    			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    			},
+    		  data : JSON.stringify(data), // http body 데이터
               contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
               dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
            }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
@@ -458,7 +486,7 @@ $(document).ready(function() {
 
         });
        
-       $("#com_bad").on("click", function(e) {
+       $("button[name='com_bad']").on("click", function(e) {
         
             var mov_rev_com_num = $(this).data("mov_rev_com_num");
             var good = $(this).prev('button');
@@ -467,7 +495,7 @@ $(document).ready(function() {
            
    		<sec:authorize access="isAuthenticated()">
 		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
-	</sec:authorize>
+		</sec:authorize>
            
             var data = {
               mov_rev_com_num : mov_rev_com_num,
@@ -478,10 +506,10 @@ $(document).ready(function() {
            $.ajax({
               type : "POST",
               url : "/comment/bad",
-              data : JSON.stringify(data), // http body 데이터
-  			beforeSend: function(xhr){
-  				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-  				},
+      		beforeSend: function(xhr){
+    			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    			},
+    	      data : JSON.stringify(data), // http body 데이터
               contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
               dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
            }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
@@ -495,8 +523,9 @@ $(document).ready(function() {
 	</sec:authorize>
 });
 </script>
-	
-<script type="text/javascript" src="\resources\js\movieReviewComment.js?v=8"></script>
+
+<script type="text/javascript"
+	src="\resources\js\movieReviewComment.js?v=9"></script>
 <script type="text/javascript">
 
   
@@ -529,22 +558,38 @@ $(document).ready(function() {
                      str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
                      str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
                      str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
-                     str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                     str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";         
+                     str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                     str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";         
             }
             commentUL.html(str); 
             }); // end function
          } // end showlist 
          
 console.log(commentUL);
-           var modal = $("#commentModal");
-           
-           var modalInputContent = modal.find("input[name='mov_rev_com_content']");
-           var modalInputMemNum = modal.find("input[name='mem_num']");
-           var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-           var modalRemoveBtn = $("#modalRemoveBtn");    
-           var modalModBtn = $("#modalModBtn");
-           var modalRegisterBtn = $("#modalRegisterBtn");
+var modal = $("#commentModal");
+
+var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+var modalInputMemNum = modal.find("input[name='mem_num']");
+var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+var modalModBtn = $("#modalModBtn");
+var modalRemoveBtn = $("#modalRemoveBtn");
+var modalRegisterBtn = $("#modalRegisterBtn");
+var modalCloseBtn = $("#modalCloseBtn");
+
+	  var csrfHeaderName = "${_csrf.headerName}";
+	  var csrfTokenValue = "${_csrf.token}";
+	
+	  var mem_nickname = null;
+	 
+	 <sec:authorize access="isAuthenticated()">
+	 mem_nickname = '<sec:authentication property="principal.username"/>';
+	 </sec:authorize>
+	     
+	
+$(document).ajaxSend(function(e, xhr, options){
+	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+});
             
              
            $("#chat"+ idx).on("click", "li", function(e){
@@ -553,7 +598,8 @@ console.log(commentUL);
               console.log("chat + idx : " +  mov_rev_com_num);
                movieReviewCommentService.get(mov_rev_com_num, function(comment) {
                    modalInputContent.val(comment.mov_rev_com_content);
-                   modalInputMemNum.val(comment.mem_num);
+                   modalInputMemNum.val(comment.mem_num).hide();
+                   modalInputMemNickname.val(comment.mem_nickname);
                    modalInputMovRevComRegdate.val(movieReviewCommentService.displayTime(comment.mov_rev_com_regdate))
                    .attr("readonly", "readonly");
                    modal.data("mov_rev_com_num", comment.mov_rev_com_num);
@@ -570,24 +616,6 @@ console.log(commentUL);
                
            });
            
-           modalModBtn.on("click", function(e){
-              var mov_rev_com_num = modal.data("mov_rev_com_num");
-               console.log(mov_rev_com_num);
-          		<sec:authorize access="isAuthenticated()">
-        		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
-        	</sec:authorize>
-               
-                var comment = 
-                {mov_rev_com_num : modal.data("mov_rev_com_num"), 
-                      mov_rev_com_content : modalInputContent.val(),
-                      mem_num:mem_num};
-                
-                
-              movieReviewCommentService.update(comment, function(result){
-                   modal.modal("hide");
-                   showList(1);
-              });
-           });
 
       });       // td end   
                       
@@ -596,24 +624,31 @@ console.log(commentUL);
 </script>
 
 
-   <script type="text/javascript">
-    var modal = $("#commentModal");
-    
-    var modalInputContent = modal.find("input[name='mov_rev_com_content']");
-    var modalInputMemNum = modal.find("input[name='mem_num']");
-    var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
- 
-    var modalModBtn = $("#modalModBtn");
-    var modalRemoveBtn = $("#modalRemoveBtn");
-    var modalRegisterBtn = $("#modalRegisterBtn");
-    var modalCloseBtn = $("#modalCloseBtn");
-	<sec:authorize access="isAuthenticated()">
-	var mem_num = "<c:out value="${principal.member.mem_num}"/>";
-</sec:authorize>
-    
-<sec:authorize access="isAuthenticated()">
-var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
-</sec:authorize>
+<script type="text/javascript">
+   var modal = $("#commentModal");
+   
+   var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+   var modalInputMemNum = modal.find("input[name='mem_num']");
+   var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+   var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+   var modalModBtn = $("#modalModBtn");
+   var modalRemoveBtn = $("#modalRemoveBtn");
+   var modalRegisterBtn = $("#modalRegisterBtn");
+   var modalCloseBtn = $("#modalCloseBtn");
+   
+	  var csrfHeaderName = "${_csrf.headerName}";
+	  var csrfTokenValue = "${_csrf.token}";
+	
+	  var mem_nickname = null;
+	 
+	 <sec:authorize access="isAuthenticated()">
+	 mem_nickname = '<sec:authentication property="principal.username"/>';
+	 </sec:authorize>
+	     
+	
+   $(document).ajaxSend(function(e, xhr, options){
+ 	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+   });
     
     var mov_rev_num = $("#commentModal").data("rev_num");
     
@@ -637,8 +672,8 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
                           str += "<div><div class='header'><strong class='primary-font'>"+ "작성회원 :  "  + list[i].mem_nickname  + "   " + "</strong>";
                           str += "<small class='pull-right text-muted'>" + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate) + "</small></div>";
                           str += "<p>" + list[i].mov_rev_com_content + "</p></div></li>";
-                          str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";           
-                          str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
+                          str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";           
+                          str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
                        }
                        commentUL.html(str);
         });
@@ -647,28 +682,90 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
     modalRemoveBtn.on("click", function(e){
         var mov_rev_com_num = modal.data("mov_rev_com_num");
         console.log(mov_rev_com_num);
-        console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
+        console.log("mem_nickname : " + mem_nickname);
+        var originalMemNickname = modalInputMemNickname.val();
         var mov_rev_num = $("#commentModal").data("rev_num");
+        console.log("original mem_nickname : " + originalMemNickname);
+        
+        
+        if(!mem_nickname){
+        	alert("로그인 후 삭제가 가능합니다.");
+        	modal.modal("hide");
+        	return;	
+        }
+        
+        
+        if(mem_nickname != originalMemNickname){
+        	alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+        	modal.modal("hide");
+        	return;	
+        }
+        
+        console.log("댓글 번호 : " + $("#commentModal").data("rev_num"));
+
         
         console.log("movieReviewDeleteService : " + mov_rev_com_num);
-         movieReviewCommentService.remove(mov_rev_com_num, function(result){
+         movieReviewCommentService.remove(mov_rev_com_num, originalMemNickname , function(result){
               alert(result);
             modal.modal("hide");
             showRevList(mov_rev_num);
          });
      });
+    
+    
+    
+    
 
+    modalModBtn.on("click", function(e){
+     var mov_rev_num = $("#commentModal").data("rev_num");
+	 var originalMemNickname = modalInputMemNickname.val();
+     var mov_rev_com_num = modal.data("mov_rev_com_num");
+      console.log(mov_rev_com_num);
+ 	
+      
+      <sec:authorize access="isAuthenticated()">
+		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+	</sec:authorize>
+	
+	
+       var comment = 
+       {mov_rev_com_num : modal.data("mov_rev_com_num"), 
+             mov_rev_com_content : modalInputContent.val(),
+             mem_num:mem_num,
+             mem_nickname : originalMemNickname};
+       
+       if(!mem_nickname){
+       	alert("로그인 후 수정 가능합니다.");
+       	modal.modal("hide");
+       	return;	
+       }
+       
+       console.log("original mem_nickname : " + originalMemNickname);
+       
+       if(mem_nickname != originalMemNickname){
+       	alert("자신이 작성한 댓글만 수정 가능합니다.");
+       	modal.modal("hide");
+       	return;	
+       }
+       
+       
+     movieReviewCommentService.update(comment, function(result){
+          alert(result);
+          modal.modal("hide");
+          showRevList(mov_rev_num);
+     });
+  });
    </script>
 
 
 
-   <script type="text/javascript">
+<script type="text/javascript">
       var modal = $("#commentModal");
    
       var modalInputContent = modal.find("input[name='mov_rev_com_content']");
       var modalInputMemNum = modal.find("input[name='mem_num']");
       var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-   	  var mpodalInputMemNickname = modal.find("input[name='mem_nickname']");
+   	  var modalInputMemNickname = modal.find("input[name='mem_nickname']");
       var modalModBtn = $("#modalModBtn");
       var modalRemoveBtn = $("#modalRemoveBtn");
       var modalRegisterBtn = $("#modalRegisterBtn");
@@ -682,8 +779,11 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
 	 <sec:authorize access="isAuthenticated()">
 	 mem_nickname = '<sec:authentication property="principal.username"/>';
 	 </sec:authorize>
-	     
 	
+		<sec:authorize access="isAuthenticated()">
+		var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+	</sec:authorize>
+	 
       $(document).ajaxSend(function(e, xhr, options){
     	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
       });
@@ -693,7 +793,7 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
                var idx = $(this).data('idx');
        
                	modal.find("input").val("");
-               	modal.find("input[name='mem_num']").val(mem_num);
+             	modal.find("input[name='mem_num']").val(mem_num).hide();
             	modal.find("input[name='mem_nickname']").val(mem_nickname);
                 modalInputMovRevComRegdate.closest("div").hide();
                 modal.find("button[id != 'modalCloseBtn']").hide();
@@ -721,6 +821,7 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
          movieReviewCommentService.add(comment, function(result){
             console.log("movieReviewCommentService : " + mov_rev_num);
             if(result == "success")
+            	alert(result);
                showRevList(mov_rev_num);
             $("#commentModal").modal("hide");
          });
@@ -752,8 +853,8 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
                                  + "작성회원 :  " + list[i].mem_nickname + "   " + "</strong>";
                            str += "<small class='pull-right text-muted'>" + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+ "</small></div>";
                            str += "<p>" + list[i].mov_rev_com_content + "</p></div></li>";
-                           str +="<button id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                           str +="<button id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
+                           str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                           str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
                         }
                         commentUL.html(str);
          });
@@ -765,6 +866,6 @@ var mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
   	
       
 
-   </script>	
-	
+   </script>
+
 <%@include file="../includes/footer.jsp"%>>

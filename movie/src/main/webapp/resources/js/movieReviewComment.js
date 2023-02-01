@@ -38,13 +38,20 @@ var movieReviewCommentService = (function() {
         });
    }
 
-   function remove(mov_rev_com_num, callback, error){
+
+
+   function remove(mov_rev_com_num, mem_nickname,callback, error){
       $.ajax({
         type: 'delete',
         url: '/comment/' + mov_rev_com_num,
-        success : function(deleteResult, status, xhr){
+
+                data : JSON.stringify({mov_rev_com_num:mov_rev_com_num , mem_nickname:mem_nickname}),
+
+        contentType : "application/json; charset=utf-8",
+
+        success : function(result, status, xhr){
           if(callback){
-            callback(deleteResult);
+            callback(result);
           }
         },
         error : function(xhr, status, er){

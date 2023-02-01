@@ -5,6 +5,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MovieReviewCommentMapper">
 
+
+<select id="getListWithPaging" resultType="org.zerock.domain.MovieReviewCommentVO">
+      SELECT * FROM movie_review_comment
+      where mov_rev_num = #{mov_rev_num} and mov_rev_com_num > 0 
+      order by mov_rev_com_num asc
+      limit #{cri.pageStart}, #{cri.amount};
+   </select>
+
 	<update id="goodUpdate">
 		<![CDATA[
 		UPDATE movie_review_comment set mov_rev_com_good = (mov_rev_com_good)+1 where mov_rev_com_num=#{mov_rev_com_num}

@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -76,22 +77,28 @@ public class MovieReviewCommentController {
 		return new ResponseEntity<>(movieReviewCommentService.read(mov_rev_com_num), HttpStatus.OK);
 	}
 
+	@PreAuthorize("principal.username == #vo.mem_nickname")
 	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH},
 			value = "/{mov_rev_com_num}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> modify(@RequestBody MovieReviewCommentVO vo, @PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
-		vo.setMov_rev_com_num(mov_rev_com_num);
+		
+	
 		log.info("mov_rev_com_num : " +mov_rev_com_num);
 		
-		log.info(vo);
+		log.info("modify : " + vo);
 		
 		return movieReviewCommentService.update(vo) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@PreAuthorize("principal.username == #vo.mem_nickname")
 	@DeleteMapping(value = "/{mov_rev_com_num}", produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> remove(@PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
+	public ResponseEntity<String> remove(@PathVariable("mov_rev_com_num") Long mov_rev_com_num,
+			@RequestBody MovieReviewCommentVO vo) {
 		log.info("remove" + mov_rev_com_num);
+		
+		log.info("mem_nickname : " + vo.getMem_nickname());
 		return movieReviewCommentService.delete(mov_rev_com_num) == 1 
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
