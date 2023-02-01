@@ -77,7 +77,7 @@ public class MovieReviewCommentController {
 		return new ResponseEntity<>(movieReviewCommentService.read(mov_rev_com_num), HttpStatus.OK);
 	}
 
-	@PreAuthorize("principal.username == #vo.mem_nickname")
+	@PreAuthorize("principal.member.mem_num == #vo.mem_num")
 	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH},
 			value = "/{mov_rev_com_num}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> modify(@RequestBody MovieReviewCommentVO vo, @PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
@@ -92,7 +92,7 @@ public class MovieReviewCommentController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PreAuthorize("principal.username == #vo.mem_nickname")
+	@PreAuthorize("principal.member.mem_nickname == #vo.mem_nickname or hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/{mov_rev_com_num}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> remove(@PathVariable("mov_rev_com_num") Long mov_rev_com_num,
 			@RequestBody MovieReviewCommentVO vo) {

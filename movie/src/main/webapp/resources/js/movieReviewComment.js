@@ -49,9 +49,9 @@ var movieReviewCommentService = (function() {
 
         contentType : "application/json; charset=utf-8",
 
-        success : function(result, status, xhr){
+        success : function(deleteResult, status, xhr){
           if(callback){
-            callback(result);
+            callback(deleteResult);
           }
         },
         error : function(xhr, status, er){

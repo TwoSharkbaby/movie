@@ -50,12 +50,12 @@
 </table>
 
 <a href="/"><button>뒤로 돌아가기</button></a>
+
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<a href="/movie/modify/<c:out value="${movie.mov_num}" />"><button>수정하기</button></a>
 	<form action="/movie/delete" method="post">
-		<input type="hidden" name="mov_num"
-			value="<c:out value="${movie.mov_num}" />"> <input
-			type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="mov_num" value="<c:out value="${movie.mov_num}"/>"> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<button type="submit">삭제하기</button>
 	</form>
 </sec:authorize>
@@ -253,6 +253,13 @@
 							<ul id="chat<c:out value="${review.mov_rev_num}" />"
 								class="chat2" name="com">
 								<li name="mov_rev_com_num" data-mov_rev_com_num="1" />
+								
+							<sec:authorize access="isAuthenticated()">
+							<c:if test="${principal.member.mem_num eq mem_num}">
+								<td><button id="com_modify">댓글수정하기</button></td>
+							</c:if>
+						</sec:authorize>
+								
 								<button name="com_good" id="com_good" data-mov_rev_com_num="1">좋아요</button>
 								<button name="com_bad" id="com_bad" data-mov_rev_com_num="1">싫어요</button>
 							</ul>
@@ -275,11 +282,11 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title1" id="myModalLabel">COMMENT MODAL</h4>
+				<h4 class="modal-title1" id="myModalLabel">댓글 정보</h4>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label>content</label> <input class="form-control"
+					<label>내용</label> <input class="form-control"
 						name='mov_rev_com_content' value='New content'>
 				</div>
 				<div class="form-group">
@@ -287,7 +294,7 @@
 						value='mem_num' readonly="readonly">
 				</div>
 				<div class="form-group">
-					<label>mem_nickname</label> <input class="form-control"
+					<label>닉네임</label> <input class="form-control"
 						name='mem_nickname' value='mem_nickname' readonly="readonly">
 				</div>
 
@@ -525,12 +532,30 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript"
-	src="\resources\js\movieReviewComment.js?v=9"></script>
+	src="\resources\js\movieReviewComment.js?v=11"></script>
 <script type="text/javascript">
 
   
       $("td[id='comment']").each(function (index){
     
+    	  var csrfHeaderName = "${_csrf.headerName}";
+    	  var csrfTokenValue = "${_csrf.token}";
+
+    	  var mem_nickname = null;
+
+    	  <sec:authorize access="isAuthenticated()">
+    	  mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
+    	  </sec:authorize>
+
+    	  	<sec:authorize access="isAuthenticated()">
+    	  	var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+    	  </sec:authorize>
+
+    	  $(document).ajaxSend(function(e, xhr, options){
+    	  	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    	  });       
+    	           
+    	  
    
          var idx = $(this).data('idx');
          console.log(idx);
@@ -557,9 +582,15 @@ $(document).ready(function() {
                      str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
                      str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
                      str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                
+                     str +="<sec:authorize access='isAuthenticated()'>";
+					 str +="<c:if test="${principal.member.mem_num eq mem_num}">";
+                     str +="<button name='com_modify>" + "수정버튼" + "</button></c:if></sec:authorize>";  
+                   
                      str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
                      str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                     str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";         
+                     str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                     
             }
             commentUL.html(str); 
             }); // end function
@@ -571,26 +602,28 @@ var modal = $("#commentModal");
 var modalInputContent = modal.find("input[name='mov_rev_com_content']");
 var modalInputMemNum = modal.find("input[name='mem_num']");
 var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+	  var modalInputMemNickname = modal.find("input[name='mem_nickname']");             
 var modalModBtn = $("#modalModBtn");
 var modalRemoveBtn = $("#modalRemoveBtn");
 var modalRegisterBtn = $("#modalRegisterBtn");
 var modalCloseBtn = $("#modalCloseBtn");
 
-	  var csrfHeaderName = "${_csrf.headerName}";
-	  var csrfTokenValue = "${_csrf.token}";
-	
-	  var mem_nickname = null;
-	 
-	 <sec:authorize access="isAuthenticated()">
-	 mem_nickname = '<sec:authentication property="principal.username"/>';
-	 </sec:authorize>
-	     
-	
+  var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue = "${_csrf.token}";
+
+var mem_nickname = null;
+
+<sec:authorize access="isAuthenticated()">
+mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
+</sec:authorize>
+
+	<sec:authorize access="isAuthenticated()">
+	var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+</sec:authorize>
+
 $(document).ajaxSend(function(e, xhr, options){
 	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-});
-            
+});       
              
            $("#chat"+ idx).on("click", "li", function(e){
            
@@ -625,31 +658,37 @@ $(document).ajaxSend(function(e, xhr, options){
 
 
 <script type="text/javascript">
-   var modal = $("#commentModal");
-   
-   var modalInputContent = modal.find("input[name='mov_rev_com_content']");
-   var modalInputMemNum = modal.find("input[name='mem_num']");
-   var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-   var modalInputMemNickname = modal.find("input[name='mem_nickname']");
-   var modalModBtn = $("#modalModBtn");
-   var modalRemoveBtn = $("#modalRemoveBtn");
-   var modalRegisterBtn = $("#modalRegisterBtn");
-   var modalCloseBtn = $("#modalCloseBtn");
-   
-	  var csrfHeaderName = "${_csrf.headerName}";
-	  var csrfTokenValue = "${_csrf.token}";
-	
-	  var mem_nickname = null;
-	 
-	 <sec:authorize access="isAuthenticated()">
-	 mem_nickname = '<sec:authentication property="principal.username"/>';
-	 </sec:authorize>
-	     
-	
-   $(document).ajaxSend(function(e, xhr, options){
- 	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-   });
-    
+var modal = $("#commentModal");
+
+var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+var modalInputMemNum = modal.find("input[name='mem_num']");
+var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+	  var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+var modalModBtn = $("#modalModBtn");
+var modalRemoveBtn = $("#modalRemoveBtn");
+var modalRegisterBtn = $("#modalRegisterBtn");
+var modalCloseBtn = $("#modalCloseBtn");
+
+  var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue = "${_csrf.token}";
+
+var mem_nickname = null;
+
+<sec:authorize access="isAuthenticated()">
+mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
+</sec:authorize>
+
+console.log(mem_nickname);
+
+	<sec:authorize access="isAuthenticated()">
+	var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+</sec:authorize>
+
+console.log(mem_num);
+
+$(document).ajaxSend(function(e, xhr, options){
+	  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+});
     var mov_rev_num = $("#commentModal").data("rev_num");
     
     console.log(mov_rev_num);
@@ -672,7 +711,8 @@ $(document).ajaxSend(function(e, xhr, options){
                           str += "<div><div class='header'><strong class='primary-font'>"+ "작성회원 :  "  + list[i].mem_nickname  + "   " + "</strong>";
                           str += "<small class='pull-right text-muted'>" + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate) + "</small></div>";
                           str += "<p>" + list[i].mov_rev_com_content + "</p></div></li>";
-                          str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";           
+                          str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+
                           str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>"+ list[i].mov_rev_com_bad +"</button>";
                        }
                        commentUL.html(str);
@@ -683,9 +723,9 @@ $(document).ajaxSend(function(e, xhr, options){
         var mov_rev_com_num = modal.data("mov_rev_com_num");
         console.log(mov_rev_com_num);
         console.log("mem_nickname : " + mem_nickname);
-        var originalMemNickname = modalInputMemNickname.val();
+      
         var mov_rev_num = $("#commentModal").data("rev_num");
-        console.log("original mem_nickname : " + originalMemNickname);
+
         
         
         if(!mem_nickname){
@@ -693,6 +733,9 @@ $(document).ajaxSend(function(e, xhr, options){
         	modal.modal("hide");
         	return;	
         }
+        var originalMemNickname = modalInputMemNickname.val();
+        console.log("original mem_nickname : " + originalMemNickname);
+        
         
         
         if(mem_nickname != originalMemNickname){
@@ -777,7 +820,7 @@ $(document).ajaxSend(function(e, xhr, options){
 	  var mem_nickname = null;
 	 
 	 <sec:authorize access="isAuthenticated()">
-	 mem_nickname = '<sec:authentication property="principal.username"/>';
+	 mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
 	 </sec:authorize>
 	
 		<sec:authorize access="isAuthenticated()">
@@ -854,6 +897,7 @@ $(document).ajaxSend(function(e, xhr, options){
                            str += "<small class='pull-right text-muted'>" + movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+ "</small></div>";
                            str += "<p>" + list[i].mov_rev_com_content + "</p></div></li>";
                            str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                          
                            str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";
                         }
                         commentUL.html(str);
