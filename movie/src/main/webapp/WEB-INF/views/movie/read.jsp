@@ -263,7 +263,7 @@
 										
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 							<c:if test="${principal.member.mem_num eq mem_num}">
-								<td><button id="com_modify">댓글수정하기</button></td>
+								<button id="com_delete">댓글삭제하기</button>
 							</c:if>
 						</sec:authorize>
 								
@@ -590,9 +590,17 @@ $(document).ready(function() {
                      str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
                      str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
                 
-                     str +="<sec:authorize access='isAuthenticated()'>";
-					 str +="<c:if test="${principal.member.mem_num eq mem_num}">";
-                     str +="<button name='com_modify>" + "수정버튼" + "</button></c:if></sec:authorize>";  
+ 					<sec:authorize access="isAuthenticated()">
+ 					<c:if test="${principal.member.mem_num eq mem_num}">
+                    str +="<button name='com_modify'>" + "수정버튼" + "</button>";
+                    </c:if></sec:authorize>
+                     
+                     
+             		<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<c:if test="${principal.member.mem_nickname eq mem_nickname}">
+					str += "<button name='com_delete'>" + "댓글삭제하기" + "</button>";
+					</c:if></sec:authorize>
+                     
                    
                      str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
                      str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
