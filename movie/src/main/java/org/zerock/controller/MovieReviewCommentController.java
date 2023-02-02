@@ -34,20 +34,23 @@ public class MovieReviewCommentController {
 
 
 	
-	// ¸®ºä ´ñ±Û ÁÁ¾Æ¿ä
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/good", consumes = "application/json")
 	public ResponseEntity<ChoiceVO> goodUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
 		ChoiceVO vo = movieReviewCommentService.goodUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(), movieReviewCommentChoiceVO.getMem_num());
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 
-	// ¸®ºä ´ñ±Û ½È¾î¿ä
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/bad", consumes = "application/json")
 	public ResponseEntity<ChoiceVO> badUpdate(@RequestBody MovieReviewCommentChoiceVO movieReviewCommentChoiceVO) {
 		ChoiceVO vo = movieReviewCommentService.badUpdate(movieReviewCommentChoiceVO.getMov_rev_com_num(), movieReviewCommentChoiceVO.getMem_num());
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 
+	
 	@GetMapping(value = "/pages/{mov_rev_num}/{page}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<List<MovieReviewCommentVO>> getList(
@@ -71,6 +74,7 @@ public class MovieReviewCommentController {
 	}
 
 
+	@PreAuthorize("principal.member.mem_num == #vo.mem_num or hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/{mov_rev_com_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<MovieReviewCommentVO> get(@PathVariable("mov_rev_com_num") Long mov_rev_com_num) {
@@ -92,13 +96,13 @@ public class MovieReviewCommentController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PreAuthorize("principal.member.mem_nickname == #vo.mem_nickname or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("principal.member.mem_num == #vo.mem_num or hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/{mov_rev_com_num}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> remove(@PathVariable("mov_rev_com_num") Long mov_rev_com_num,
 			@RequestBody MovieReviewCommentVO vo) {
 		log.info("remove" + mov_rev_com_num);
 		
-		log.info("mem_nickname : " + vo.getMem_nickname());
+		log.info("mem_nickname : " + vo.getMem_num());
 		return movieReviewCommentService.delete(mov_rev_com_num) == 1 
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

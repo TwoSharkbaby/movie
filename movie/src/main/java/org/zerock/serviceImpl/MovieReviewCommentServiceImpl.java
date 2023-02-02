@@ -21,8 +21,8 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 	private final MovieReviewCommentMapper movieReviewCommentMapper;
 	private final MovieReviewCommentChoiceMapper movieReviewCommentChoiceMapper;
 	
-	// ´ñ±Û ÁÁ¾Æ¿ä / ½È¾î¿ä ±â·ÏÀÌ ÀÖÀ¸¸é ½È¾î¿ä Ãë¼Ò ÈÄ ÁÁ¾Æ¿ä µî·Ï
-	// ÁÁ¾Æ¿ä ±â·ÏÀÌ ÀÖÀ¸¸é ÁÁ¾Æ¿ä Ãë¼Ò / ±â·ÏÀÌ ¾øÀ¸¸é ÁÁ¾Æ¿ä µî·Ï / ÁÁ¾Æ¿ä 1
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ / ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½Æ¿ï¿½ 1
 	@Transactional
 	@Override
 	public ChoiceVO goodUpdate(Long mov_rev_com_num, Long mem_num) {
@@ -49,8 +49,8 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 		}
 	}
 	
-	// ´ñ±Û ½È¾î¿ä / ÁÁ¾Æ¿ä ±â·ÏÀÌ ÀÖÀ¸¸é ÁÁ¾Æ¿ä Ãë¼Ò ÈÄ ½È¾î¿ä µî·Ï
-	// ½È¾î¿ä ±â·ÏÀÌ ÀÖÀ¸¸é ½È¾î¿ä Ãë¼Ò / ±â·ÏÀÌ ¾øÀ¸¸é ½È¾î¿ä µî·Ï / ½È¾î¿ä 2
+	// ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ / ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½
+	// ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½ / ï¿½È¾ï¿½ï¿½ 2
 	@Transactional
 	@Override
 	public ChoiceVO badUpdate(Long mov_rev_com_num, Long mem_num) {
@@ -83,22 +83,29 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 		return movieReviewCommentMapper.getListWithPaging(cri, mov_rev_num);
 	}
 
+	
 	@Override
 	public MovieReviewCommentVO read(Long mov_rev_com_num) {
 		return movieReviewCommentMapper.read(mov_rev_com_num);
 	}
 
+	@Transactional
 	@Override
 	public int insert(MovieReviewCommentVO movieReviewCommentVO) {
 	
 		return movieReviewCommentMapper.insert(movieReviewCommentVO);
 		
 	}
+	@Transactional
 	@Override
 	public int delete(Long mov_rev_com_num) {
+		movieReviewCommentChoiceMapper.deleteReviewCommentChoices(mov_rev_com_num);
 		return movieReviewCommentMapper.delete(mov_rev_com_num);
+		
+		
 	}
 
+	@Transactional
 	@Override
 	public int update(MovieReviewCommentVO vo) {
 		// TODO Auto-generated method stub

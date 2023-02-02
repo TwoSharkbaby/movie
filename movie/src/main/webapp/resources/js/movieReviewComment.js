@@ -40,12 +40,12 @@ var movieReviewCommentService = (function() {
 
 
 
-   function remove(mov_rev_com_num, mem_nickname,callback, error){
+   function remove(mov_rev_com_num, mem_num ,callback, error){
       $.ajax({
         type: 'delete',
         url: '/comment/' + mov_rev_com_num,
 
-                data : JSON.stringify({mov_rev_com_num:mov_rev_com_num , mem_nickname:mem_nickname}),
+                data : JSON.stringify({mov_rev_com_num:mov_rev_com_num , mem_num:mem_num}),
 
         contentType : "application/json; charset=utf-8",
 
