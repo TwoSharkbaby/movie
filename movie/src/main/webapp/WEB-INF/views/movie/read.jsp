@@ -259,6 +259,13 @@
 								<td><button id="com_modify">댓글수정하기</button></td>
 							</c:if>
 						</sec:authorize>
+						
+										
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<c:if test="${principal.member.mem_num eq mem_num}">
+								<td><button id="com_modify">댓글수정하기</button></td>
+							</c:if>
+						</sec:authorize>
 								
 								<button name="com_good" id="com_good" data-mov_rev_com_num="1">좋아요</button>
 								<button name="com_bad" id="com_bad" data-mov_rev_com_num="1">싫어요</button>
