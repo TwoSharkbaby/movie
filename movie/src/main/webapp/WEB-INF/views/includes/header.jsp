@@ -14,11 +14,23 @@
 <link href="/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="/resources/bootstrap.bundle.min.js"></script>
 <link href="/resources/assets/dist/css/main_css/carousel.css" rel="stylesheet">
+<link href="/resources/assets/dist/css/main_css/movie_style.css" rel="stylesheet">
+<link href="/resources/assets/dist/css/main_css/modal_style.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/style.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/web.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/header.css" rel="stylesheet">
 <link href="/resources/assets/dist/css/main_css/footer.css" rel="stylesheet">
 <link href="/resources/dist/css/headers.css" rel="stylesheet" type="text/css">
+
+<style>
+.row>* {
+	padding-right: calc(var(- -bs-gutter-x)* 0.9) !important;
+}
+
+body {
+	font-family: 'Pretendard-Regular';
+}
+</style>
 
 </head>
 <body>
