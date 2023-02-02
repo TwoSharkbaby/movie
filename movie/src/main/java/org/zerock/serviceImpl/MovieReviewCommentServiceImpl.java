@@ -77,24 +77,26 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 		}
 	}
 	
-	
+	// 댓글 목록 : 페이징 처리
 	@Override
 	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num) {
 		return movieReviewCommentMapper.getListWithPaging(cri, mov_rev_num);
 	}
 
-	
+	// 댓글 조회
 	@Override
 	public MovieReviewCommentVO read(Long mov_rev_com_num) {
 		return movieReviewCommentMapper.read(mov_rev_com_num);
 	}
 
+	// 댓글 생성
 	@Transactional
 	@Override
 	public int insert(MovieReviewCommentVO movieReviewCommentVO) {
 	
 		return movieReviewCommentMapper.insert(movieReviewCommentVO);
-		
+	
+	// 댓글 삭제
 	}
 	@Transactional
 	@Override
@@ -105,6 +107,7 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 		
 	}
 
+	// 댓글 수정
 	@Transactional
 	@Override
 	public int update(MovieReviewCommentVO vo) {

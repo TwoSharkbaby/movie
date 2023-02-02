@@ -8,20 +8,27 @@ import org.zerock.domain.MovieReviewCommentVO;
 
 public interface MovieReviewCommentService {
 	
-	// ´ñ±Û ÁÁ¾Æ¿ä
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½
 	public ChoiceVO goodUpdate(Long mov_rev_com_num, Long mem_num);
 	
-	// ´ñ±Û ½È¾î¿ä
+	// ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½
 	public ChoiceVO badUpdate(Long mov_rev_com_num, Long mem_num);
 	
-	
+	// ëŒ“ê¸€ ì¡°íšŒ
 	public MovieReviewCommentVO read(Long mov_rev_com_num);
 	
+	
+	// ëŒ“ê¸€ ìƒì„±
 	public int insert(MovieReviewCommentVO movieReviewCommentVO);
 	
+	
+	// ëŒ“ê¸€ ì‚­ì œ
 	public int delete(Long mov_rev_com_num);
 	
+	
+	// ëŒ“ê¸€ ëª©ë¡
 	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num);
 	
+	// ëŒ“ê¸€ ìˆ˜ì •
 	public int update(MovieReviewCommentVO vo);
 }
