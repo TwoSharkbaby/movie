@@ -598,7 +598,7 @@ $(document).ready(function() {
                 
                      <sec:authorize access="isAuthenticated()">
                      if(mem_num == list[i].mem_num){
-                             str +="<button name='com_modify'>" + "수정/삭제버튼" + "</button>";
+                             str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
                      }
                          </sec:authorize>
                           
@@ -645,8 +645,10 @@ $(document).ajaxSend(function(e, xhr, options){
 }); 
 
              
-           $("#chat"+ idx).on("click" , "li","button[name= 'com_modify']", function(e){
+           $("#chat"+ idx).on("click", "button[name= 'com_modify']", function(e){
+             
               var mov_rev_com_num = $(this).data("mov_rev_com_num");
+              console.log(this);
               console.log("chat + idx : " +  mov_rev_com_num);
                movieReviewCommentService.get(mov_rev_com_num, function(comment) {
                    modalInputContent.val(comment.mov_rev_com_content);
@@ -682,13 +684,13 @@ var modal = $("#commentModal");
 var modalInputContent = modal.find("input[name='mov_rev_com_content']");
 var modalInputMemNum = modal.find("input[name='mem_num']");
 var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
-     var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+var modalInputMemNickname = modal.find("input[name='mem_nickname']");
 var modalModBtn = $("#modalModBtn");
 var modalRemoveBtn = $("#modalRemoveBtn");
 var modalRegisterBtn = $("#modalRegisterBtn");
 var modalCloseBtn = $("#modalCloseBtn");
 
-  var csrfHeaderName = "${_csrf.headerName}";
+var csrfHeaderName = "${_csrf.headerName}";
 var csrfTokenValue = "${_csrf.token}";
 
 var mem_nickname = null;
@@ -699,8 +701,10 @@ mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
 
 console.log(mem_nickname);
 
+var mem_num;
+
    <sec:authorize access="isAuthenticated()">
-   var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+   mem_num = "<c:out value="${principal.member.mem_num}"/>";
 </sec:authorize>
 
 console.log(mem_num);
@@ -732,11 +736,11 @@ $(document).ajaxSend(function(e, xhr, options){
                       
                            <sec:authorize access="isAuthenticated()">
                            if(mem_num == list[i].mem_num){
-                                   str +="<button name='com_modify'>" + "수정/삭제버튼" + "</button>";
+                                   str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
                            }
                                </sec:authorize>
                                 
-                              <sec:authorize access="hasRole('ROLE_ADMIN')">
+                          <sec:authorize access="hasRole('ROLE_ADMIN')">
                           str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
                           </sec:authorize>
                          
@@ -756,12 +760,14 @@ $(document).ajaxSend(function(e, xhr, options){
         var mov_rev_num = $("#commentModal").data("rev_num");
 
         var mem_num = null;
-        
-        var originalMemNum = modalInputMemNum.val();
+    
         
         <sec:authorize access="isAuthenticated()">
          mem_num = "<c:out value="${principal.member.mem_num}"/>";
      </sec:authorize>
+        
+        var originalMemNum = modalInputMemNum.val();
+    
      
         
         if(!mem_num){
@@ -799,6 +805,7 @@ $(document).ajaxSend(function(e, xhr, options){
      
      var mov_rev_com_num = modal.data("mov_rev_com_num");
       console.log(mov_rev_com_num);
+      
       var mem_num = null;
       
       <sec:authorize access="isAuthenticated()">
@@ -932,10 +939,10 @@ $(document).ajaxSend(function(e, xhr, options){
                        
                             <sec:authorize access="isAuthenticated()">
                             if(mem_num == list[i].mem_num){
-                                    str +="<button name='com_modify'>" + "수정/삭제버튼" + "</button>";
+                                    str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
                             }
                                 </sec:authorize>
-                                 
+                                
                                <sec:authorize access="hasRole('ROLE_ADMIN')">
                            str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
                            </sec:authorize>
@@ -956,4 +963,4 @@ $(document).ajaxSend(function(e, xhr, options){
 
    </script>
 
-<%@include file="../includes/footer.jsp"%>>
+<%@include file="../includes/footer.jsp"%>

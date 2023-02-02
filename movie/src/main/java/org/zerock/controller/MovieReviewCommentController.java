@@ -74,7 +74,7 @@ public class MovieReviewCommentController {
 	}
 
 
-	@PreAuthorize("principal.member.mem_num == #vo.mem_num or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/{mov_rev_com_num}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<MovieReviewCommentVO> get(@PathVariable("mov_rev_com_num") Long mov_rev_com_num) {

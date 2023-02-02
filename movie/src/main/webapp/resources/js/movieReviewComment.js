@@ -45,7 +45,7 @@ var movieReviewCommentService = (function() {
         type: 'delete',
         url: '/comment/' + mov_rev_com_num,
 
-                data : JSON.stringify({mov_rev_com_num:mov_rev_com_num , mem_num:mem_num}),
+                data : JSON.stringify({mem_num:mem_num}),
 
         contentType : "application/json; charset=utf-8",
 
