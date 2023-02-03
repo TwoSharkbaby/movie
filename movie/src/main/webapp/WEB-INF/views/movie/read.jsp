@@ -229,8 +229,8 @@
 									</div>
 								</div>
 								<div class="modal">
-									<div id="" class="modal_main_frame2">
-										<div class="modal_frame1-modalAddStyle">
+									<div  class="modal-dialog modal_main_frame2">
+                           			   <div class="modal-content modal_frame1-modalAddStyle">
 											<header class="modal_header_frame-HeaderBarPrimitive-headerAddStyle">
 												<div class="modal_header_frame2">
 													<h5 id="modal-title">배우 상세페이지</h5>
