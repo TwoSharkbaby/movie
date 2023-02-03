@@ -137,6 +137,14 @@
 																						<em><c:out value="${review.mov_rev_bad}" /></em> 
 																						<span src="/resources/icon_imgs/reply_icon.svg" width="18px" height="18px" class="icon_comment"></span> <em>댓글보기</em>
 																					</div>
+																					<div>
+																						<p hidden id="comment" name="comment"
+																							data-idx="<c:out value="${review.mov_rev_num}" />"><c:out
+																								value="${review.mov_rev_num}" /></p>
+																						<button class="commentAdd" id="commentAdd" name="comment"
+																								data-idx="<c:out value="${review.mov_rev_num}" />">
+																								<c:out value="댓글작성" /></button>
+																					</div>
 																				</div>
 																			</li>
 																			<li>
@@ -153,8 +161,6 @@
 																							<button id="com_delete">댓글삭제하기</button>
 																						</c:if>
 																					</sec:authorize>
-																					<button name="com_good" id="com_good" data-mov_rev_com_num="1">좋아요</button>
-																					<button name="com_bad" id="com_bad" data-mov_rev_com_num="1">싫어요</button>
 																				</ul>
 																			</li>
 																		</c:forEach>
