@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,54 +28,57 @@
 body {
 	font-family: 'Pretendard-Regular';
 }
+
+.modal-backdrop {
+	z-index: -1;
+}
 </style>
 
 </head>
 <body>
 
- <!-- header -->
-  <header class="css-6k8tqb">
-    <nav>
-        <div class="css-1gkas1x-Grid e1689zdh0">
-            <div class="css-1djzg97">
-                <ul class="css-6v7b8v-VisualUl">
-                    <li class="css-t686xv"><a href="/"><img src="/resources/img/img_logo.png" alt="LOGO 이미지"></a></li>
-                    <li style="width:50em">
-                    </li>
-                    <li>
-                    	<form id="searchForm" action="/movie/search" method="get" class="d-flex mt-2" role="search">
-							<select name="type">
-								<option value="" <c:out value="${pageMaker.cri.type == null ?'selected':''}"/>>--</option>
-								<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected':''}"/>>제목</option>
-								<option value="G" <c:out value="${pageMaker.cri.type eq 'G' ?'selected':''}"/>>장르</option>
-								<option value="D" <c:out value="${pageMaker.cri.type eq 'D' ?'selected':''}"/>>감독</option>
-								<option value="A" <c:out value="${pageMaker.cri.type eq 'A' ?'selected':''}"/>>배우</option>
-								<option value="TD" <c:out value="${pageMaker.cri.type eq 'TD' ?'selected':''}"/>>제목 OR 감독</option>
-								<option value="GD" <c:out value="${pageMaker.cri.type eq 'GD' ?'selected':''}"/>>장르 OR 감독</option>
-							</select>
-							<input class="form-control ms-2" type="search" placeholder="검색" aria-label="Search" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>" style="width:10em">
-				        <button class="btn btn-outline-success" type="submit" hidden>Search</button>
-				        <input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum == null ?'1':pageMaker.cri.pageNum}" />" /> 
-						<input type="hidden" name="amount" value="<c:out value="${pageMaker.cri.amount == null ?'12':pageMaker.cri.amount}" />" />
-				      </form>
-                    </li>
+	<!-- header -->
+	<header class="css-6k8tqb">
+		<nav>
+			<div class="css-1gkas1x-Grid e1689zdh0">
+				<div class="css-1djzg97">
+					<ul class="css-6v7b8v-VisualUl">
+						<li class="css-t686xv"><a href="/"><img src="/resources/img/img_logo.png" alt="LOGO 이미지"></a></li>
+						<li style="width: 50em"></li>
+						<li>
+							<form id="searchForm" action="/movie/search" method="get" class="d-flex mt-2" role="search">
+								<select name="type">
+									<option value="" <c:out value="${pageMaker.cri.type == null ?'selected':''}"/>>--</option>
+									<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected':''}"/>>제목</option>
+									<option value="G" <c:out value="${pageMaker.cri.type eq 'G' ?'selected':''}"/>>장르</option>
+									<option value="D" <c:out value="${pageMaker.cri.type eq 'D' ?'selected':''}"/>>감독</option>
+									<option value="A" <c:out value="${pageMaker.cri.type eq 'A' ?'selected':''}"/>>배우</option>
+									<option value="TD" <c:out value="${pageMaker.cri.type eq 'TD' ?'selected':''}"/>>제목 OR 감독</option>
+									<option value="GD" <c:out value="${pageMaker.cri.type eq 'GD' ?'selected':''}"/>>장르 OR 감독</option>
+								</select> <input class="form-control ms-2" type="search" placeholder="검색" aria-label="Search" name="keyword"
+									value="<c:out value='${pageMaker.cri.keyword}'/>" style="width: 10em">
+								<button class="btn btn-outline-success" type="submit" hidden>Search</button>
+								<input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum == null ?'1':pageMaker.cri.pageNum}" />" /> <input
+									type="hidden" name="amount" value="<c:out value="${pageMaker.cri.amount == null ?'12':pageMaker.cri.amount}" />" />
+							</form>
+						</li>
 
-					<sec:authentication property="principal" var="principal" />
-					<sec:authorize access="isAnonymous()">
-                    <li class="css-bj71cw"><a href="/customLogin"><button class="css-139vxi-StylelessButton">로그인</button></a></li>
-                    <li class="css-bj71cw"><a href="/customSingup"><button class="css-139vxi-StylelessButton">회원가입</button></a></li>
-                    </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
-                    <li class="css-bj71cw"><a href="/customLogout"><button class="css-139vxi-StylelessButton">로그아웃</button></a></li>
-                    <li class="css-bj71cw"><a href="/customModify/<c:out value="${principal.member.mem_num}"/>"><button class="css-139vxi-StylelessButton">회원정보수정</button></a></li>
-                    </sec:authorize>
-                </ul>
-            </div>
-        </div>
-    </nav>
-  </header>
-  
-<script type="text/javascript">
+						<sec:authentication property="principal" var="principal" />
+						<sec:authorize access="isAnonymous()">
+							<li class="css-bj71cw"><a href="/customLogin"><button class="css-139vxi-StylelessButton">로그인</button></a></li>
+							<li class="css-bj71cw"><a href="/customSingup"><button class="css-139vxi-StylelessButton">회원가입</button></a></li>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<li class="css-bj71cw"><a href="/customLogout"><button class="css-139vxi-StylelessButton">로그아웃</button></a></li>
+							<li class="css-bj71cw"><a href="/customModify/<c:out value="${principal.member.mem_num}"/>"><button class="css-139vxi-StylelessButton">회원정보수정</button></a></li>
+						</sec:authorize>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<script type="text/javascript">
 $(document).ready(function() {
 	  
 	var result = '<c:out value="${result}"/>';
@@ -113,4 +114,4 @@ $(document).ready(function() {
 
 });
 </script>
-  <!-- header end -->
+	<!-- header end -->

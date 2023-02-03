@@ -13,8 +13,8 @@ html:lang(ko) {
   font-family: RobotoInCjk, "Noto Sans KR", "Apple SD Gothic Neo", "Nanum Gothic", "Malgun Gothic", sans-serif;
 }
 
-.modal_main_frame1 {
-  display: block;
+.modal {
+  display: none;
   position: fixed;
   inset: 0px;
   z-index: 100;
