@@ -139,6 +139,24 @@
 																					</div>
 																				</div>
 																			</li>
+																			<li>
+																				<ul id="chat<c:out value="${review.mov_rev_num}" />"
+																					class="chat2" name="com">
+																					<li name="mov_rev_com_num" data-mov_rev_com_num="1" />
+																					<sec:authorize access="isAuthenticated()">
+																						<c:if test="${principal.member.mem_num eq mem_num}">
+																							<td><button id="com_modify">댓글수정하기</button></td>
+																						</c:if>
+																					</sec:authorize>
+																					<sec:authorize access="hasRole('ROLE_ADMIN')">
+																						<c:if test="${principal.member.mem_num eq mem_num}">
+																							<button id="com_delete">댓글삭제하기</button>
+																						</c:if>
+																					</sec:authorize>
+																					<button name="com_good" id="com_good" data-mov_rev_com_num="1">좋아요</button>
+																					<button name="com_bad" id="com_bad" data-mov_rev_com_num="1">싫어요</button>
+																				</ul>
+																			</li>
 																		</c:forEach>
 																	</ul>
 																</div>
@@ -279,6 +297,44 @@
 		</div>
 	</div>
 </main>
+
+<!-- Comment Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" data-rev_num="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title1" id="myModalLabel">댓글 정보</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>내용</label> <input class="form-control"
+						name='mov_rev_com_content' value='New content'>
+				</div>
+				<div class="form-group">
+					<label></label> <input class="form-control" name='mem_num'
+						value='mem_num' readonly="readonly">
+				</div>
+				<div class="form-group">
+					<label>닉네임</label> <input class="form-control" name='mem_nickname'
+						value='mem_nickname' readonly="readonly">
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+				<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+				<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+			</div>
+		</div>
+		<!— /.modal-content —>
+	</div>
+	<!— /.modal-dialog —>
+</div>
+<!— /.modal —>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -424,8 +480,369 @@ $(document).ready(function() {
 				alert("올바른 경로가 아닙니다");
 			});
 	});
+	
+	// 댓글 좋아요 
+    $("tbody").on("click", "button[name='com_good']", function(e) {
+        
+         var mov_rev_com_num = $(this).data("mov_rev_com_num");
+          var good = $(this);
+          var bad = $(this).next('button');
+      
+         
+       <sec:authorize access="isAuthenticated()">
+     var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+     </sec:authorize>
+          var data = {
+            mov_rev_com_num : mov_rev_com_num,
+             mem_num : mem_num
+          };
+          $.ajax({
+             type : "POST",
+             url : "/comment/good",
+           beforeSend: function(xhr){
+            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+           data : JSON.stringify(data), // http body 데이터
+             contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+             dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+          }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+             good.html(response.good);
+             bad.html(response.bad);
+          }).fail(function(error) {
+             alert("올바른 경로가 아닙니다");
+          });
+       });
+      
+  
+  // 댓글 싫어요
+      $("tbody").on("click", "button[name='com_bad']", function(e) {  
+           var mov_rev_com_num = $(this).data("mov_rev_com_num");
+           var good = $(this).prev('button');
+           var bad = $(this);
+        <sec:authorize access="isAuthenticated()">
+     var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+     </sec:authorize>
+          
+           var data = {
+             mov_rev_com_num : mov_rev_com_num,
+              mem_num : mem_num
+           };
+     
+          $.ajax({
+             type : "POST",
+             url : "/comment/bad",
+           beforeSend: function(xhr){
+            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            data : JSON.stringify(data), // http body 데이터
+             contentType : "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(mine)
+             dataType : "json" // 요청을 서버로해서 응답이 왔을때 데이터타입이 버퍼드문자열을 json오브젝으로 변경하여
+          }).done(function(response) { // resp <= 과 같이 담아서 사용하기 위함
+             good.html(response.good);
+             bad.html(response.bad);
+          }).fail(function(error) {
+             alert("올바른 경로가 아닙니다");
+          });
+       });
 	</sec:authorize>
 });
+</script>
+
+<script type="text/javascript" src="/resources/js/movieReviewComment.js"></script>
+<script type="text/javascript">
+// 리뷰 마다 댓글 표시
+      $("td[id='comment']").each(function (index){
+         var idx = $(this).data('idx');
+         var data1 = {
+                mov_rev_num: idx};    
+         var commentUL = $("#chat" + idx);
+           showList(1);
+           
+           // 댓글 목록
+        function showList(page){   
+            movieReviewCommentService.getList(data1, function(list){
+                 var str = "";
+                 
+                 <sec:authorize access="isAuthenticated()">
+                 var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+                 </sec:authorize>
+                 
+                 if(list == null || list.length == 0){
+                    commentUL.html("");          
+                    return;
+                 }
+                 for(var i =0, len = list.length || 0; i < len; i++){
+                     str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                     str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
+                     str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                
+                     <sec:authorize access="isAuthenticated()">
+                     if(mem_num == list[i].mem_num){
+                             str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
+                     }
+                         </sec:authorize>
+                          
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
+                    </sec:authorize>
+                   
+                     str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                     str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                     str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                     
+            }
+            commentUL.html(str); 
+            }); // end function
+         } // end showlist 
+         
+var modal = $("#commentModal");
+var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+var modalInputMemNum = modal.find("input[name='mem_num']");
+var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+var modalInputMemNickname = modal.find("input[name='mem_nickname']");             
+var modalModBtn = $("#modalModBtn");
+var modalRemoveBtn = $("#modalRemoveBtn");
+var modalRegisterBtn = $("#modalRegisterBtn");
+var modalCloseBtn = $("#modalCloseBtn");
+   
+   
+		//리뷰 마다 댓글 표시
+           $("#chat"+ idx).on("click", "button[name= 'com_modify']", function(e){
+             
+              var mov_rev_com_num = $(this).data("mov_rev_com_num");
+        
+              
+              // 댓글 조회
+               movieReviewCommentService.get(mov_rev_com_num, function(comment) {
+                   modalInputContent.val(comment.mov_rev_com_content);
+                   modalInputMemNum.val(comment.mem_num).hide();
+                   modalInputMemNickname.val(comment.mem_nickname);
+                   modalInputMovRevComRegdate.val(movieReviewCommentService.displayTime(comment.mov_rev_com_regdate))
+                   .attr("readonly", "readonly");
+                   modal.data("mov_rev_com_num", comment.mov_rev_com_num);
+                   
+                   modal.find("button[id != 'modalCloseBtn']").hide();
+                   modalModBtn.show();
+                   modalRemoveBtn.show();
+                   
+                   $("#commentModal").data("rev_num", idx);
+                   $("#commentModal").modal("show");
+              });              
+           });
+      });       // td end   
+</script>
+
+
+<script type="text/javascript">
+var modal = $("#commentModal");
+var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+var modalInputMemNum = modal.find("input[name='mem_num']");
+var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+var modalModBtn = $("#modalModBtn");
+var modalRemoveBtn = $("#modalRemoveBtn");
+var modalRegisterBtn = $("#modalRegisterBtn");
+var modalCloseBtn = $("#modalCloseBtn");
+ 
+ 
+ // 댓글 목록
+    function showRevList(mov_rev_num) {
+   
+        var commentUL = $("#chat" + mov_rev_num); 
+        var params = {mov_rev_num:mov_rev_num, page : 1};
+        movieReviewCommentService.getList(params, function(list) {
+                       var str = "";
+              
+                       if (list == null || list.length == 0) {
+                          commentUL.html("");
+                          return;
+                       }
+                       
+                       for (var i = 0, len = list.length || 0; i < len; i++) {
+                           str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                           str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
+                           str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                      
+                           <sec:authorize access="isAuthenticated()">
+                           if(mem_num == list[i].mem_num){
+                                   str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
+                           }
+                               </sec:authorize>
+                                
+                          <sec:authorize access="hasRole('ROLE_ADMIN')">
+                          str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
+                          </sec:authorize>
+                         
+                           str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                           str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                           str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                       }
+                       commentUL.html(str);
+        });
+     }
+    
+ // 댓글 삭제 이벤트
+    modalRemoveBtn.on("click", function(e){
+        var mov_rev_com_num = modal.data("mov_rev_com_num");
+      
+        var mov_rev_num = $("#commentModal").data("rev_num");
+        var mem_num = null;
+            
+        <sec:authorize access="isAuthenticated()">
+        mem_num = "<c:out value="${principal.member.mem_num}"/>";
+        </sec:authorize>        
+        var originalMemNum = modalInputMemNum.val();
+           
+        if(!mem_num){
+           alert("로그인 후 삭제가 가능합니다.");
+           modal.modal("hide");
+           return;   
+        }
+               
+        if(mem_num != originalMemNum){
+           alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+           modal.modal("hide");
+           return;   
+        }
+                    
+         movieReviewCommentService.remove(mov_rev_com_num, originalMemNum , function(result){
+              alert(result);
+            modal.modal("hide");
+            showRevList(mov_rev_num);
+         });
+     });
+ 
+ // 댓글 수정 이벤트
+    modalModBtn.on("click", function(e){
+     var mov_rev_num = $("#commentModal").data("rev_num");    
+     var originalMemNum = modalInputMemNum.val();    
+     var mov_rev_com_num = modal.data("mov_rev_com_num");         
+     var mem_num = null;     
+      <sec:authorize access="isAuthenticated()">
+       mem_num = "<c:out value="${principal.member.mem_num}"/>";
+   </sec:authorize>
+      
+       var comment = 
+       {mov_rev_com_num : modal.data("mov_rev_com_num"), 
+             mov_rev_com_content : modalInputContent.val(),
+             mem_num:originalMemNum ,
+             mem_nickname : modalInputMemNickname.val()};
+       
+       if(!mem_num){
+          alert("로그인 후 수정 가능합니다.");
+          modal.modal("hide");
+          return;   
+       }
+              
+       if(mem_num != originalMemNum){
+          alert("자신이 작성한 댓글만 수정 가능합니다.");
+          modal.modal("hide");
+          return;   
+       }       
+      
+     movieReviewCommentService.update(comment, function(result){
+          alert(result);
+          modal.modal("hide");
+          showRevList(mov_rev_num);
+     });
+  });
+   </script>
+
+
+
+<script type="text/javascript">
+     var modal = $("#commentModal");   
+     var modalInputContent = modal.find("input[name='mov_rev_com_content']");
+     var modalInputMemNum = modal.find("input[name='mem_num']");
+     var modalInputMovRevComRegdate = modal.find("input[name='mov_rev_com_regdate']");
+     var modalInputMemNickname = modal.find("input[name='mem_nickname']");
+     var modalModBtn = $("#modalModBtn");
+     var modalRemoveBtn = $("#modalRemoveBtn");
+     var modalRegisterBtn = $("#modalRegisterBtn");
+     var modalCloseBtn = $("#modalCloseBtn");      
+     var csrfHeaderName = "${_csrf.headerName}";
+     var csrfTokenValue = "${_csrf.token}";   
+     var mem_nickname = null;
+    
+    <sec:authorize access="isAuthenticated()">
+    mem_nickname = "<c:out value="${principal.member.mem_nickname}"/>";
+    </sec:authorize>
+   
+    <sec:authorize access="isAuthenticated()">
+    var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+    </sec:authorize>
+    
+      $(document).ajaxSend(function(e, xhr, options){
+         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+      });
+      
+      // 댓글 등록 이벤트
+      $("button[name='comment']").on("click", function(e) {    
+               var idx = $(this).data('idx');       
+                modal.find("input").val("");
+                modal.find("input[name='mem_num']").val(mem_num).hide();
+                modal.find("input[name='mem_nickname']").val(mem_nickname);
+                modalInputMovRevComRegdate.closest("div").hide();
+                modal.find("button[id != 'modalCloseBtn']").hide();
+                modalRegisterBtn.show();
+                $("#commentModal").data("rev_num", idx);
+                $("#commentModal").modal("show");                  
+            });
+      
+      modalRegisterBtn.on("click", function(e){                   
+         var mov_rev_num = $("#commentModal").data("rev_num");                
+         var comment = {
+            mov_rev_com_content : modalInputContent.val(),
+            mem_num : modalInputMemNum.val(),
+            mov_rev_num: mov_rev_num,
+            mem_nickname : mem_nickname
+         };         
+         movieReviewCommentService.add(comment, function(result){          
+            if(result == "success")
+               alert(result);
+               showRevList(mov_rev_num);
+            $("#commentModal").modal("hide");
+         });
+              
+      });
+      
+      modalCloseBtn.on("click", function(e){ 
+         $("#commentModal").modal("hide");
+              
+      });
+      
+      
+      function showRevList(mov_rev_num) {
+         var commentUL = $("#chat" + mov_rev_num); 
+         var params = {mov_rev_num:mov_rev_num, page : 1};
+         movieReviewCommentService.getList(params, function(list) {
+                        var str = "";
+                
+                        if (list == null || list.length == 0) {
+                           commentUL.html("");
+                           return;
+                        }
+                        
+                        for (var i = 0, len = list.length || 0; i < len; i++) {
+                            str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                            str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
+                            str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                       
+                            <sec:authorize access="isAuthenticated()">
+                            if(mem_num == list[i].mem_num){
+                                    str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
+                            }
+                           </sec:authorize>                                
+                           <sec:authorize access="hasRole('ROLE_ADMIN')">
+                           str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
+                           </sec:authorize>                          
+                            str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                            str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                            str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                        }
+                        commentUL.html(str);
+         });      
+      }
 </script>
 
 <%@include file="../includes/footer.jsp"%>>

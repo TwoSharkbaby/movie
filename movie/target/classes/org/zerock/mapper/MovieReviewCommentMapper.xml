@@ -46,5 +46,45 @@
 		DELETE FROM movie_review_comment WHERE mov_rev_num=#{mov_rev_num}
 		]]>
 	</delete>
+	
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM movie_review_comment WHERE mov_rev_com_num=#{mov_rev_com_num}
+		]]>
+	</delete>
+
+	<select id="getCommentList"
+		resultType="org.zerock.domain.MovieReviewCommentVO">
+		<![CDATA[
+		SELECT * FROM movie_review_comment WHERE mov_rev_num = #{mov_rev_num}
+		]]>
+	</select>
+
+	<update id="update"> 
+ 	<![CDATA[ update movie_review_comment set mov_rev_com_content=#{mov_rev_com_content},mem_num=#{mem_num},mov_rev_com_regdate=now() 
+		where mov_rev_com_num=#{mov_rev_com_num} ]]>
+	</update>
+
+	<select id="getList"
+		resultType="org.zerock.domain.MovieReviewCommentVO">
+		<![CDATA[
+		SELECT * FROM movie_review_comment WHERE mov_rev_com_num > 0
+		]]>
+	</select>
+
+	<select id="read"
+		resultType="org.zerock.domain.MovieReviewCommentVO">
+		<![CDATA[
+		SELECT * FROM movie_review_comment WHERE mov_rev_com_num = #{mov_rev_com_num}
+		]]>
+	</select>
+
+	<insert id="insert" keyProperty="mov_rev_com_num"
+		useGeneratedKeys="true">
+		<![CDATA[
+		INSERT INTO movie_review_comment(mov_rev_com_content, mov_rev_com_regdate, mov_rev_com_good, mov_rev_com_bad, mem_num,mem_nickname, mov_rev_num) 
+		VALUES (#{mov_rev_com_content},now(),0,0,#{mem_num},#{mem_nickname},#{mov_rev_num})
+		]]>
+	</insert>
 
 </mapper>

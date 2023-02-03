@@ -1,9 +1,13 @@
 package org.zerock.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.ChoiceVO;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MovieReviewCommentChoiceVO;
+import org.zerock.domain.MovieReviewCommentVO;
 import org.zerock.mapper.MovieReviewCommentChoiceMapper;
 import org.zerock.mapper.MovieReviewCommentMapper;
 import org.zerock.service.MovieReviewCommentService;
@@ -71,6 +75,41 @@ public class MovieReviewCommentServiceImpl implements MovieReviewCommentService 
 				return movieReviewCommentMapper.checkChoice(mov_rev_com_num);
 			}
 		}
+	}
+	
+	// ´ñ±Û ¸ñ·Ï : ÆäÀÌÂ¡ Ã³¸®
+	@Override
+	public List<MovieReviewCommentVO> getList(Criteria cri, Long mov_rev_num) {
+		return movieReviewCommentMapper.getListWithPaging(cri, mov_rev_num);
+	}
+
+	// ´ñ±Û Á¶È¸
+	@Override
+	public MovieReviewCommentVO read(Long mov_rev_com_num) {
+		return movieReviewCommentMapper.read(mov_rev_com_num);
+	}
+
+	// ´ñ±Û »ý¼º
+	@Transactional
+	@Override
+	public int insert(MovieReviewCommentVO movieReviewCommentVO) {
+		return movieReviewCommentMapper.insert(movieReviewCommentVO);
+	
+	// ´ñ±Û »èÁ¦
+	}
+	@Transactional
+	@Override
+	public int delete(Long mov_rev_com_num) {
+		movieReviewCommentChoiceMapper.deleteReviewCommentChoices(mov_rev_com_num);
+		return movieReviewCommentMapper.delete(mov_rev_com_num);
+	}
+
+	// ´ñ±Û ¼öÁ¤
+	@Transactional
+	@Override
+	public int update(MovieReviewCommentVO vo) {
+		// TODO Auto-generated method stub
+		return movieReviewCommentMapper.update(vo);
 	}
 
 }
