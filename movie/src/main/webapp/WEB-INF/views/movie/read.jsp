@@ -16,9 +16,23 @@
 								<div class="section_frame4-Grid">
 									<div class="section_frame5-Row">
 										<header class="section_title">
-											<h2 class="main_title">기본 정보</h2>
+											<h2 class="main_title">기본 정보
+											<sec:authorize access="hasRole('ROLE_ADMIN')">
+											&nbsp; &nbsp; ( &nbsp; 작성자 &nbsp; : &nbsp; <c:out value="${movie.mem_nickname}" /> &nbsp; )
+												<a href="/movie/modify/<c:out value="${movie.mov_num}" />"><button class="btn btn-danger ms-2">수정하기</button></a>
+												<form action="/movie/delete" method="post" style="float:right;">
+													<input type="hidden" name="mov_num"
+														value="<c:out value="${movie.mov_num}"/>"> <input
+														type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+													<button class="btn btn-danger ms-2" type="submit">삭제하기</button>
+												</form>
+											</sec:authorize>
+											</h2>
 											<div class="more_view1">
 												<div class="more_view2"></div>
+											</div>
+											<div>
+											
 											</div>
 										</header>
 									</div>
@@ -30,7 +44,8 @@
 												<div class="row">
 													<div class="col-3">
 														<div class=" mov_info_thum-StyledLazyLoadingImage">
-															<img alt="포스터 이미지" src='/resources/mov_imgs/<c:out value="${movie.mov_thumb}" />' class="mov_info_img-StyledImg">
+															<img alt="포스터 이미지" src='/imgs/<c:out value="${movie.mov_thumb}" />'
+															class="mov_info_img-StyledImg">
 														</div>
 													</div>
 													<div class="col">
@@ -60,7 +75,7 @@
 										<header class="section_title">
 											<h2 class="main_title">리뷰/코멘트</h2>
 											<div class="write_review1">
-												<a href="/review/insert/<c:out value="${movie.mov_num}" />"><button type="submit">리뷰등록하기</button></a>
+												<a href="/review/insert/<c:out value="${movie.mov_num}" />"><button class="btn btn-primary" type="submit">리뷰등록하기</button></a>
 											</div>
 										</header>
 									</div>
@@ -106,10 +121,21 @@
 																						</div>
 																					</div>
 																					<div class="mov_rev_icon">
-																						<span src="/resources/icon_imgs/good_icon.svg" width="18px" height="18px" class="icon_good"></span> <em><c:out
-																								value="${review.mov_rev_good}" /></em> <span src="/resources/icon_imgs/good_icon.svg" width="18px" height="18px" class="icon_bad"></span>
-																						<em><c:out value="${review.mov_rev_bad}" /></em> <span src="/resources/icon_imgs/reply_icon.svg" width="18px" height="18px"
-																							class="icon_comment"></span> <em>15</em>
+																					
+																						<button id="review_good" name="review_good"
+																							data-idx="<c:out value="${review.mov_rev_num}" />">
+																							<c:out value="${review.mov_rev_good}" />
+																						</button>
+																						<button id="review_bad" name="review_bad"
+																							data-idx="<c:out value="${review.mov_rev_num}" />">
+																							<c:out value="${review.mov_rev_bad}" />
+																						</button>
+																					
+																						<span src="/resources/icon_imgs/good_icon.svg" width="18px" height="18px" class="icon_good"></span>
+																						 <em><c:out value="${review.mov_rev_good}" /></em> 
+																						<span src="/resources/icon_imgs/good_icon.svg" width="18px" height="18px" class="icon_bad"></span>
+																						<em><c:out value="${review.mov_rev_bad}" /></em> 
+																						<span src="/resources/icon_imgs/reply_icon.svg" width="18px" height="18px" class="icon_comment"></span> <em>댓글보기</em>
 																					</div>
 																				</div>
 																			</li>
@@ -135,7 +161,13 @@
 								<div class="section_frame4-Grid">
 									<div class="section_frame5-Row">
 										<header class="section_title">
-											<h2 class="main_title">출연 배우</h2>
+											<h2 class="main_title">출연 배우
+											<sec:authorize access="hasRole('ROLE_ADMIN')">
+													<a href="/actor/insert/<c:out value="${movie.mov_num}" />">
+														<button type="submit" class="btn btn-danger ms-3">배우등록하기</button>
+													</a>
+											</sec:authorize>
+											</h2>
 										</header>
 									</div>
 								</div>
@@ -161,81 +193,11 @@
 																						<div class="mov_act_thum_frame1">
 																							<div class="profilePhotoBlock mov_act_thum_frame2">
 																								<div class="css-ProfilePhotoImage">
-																									<img src='/resources/act_imgs/<c:out value="${actor.act_thumb}" />'>
+																									<img src='/imgs/<c:out value="${actor.act_thumb}" />'>
+																									
 																								</div>
 																							</div>
-																						</div>
-																						<div class="mov_act_info_frame1">
-																							<div class="mov_act_info_frame2">
-																								<div class="mov_act_name">
-																									<c:out value="${actor.act_name}" />
-																								</div>
-																								<div class="mov_act-StyledSubtitle">배우</div>
-																							</div>
-																							<div>
-																								<button name="actor_modal" class="btn btn-primary" data-idx="<c:out value="${actor.act_num}" />">상세보기</button>
-																							</div>
-																						</div>
-																				</a></li>
-																			</c:forEach>
-																		</ul>
-																	</c:when>
-																</c:choose>
-															</div>
-															<div class="carousel-item1">
-																<c:choose>
-																	<c:when test="${empty actor}">
-																		<tr>
-																			<td colspan="5">[없음]
-																		</tr>
-																	</c:when>
-																	<c:when test="${!empty actor}">
-																		<ul class="e5xrf7a0 mov_act_ul_frame-VisualUl-PeopleStackableUl">
-																			<c:forEach items="${actor}" var="actor" begin="6" end="11">
-																				<li class="mov_act_li_frame1"><a title="<c:out value="${actor.act_num}" />"
-																					class="mov_act_li_frame2-InnerPartOfListWithImage">
-																						<div class="mov_act_thum_frame1">
-																							<div class="profilePhotoBlock mov_act_thum_frame2">
-																								<div class="css-ProfilePhotoImage">
-																									<img src='/resources/act_imgs/<c:out value="${actor.act_thumb}" />'>
-																								</div>
-																							</div>
-																						</div>
-																						<div class="mov_act_info_frame1">
-																							<div class="mov_act_info_frame2">
-																								<div class="mov_act_name">
-																									<c:out value="${actor.act_name}" />
-																								</div>
-																								<div class="mov_act-StyledSubtitle">배우</div>
-																							</div>
-																							<div>
-																								<button name="actor_modal" class="btn btn-primary" data-idx="<c:out value="${actor.act_num}" />">상세보기</button>
-																							</div>
-																						</div>
-																				</a></li>
-																			</c:forEach>
-																		</ul>
-																	</c:when>
-																</c:choose>
-															</div>
-															<div class="carousel-item1">
-																<c:choose>
-																	<c:when test="${empty actor}">
-																		<tr>
-																			<td colspan="5">[없음]
-																		</tr>
-																	</c:when>
-																	<c:when test="${!empty actor}">
-																		<ul class="e5xrf7a0 mov_act_ul_frame-VisualUl-PeopleStackableUl">
-																			<c:forEach items="${actor}" var="actor" begin="12" end="17">
-																				<li class="mov_act_li_frame1"><a title="<c:out value="${actor.act_num}" />"
-																					class="mov_act_li_frame2-InnerPartOfListWithImage">
-																						<div class="mov_act_thum_frame1">
-																							<div class="profilePhotoBlock mov_act_thum_frame2">
-																								<div class="css-ProfilePhotoImage">
-																									<img src='/resources/act_imgs/<c:out value="${actor.act_thumb}" />'>
-																								</div>
-																							</div>
+																							
 																						</div>
 																						<div class="mov_act_info_frame1">
 																							<div class="mov_act_info_frame2">

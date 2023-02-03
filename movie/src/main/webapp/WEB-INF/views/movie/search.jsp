@@ -21,7 +21,7 @@
 					<li class="main-movie m-3"><a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'>
 						<div class="main-movie-image">
 							<div class=" movie-image-src num1">
-								<img src='/imgs/<c:out value="${movie.mov_thumb}" />' class="movie-image-url num2"> 
+								<img src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2"> 
 							</div>
 						</div>
 							<div class="movie-info">

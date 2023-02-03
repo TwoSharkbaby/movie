@@ -51,8 +51,8 @@
 	</div>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<div>
-			<a href="/movie/insert"><button class="btn btn-danger">등록하기</button></a>
+		<div class="ms-5 mb-2">
+			<a href="/movie/insert"><button class="btn btn-danger ms-2">영화등록하기</button></a>
 		</div>
 	</sec:authorize>
 
@@ -83,7 +83,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -131,7 +131,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -201,7 +201,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -249,7 +249,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -319,7 +319,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -367,7 +367,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -437,7 +437,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />' class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
@@ -485,7 +485,7 @@
 																<div class="main-movie-image">
 																	<div class=" movie-image-src num1">
 																		<a title="movie_title" href='/movie/read/<c:out value="${movie.mov_num}" />'><img
-																			src="resources/mov_imgs/<c:out value="${movie.mov_img}" />" class="movie-image-url num2">
+																			src='/imgs/<c:out value="${movie.mov_img}" />'class="movie-image-url num2">
 																	</div>
 																	<div class="movie-no">
 																		<a href="#"><c:out value="${movie.mov_num}" /></a>
