@@ -144,11 +144,7 @@
 																						<button class="commentAdd" id="commentAdd" name="comment"
 																								data-idx="<c:out value="${review.mov_rev_num}" />">
 																								<c:out value="댓글작성" /></button>
-																					</div>
-																				</div>
-																			</li>
-																			<li>
-																				<ul id="chat<c:out value="${review.mov_rev_num}" />"
+																								<ul id="chat<c:out value="${review.mov_rev_num}" />"
 																					class="chat2" name="com">
 																					<li name="mov_rev_com_num" data-mov_rev_com_num="1" />
 																					<sec:authorize access="isAuthenticated()">
@@ -162,7 +158,10 @@
 																						</c:if>
 																					</sec:authorize>
 																				</ul>
+																					</div>
+																				</div>
 																			</li>
+									
 																		</c:forEach>
 																	</ul>
 																</div>
