@@ -141,6 +141,8 @@
                                                                   <p hidden id="comment" name="comment"
                                                                      data-idx="<c:out value="${review.mov_rev_num}" />"><c:out
                                                                         value="${review.mov_rev_num}" /></p>
+                                                                        <button id="showComment" data-idx="<c:out value="${review.mov_rev_num}" />">댓글 보기</button>
+
                                                                   <button class="commentAdd" id="commentAdd" name="comment"
                                                                         data-idx="<c:out value="${review.mov_rev_num}" />">
                                                                         <c:out value="댓글작성" /></button>
@@ -850,5 +852,57 @@ var modalCloseBtn = $("#modalCloseBtn");
          });      
       }
 </script>
+
+
+<script type="text/javascript">
+
+   $("button[id='showComment']").on("click", function(e){
+      var idx = $(this).data('idx');
+        var data1 = {
+               mov_rev_num: idx};    
+        var commentUL = $("#chat" + idx);
+          showList(1);
+          
+          // 댓글 목록
+       function showList(page){   
+           movieReviewCommentService.getList(data1, function(list){
+                var str = "";
+                
+                <sec:authorize access="isAuthenticated()">
+                var mem_num = "<c:out value="${principal.member.mem_num}"/>";
+                </sec:authorize>
+                
+                if(list == null || list.length == 0){
+                   commentUL.html("");          
+                   return;
+                }
+                for(var i =0, len = list.length || 0; i < len; i++){
+                    str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                    str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
+                    str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+               
+                    <sec:authorize access="isAuthenticated()">
+                    if(mem_num == list[i].mem_num){
+                            str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
+                    }
+                        </sec:authorize>
+                         
+                       <sec:authorize access="hasRole('ROLE_ADMIN')">
+                   str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
+                   </sec:authorize>
+                  
+                    str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                    str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                    str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                    
+           }
+           commentUL.html(str); 
+           }); // end function
+        } // end showlist 
+         
+         
+      });
+</script>
+
 
 <%@include file="../includes/footer.jsp"%>>
