@@ -86,5 +86,12 @@
 		VALUES (#{mov_rev_com_content},now(),0,0,#{mem_num},#{mem_nickname},#{mov_rev_num})
 		]]>
 	</insert>
+	
+	<select id="getListWithPaging" resultType="org.zerock.domain.MovieReviewCommentVO">
+      SELECT * FROM movie_review_comment
+      where mov_rev_num = #{mov_rev_num} and mov_rev_com_num > 0 
+      order by mov_rev_com_num asc
+      limit #{cri.pageStart}, #{cri.amount};
+   </select>
 
 </mapper>

@@ -135,21 +135,16 @@
                                                                    <em><c:out value="${review.mov_rev_good}" /></em> 
                                                                   <span src="/resources/icon_imgs/good_icon.svg" width="18px" height="18px" class="icon_bad"></span>
                                                                   <em><c:out value="${review.mov_rev_bad}" /></em> 
-                                                                  <span src="/resources/icon_imgs/reply_icon.svg" width="18px" height="18px" class="icon_comment"></span> <em>댓글보기</em>
+                                                                  <span src="/resources/icon_imgs/reply_icon.svg" width="18px" height="18px" class="icon_comment"></span> 
+                                                                  <em><button class="button" id="showComment" data-idx="<c:out value="${review.mov_rev_num}" />">댓글보기</button></em>
                                                                </div>
                                                                <div>
                                                                   <p hidden id="comment" name="comment"
                                                                      data-idx="<c:out value="${review.mov_rev_num}" />"><c:out
                                                                         value="${review.mov_rev_num}" /></p>
-                                                                        <button id="showComment" data-idx="<c:out value="${review.mov_rev_num}" />">댓글 보기</button>
-
                                                                   <button class="commentAdd" id="commentAdd" name="comment"
                                                                         data-idx="<c:out value="${review.mov_rev_num}" />">
-                                                                        <c:out value="댓글작성" /></button>
-                                                               </div>
-                                                            </div>
-                                                         </li>
-                                                         <li>
+                                                                        <c:out value="댓글작성" /><br></button>
                                                             <ul id="chat<c:out value="${review.mov_rev_num}" />"
                                                                class="chat2" name="com">
                                                                <li name="mov_rev_com_num" data-mov_rev_com_num="1" />
@@ -164,6 +159,13 @@
                                                                   </c:if>
                                                                </sec:authorize>
                                                             </ul>
+                                                            <br>
+                                                               </div>
+                                                              
+                                                            </div>
+                                                         </li>
+                                                         <li>
+														<br>
                                                          </li>
                                                       </c:forEach>
                                                    </ul>
@@ -346,7 +348,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-               
+	          
    var csrfHeaderName = "${_csrf.headerName}";
    var csrfTokenValue = "${_csrf.token}";
 
@@ -490,7 +492,7 @@ $(document).ready(function() {
    });
    
    // 댓글 좋아요 
-    $("tbody").on("click", "button[name='com_good']", function(e) {
+    $(".chat2").on("click", "button[name='com_good']", function(e) {
         
          var mov_rev_com_num = $(this).data("mov_rev_com_num");
           var good = $(this);
@@ -523,7 +525,7 @@ $(document).ready(function() {
       
   
   // 댓글 싫어요
-      $("tbody").on("click", "button[name='com_bad']", function(e) {  
+      $(".chat2").on("click", "button[name='com_bad']", function(e) {  
            var mov_rev_com_num = $(this).data("mov_rev_com_num");
            var good = $(this).prev('button');
            var bad = $(this);
@@ -558,15 +560,16 @@ $(document).ready(function() {
 
 <script type="text/javascript" src="/resources/js/movieReviewComment.js"></script>
 <script type="text/javascript">
-// 리뷰 마다 댓글 표시
-      $("td[id='comment']").each(function (index){
+
+// 리뷰 마다 댓글창 표시
+      $("p[id='comment']").each(function (index){
          var idx = $(this).data('idx');
          var data1 = {
                 mov_rev_num: idx};    
          var commentUL = $("#chat" + idx);
-           showList(1);
+ 
            
-           // 댓글 목록
+           //전체 댓글 목록 표시
         function showList(page){   
             movieReviewCommentService.getList(data1, function(list){
                  var str = "";
@@ -603,6 +606,54 @@ $(document).ready(function() {
             }); // end function
          } // end showlist 
          
+         
+         // 리뷰 마다 댓글 목록 표시
+         function showRevList(mov_rev_num) {
+             var commentUL = $("#chat" + mov_rev_num); 
+             var params = {mov_rev_num:mov_rev_num, page : 1};
+             movieReviewCommentService.getList(params, function(list) {
+                            var str = "";
+                    
+                            if (list == null || list.length == 0) {
+                               commentUL.html("");
+                               return;
+                            }
+                            
+                            for (var i = 0, len = list.length || 0; i < len; i++) {
+                                str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                                str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
+                                str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                           
+                                <sec:authorize access="isAuthenticated()">
+                                if(mem_num == list[i].mem_num){
+                                        str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
+                                }
+                               </sec:authorize>                                
+                               <sec:authorize access="hasRole('ROLE_ADMIN')">
+                               str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
+                               </sec:authorize>                          
+                                str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                                str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                                str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                            }
+                            commentUL.html(str);
+             });      
+          }
+         
+         // 버튼 이벤트 클릭 시 댓글 목록 표시
+        $("button[id='showComment']").on('click', function(e){
+            var idx = $(this).data('idx');
+            console.log(idx);
+            var data1 = {
+                   mov_rev_num: idx};    
+            var commentUL = $("#chat" + idx);
+            showRevList(idx);
+            });
+         
+         
+         
+         
+         
 var modal = $("#commentModal");
 var modalInputContent = modal.find("input[name='mov_rev_com_content']");
 var modalInputMemNum = modal.find("input[name='mem_num']");
@@ -614,7 +665,7 @@ var modalRegisterBtn = $("#modalRegisterBtn");
 var modalCloseBtn = $("#modalCloseBtn");
    
    
-      //리뷰 마다 댓글 표시
+      //댓글 수정버튼 클릭 이벤트
            $("#chat"+ idx).on("click", "button[name= 'com_modify']", function(e){
              
               var mov_rev_com_num = $(this).data("mov_rev_com_num");
@@ -653,7 +704,7 @@ var modalRegisterBtn = $("#modalRegisterBtn");
 var modalCloseBtn = $("#modalCloseBtn");
  
  
- // 댓글 목록
+// 리뷰 마다 댓글 목록 표시
     function showRevList(mov_rev_num) {
    
         var commentUL = $("#chat" + mov_rev_num); 
@@ -854,55 +905,6 @@ var modalCloseBtn = $("#modalCloseBtn");
 </script>
 
 
-<script type="text/javascript">
-
-   $("button[id='showComment']").on("click", function(e){
-      var idx = $(this).data('idx');
-        var data1 = {
-               mov_rev_num: idx};    
-        var commentUL = $("#chat" + idx);
-          showList(1);
-          
-          // 댓글 목록
-       function showList(page){   
-           movieReviewCommentService.getList(data1, function(list){
-                var str = "";
-                
-                <sec:authorize access="isAuthenticated()">
-                var mem_num = "<c:out value="${principal.member.mem_num}"/>";
-                </sec:authorize>
-                
-                if(list == null || list.length == 0){
-                   commentUL.html("");          
-                   return;
-                }
-                for(var i =0, len = list.length || 0; i < len; i++){
-                    str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
-                    str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
-                    str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
-               
-                    <sec:authorize access="isAuthenticated()">
-                    if(mem_num == list[i].mem_num){
-                            str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
-                    }
-                        </sec:authorize>
-                         
-                       <sec:authorize access="hasRole('ROLE_ADMIN')">
-                   str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
-                   </sec:authorize>
-                  
-                    str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
-                    str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
-                    str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
-                    
-           }
-           commentUL.html(str); 
-           }); // end function
-        } // end showlist 
-         
-         
-      });
-</script>
 
 
-<%@include file="../includes/footer.jsp"%>>
+<%@include file="../includes/footer.jsp"%>
