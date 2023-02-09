@@ -639,9 +639,19 @@ $(document).ready(function() {
                             commentUL.html(str);
              });      
           }
-        
-       
-        
+         
+         // 버튼 이벤트 클릭 시 댓글 목록 표시
+        $("button[id='showComment']").on('click', function(e){
+            var idx = $(this).data('idx');
+            console.log(idx);
+            var data1 = {
+                   mov_rev_num: idx};    
+            var commentUL = $("#chat" + idx);
+            showRevList(idx);
+            });
+         
+         
+         
          
          
 var modal = $("#commentModal");
@@ -656,7 +666,7 @@ var modalCloseBtn = $("#modalCloseBtn");
    
    
       //댓글 수정버튼 클릭 이벤트
-           $("#chat"+ idx).on("click", "button[name='com_modify']", function(e){
+           $("#chat"+ idx).on("click", "button[name= 'com_modify']", function(e){
              
               var mov_rev_com_num = $(this).data("mov_rev_com_num");
         
@@ -729,18 +739,6 @@ var modalCloseBtn = $("#modalCloseBtn");
                        commentUL.html(str);
         });
      }
-     
-    // 버튼 이벤트 클릭 시 댓글 목록 표시
-    $("button[id='showComment']").on('click', function(e){
-        var idx = $(this).data('idx');
-        console.log(idx);
-        var data1 = {
-               mov_rev_num: idx};    
-        var commentUL = $("#chat" + idx);
-        showRevList(idx);
-    });
-     
-     
     
  // 댓글 삭제 이벤트
     modalRemoveBtn.on("click", function(e){
@@ -807,10 +805,6 @@ var modalCloseBtn = $("#modalCloseBtn");
           showRevList(mov_rev_num);
      });
   });
- 
- 
- 	
- 
    </script>
 
 
