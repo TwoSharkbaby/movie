@@ -137,6 +137,7 @@
                                                                   <em><c:out value="${review.mov_rev_bad}" /></em> 
                                                                   <span src="/resources/icon_imgs/reply_icon.svg" width="18px" height="18px" class="icon_comment"></span> 
                                                                   <em><button class="button" id="showComment" data-idx="<c:out value="${review.mov_rev_num}" />">댓글보기</button></em>
+                                                                   <em><button class="button" id="closeComment" data-idx="<c:out value="${review.mov_rev_num}" />">댓글닫기</button></em>
                                                                </div>
                                                                <div>
                                                                   <p hidden id="comment" name="comment"
@@ -640,6 +641,9 @@ $(document).ready(function() {
              });      
           }
         
+         
+         
+         
        
         
          
@@ -730,16 +734,62 @@ var modalCloseBtn = $("#modalCloseBtn");
         });
      }
      
+     
+    function closeRevList(mov_rev_num) {
+    	   
+        var commentUL = $("#chat" + mov_rev_num); 
+        var params = {mov_rev_num:mov_rev_num, page : 1};
+        movieReviewCommentService.getList(params, function(list) {
+                       var str = "";
+              
+                       if (list != null) {
+                          commentUL.html("");
+                          return;
+                       }
+                       
+                       for (var i = 0, len = list.length || 0; i < len; i++) {
+                           str +="<li class='left clearfix' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>";
+                           str +="<div><div class='header'><strong class='primary-font'>"+"작성회원 :  " +list[i].mem_nickname+ "   " +"</strong>";
+                           str +="<small class='pull-right text-muted'>"+ movieReviewCommentService.displayTime(list[i].mov_rev_com_regdate)+"</small></div>";
+                      
+                           <sec:authorize access="isAuthenticated()">
+                           if(mem_num == list[i].mem_num){
+                                   str +="<button name='com_modify' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + "수정/삭제버튼" + "</button>";
+                           }
+                               </sec:authorize>
+                                
+                          <sec:authorize access="hasRole('ROLE_ADMIN')">
+                          str += "<button name='com_delete'>" + "관리자 댓글삭제하기" + "</button>";
+                          </sec:authorize>
+                         
+                           str +="<p>"+list[i].mov_rev_com_content+"</p>" + "</div></li>";
+                           str +="<button name='com_good' id='com_good' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_good +"</button>";
+                           str +="<button name='com_bad' id='com_bad' data-mov_rev_com_num='"+list[i].mov_rev_com_num+"'>" + list[i].mov_rev_com_bad +"</button>";  
+                       }
+                       commentUL.html(str);
+        });
+     }
+     
+     
     // 버튼 이벤트 클릭 시 댓글 목록 표시
     $("button[id='showComment']").on('click', function(e){
         var idx = $(this).data('idx');
-        console.log(idx);
         var data1 = {
                mov_rev_num: idx};    
         var commentUL = $("#chat" + idx);
         showRevList(idx);
     });
-     
+    
+    
+    // 버튼 이벤트 클릭 시 댓글 닫기 
+    $("button[id='closeComment']").on('click', function(e){
+        var idx = $(this).data('idx');
+        var data1 = {
+               mov_rev_num: idx};    
+        var commentUL = $("#chat" + idx);
+        closeRevList(idx);
+    });
+    
      
     
  // 댓글 삭제 이벤트
